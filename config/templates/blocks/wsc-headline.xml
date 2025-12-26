@@ -11,7 +11,14 @@
     </meta>
 
     <properties>
-        <property name="title" type="text_line" mandatory="true">
+        <property name="title_icon" type="text_line" colspan="4">
+            <meta>
+                <title lang="de">Icon (z.B. fa-star)</title>
+                <title lang="en">Icon (e.g. fa-star)</title>
+            </meta>
+        </property>
+
+        <property name="title" type="text_line" mandatory="true" colspan="8">
             <meta>
                 <title lang="de">Überschrift</title>
                 <title lang="en">Headline</title>
@@ -48,7 +55,14 @@
             </params>
         </property>
 
-        <property name="subtitle" type="text_line" colspan="6">
+        <property name="subtitle_icon" type="text_line" colspan="4">
+            <meta>
+                <title lang="de">Untertitel-Icon</title>
+                <title lang="en">Subtitle Icon</title>
+            </meta>
+        </property>
+
+        <property name="subtitle" type="text_line" colspan="8">
             <meta>
                 <title lang="de">Untertitel</title>
                 <title lang="en">Subtitle</title>

@@ -45,6 +45,7 @@
             <types>
                 <type ref="wsc-columns"/>
                 <type ref="wsc-headline"/>
+                <type ref="wsc-list-group"/>
                 <type ref="wsc-text-image"/>
             </types>
         </block>

@@ -1,11 +1,13 @@
 {#
-Block: wsc-headline
-Überschrift mit vollständigen Styling-Optionen
+    Block: wsc-headline
+    Überschrift mit vollständigen Styling-Optionen
 #}
 
 {% set tag = block.tag|default('h2') %}
 {% set title = block.title|default('') %}
+{% set titleIcon = block.title_icon|default('') %}
 {% set subtitle = block.subtitle|default('') %}
+{% set subtitleIcon = block.subtitle_icon|default('') %}
 
 {# Styling #}
 {% set alignment = block.alignment|default('start') %}
@@ -101,12 +103,14 @@ Block: wsc-headline
 {% if title is not empty %}
 <div{% if htmlId %} id="{{ htmlId }}"{% endif %}{% if wrapperClassString %} class="{{ wrapperClassString }}"{% endif %}>
     <{{ tag }}{% if headingClassString %} class="{{ headingClassString }}"{% endif %}>
-    {{- title -}}
+        {% if titleIcon is not empty %}<i class="fa-solid {{ titleIcon }} me-2"></i>{% endif %}
+        {{- title -}}
     </{{ tag }}>
     {% if subtitle is not empty %}
-        <p class="{{ subtitleClassString }}">
-            {{- subtitle -}}
-        </p>
+    <p class="{{ subtitleClassString }}">
+        {% if subtitleIcon is not empty %}<i class="fa-solid {{ subtitleIcon }} me-2"></i>{% endif %}
+        {{- subtitle -}}
+    </p>
     {% endif %}
-    </div>
+</div>
 {% endif %}
