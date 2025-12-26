@@ -1,0 +1,203 @@
+{#
+Block: wsc-text-image
+Text mit Bild - Bootstrap Grid Layout mit Modal
+#}
+
+{% set image = block.image|default(null) %}
+{% set text = block.text|default('') %}
+
+{# Layout #}
+{% set imagePosition = block.image_position|default('left') %}
+{% set columnRatio = block.column_ratio|default('6-6') %}
+{% set verticalAlign = block.vertical_align|default('center') %}
+
+{# Bild-Einstellungen #}
+{% set thumbnailFormat = block.thumbnail_format|default('sulu-400x400') %}
+{% set imageRounded = block.image_rounded|default('') %}
+{% set enableModal = block.enable_modal|default(false) %}
+
+{# Styling #}
+{% set textColor = block.text_color|default('') %}
+
+{# Margin #}
+{% set marginTop = block.margin_top|default('mt-3') %}
+{% set marginBottom = block.margin_bottom|default('mb-3') %}
+{% set marginStart = block.margin_start|default('ms-0') %}
+{% set marginEnd = block.margin_end|default('me-0') %}
+
+{# Padding #}
+{% set paddingTop = block.padding_top|default('pt-0') %}
+{% set paddingBottom = block.padding_bottom|default('pb-0') %}
+{% set paddingStart = block.padding_start|default('ps-0') %}
+{% set paddingEnd = block.padding_end|default('pe-0') %}
+
+{# Erweiterte Optionen #}
+{% set cssClass = block.css_class|default('') %}
+{% set htmlId = block.html_id|default('') %}
+
+{# Media auflösen #}
+{% if image.id is defined %}
+    {% set media = sulu_resolve_media(image.id, app.request.locale) %}
+{% else %}
+    {% set media = null %}
+{% endif %}
+
+{# Eindeutige Modal-ID generieren #}
+{% set modalId = 'imageModal-' ~ random() %}
+
+{# Spalten-Verhältnis aufteilen #}
+{% set ratioParts = columnRatio|split('-') %}
+{% set imageCol = ratioParts[0] %}
+{% set textCol = ratioParts[1] %}
+
+{# Wrapper-Klassen (Spacing) #}
+{% set wrapperClasses = [] %}
+{% if marginTop != 'mt-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([marginTop]) %}
+{% endif %}
+{% if marginBottom != 'mb-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([marginBottom]) %}
+{% endif %}
+{% if marginStart != 'ms-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([marginStart]) %}
+{% endif %}
+{% if marginEnd != 'me-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([marginEnd]) %}
+{% endif %}
+{% if paddingTop != 'pt-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([paddingTop]) %}
+{% endif %}
+{% if paddingBottom != 'pb-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([paddingBottom]) %}
+{% endif %}
+{% if paddingStart != 'ps-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([paddingStart]) %}
+{% endif %}
+{% if paddingEnd != 'pe-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([paddingEnd]) %}
+{% endif %}
+{% if cssClass is not empty %}
+    {% set wrapperClasses = wrapperClasses|merge([cssClass]) %}
+{% endif %}
+
+{# Text-Klassen #}
+{% set textClasses = [] %}
+{% if textColor is not empty %}
+    {% set textClasses = textClasses|merge([textColor]) %}
+{% endif %}
+
+{# Bild-Klassen #}
+{% set imageClasses = ['img-fluid'] %}
+{% if imageRounded is not empty %}
+    {% set imageClasses = imageClasses|merge([imageRounded]) %}
+{% endif %}
+{% if enableModal %}
+    {% set imageClasses = imageClasses|merge(['cursor-pointer']) %}
+{% endif %}
+
+{# Finale Klassen-Strings #}
+{% set wrapperClassString = wrapperClasses|join(' ') %}
+{% set textClassString = textClasses|join(' ') %}
+{% set imageClassString = imageClasses|join(' ') %}
+
+{# Vertikale Ausrichtung für Row #}
+{% set alignItemsClass = 'align-items-' ~ verticalAlign %}
+
+{# Bild-Makro für Wiederverwendung #}
+{% macro renderImage(media, thumbnailFormat, imageClassString, enableModal, modalId) %}
+    {% if enableModal %}
+        <img src="{{ media.thumbnails[thumbnailFormat] }}"
+             alt="{{ media.title }}"
+             class="{{ imageClassString }}"
+             data-bs-toggle="modal"
+             data-bs-target="#{{ modalId }}"
+             role="button"
+             tabindex="0">
+    {% else %}
+        <img src="{{ media.thumbnails[thumbnailFormat] }}"
+             alt="{{ media.title }}"
+             class="{{ imageClassString }}">
+    {% endif %}
+{% endmacro %}
+
+{% if media and text %}
+    <div{% if htmlId %} id="{{ htmlId }}"{% endif %}{% if wrapperClassString %} class="{{ wrapperClassString }}"{% endif %}>
+
+        {# Bild oben #}
+        {% if imagePosition == 'top' %}
+            <div class="mb-3">
+                {{ _self.renderImage(media, thumbnailFormat, imageClassString, enableModal, modalId) }}
+            </div>
+            <div{% if textClassString %} class="{{ textClassString }}"{% endif %}>
+                {{ text|raw }}
+            </div>
+
+            {# Bild unten #}
+        {% elseif imagePosition == 'bottom' %}
+            <div{% if textClassString %} class="{{ textClassString }}"{% endif %}>
+                {{ text|raw }}
+            </div>
+            <div class="mt-3">
+                {{ _self.renderImage(media, thumbnailFormat, imageClassString, enableModal, modalId) }}
+            </div>
+
+            {# Bild links #}
+        {% elseif imagePosition == 'left' %}
+            <div class="row {{ alignItemsClass }}">
+                <div class="col-md-{{ imageCol }}">
+                    {{ _self.renderImage(media, thumbnailFormat, imageClassString, enableModal, modalId) }}
+                </div>
+                <div class="col-md-{{ textCol }}">
+                    <div{% if textClassString %} class="{{ textClassString }}"{% endif %}>
+                        {{ text|raw }}
+                    </div>
+                </div>
+            </div>
+
+            {# Bild rechts #}
+        {% elseif imagePosition == 'right' %}
+            <div class="row {{ alignItemsClass }}">
+                <div class="col-md-{{ textCol }}">
+                    <div{% if textClassString %} class="{{ textClassString }}"{% endif %}>
+                        {{ text|raw }}
+                    </div>
+                </div>
+                <div class="col-md-{{ imageCol }}">
+                    {{ _self.renderImage(media, thumbnailFormat, imageClassString, enableModal, modalId) }}
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+
+    {# Bootstrap Modal für Vollbild-Ansicht #}
+    {% if enableModal %}
+        <div class="modal fade" id="{{ modalId }}" tabindex="-1" aria-labelledby="{{ modalId }}-label" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <h5 class="modal-title" id="{{ modalId }}-label">{{ media.title }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                    </div>
+                    <div class="modal-body text-center p-0">
+                        <img src="{{ media.url }}" alt="{{ media.title }}" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endif %}
+
+{# CSS für Cursor bei klickbaren Bildern #}
+{% if enableModal %}
+    <style>
+        .cursor-pointer {
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+        .cursor-pointer:hover {
+            opacity: 0.85;
+        }
+    </style>
+{% endif %}

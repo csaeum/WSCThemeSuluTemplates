@@ -1,0 +1,524 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>wsc-text-image</key>
+
+    <meta>
+        <title lang="de">Text mit Bild</title>
+        <title lang="en">Text with Image</title>
+    </meta>
+
+    <properties>
+        <property name="image" type="single_media_selection" mandatory="true">
+            <meta>
+                <title lang="de">Bild</title>
+                <title lang="en">Image</title>
+            </meta>
+            <params>
+                <param name="types" value="image"/>
+            </params>
+        </property>
+
+        <property name="text" type="text_editor" mandatory="true">
+            <meta>
+                <title lang="de">Text</title>
+                <title lang="en">Text</title>
+            </meta>
+        </property>
+
+        <!-- Layout Abschnitt -->
+        <section name="layout">
+            <meta>
+                <title lang="de">Layout</title>
+                <title lang="en">Layout</title>
+            </meta>
+            <properties>
+                <property name="image_position" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Bild-Position</title>
+                        <title lang="en">Image Position</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="left"/>
+                        <param name="values" type="collection">
+                            <param name="left">
+                                <meta><title lang="de">Links</title></meta>
+                            </param>
+                            <param name="right">
+                                <meta><title lang="de">Rechts</title></meta>
+                            </param>
+                            <param name="top">
+                                <meta><title lang="de">Oben</title></meta>
+                            </param>
+                            <param name="bottom">
+                                <meta><title lang="de">Unten</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="column_ratio" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Spalten-Verhältnis</title>
+                        <title lang="en">Column Ratio</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="6-6"/>
+                        <param name="values" type="collection">
+                            <param name="4-8">
+                                <meta><title lang="de">33% / 66%</title></meta>
+                            </param>
+                            <param name="6-6">
+                                <meta><title lang="de">50% / 50%</title></meta>
+                            </param>
+                            <param name="8-4">
+                                <meta><title lang="de">66% / 33%</title></meta>
+                            </param>
+                            <param name="3-9">
+                                <meta><title lang="de">25% / 75%</title></meta>
+                            </param>
+                            <param name="9-3">
+                                <meta><title lang="de">75% / 25%</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="vertical_align" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Vertikale Ausrichtung</title>
+                        <title lang="en">Vertical Alignment</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="center"/>
+                        <param name="values" type="collection">
+                            <param name="start">
+                                <meta><title lang="de">Oben</title></meta>
+                            </param>
+                            <param name="center">
+                                <meta><title lang="de">Mitte</title></meta>
+                            </param>
+                            <param name="end">
+                                <meta><title lang="de">Unten</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Bild Abschnitt -->
+        <section name="image_settings">
+            <meta>
+                <title lang="de">Bild-Einstellungen</title>
+                <title lang="en">Image Settings</title>
+            </meta>
+            <properties>
+                <property name="thumbnail_format" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Thumbnail-Format</title>
+                        <title lang="en">Thumbnail Format</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="sulu-400x400"/>
+                        <param name="values" type="collection">
+                            <param name="sulu-100x100">
+                                <meta><title lang="de">Klein (100x100)</title></meta>
+                            </param>
+                            <param name="sulu-170x170">
+                                <meta><title lang="de">Mittel (170x170)</title></meta>
+                            </param>
+                            <param name="sulu-260x">
+                                <meta><title lang="de">Breit (260px)</title></meta>
+                            </param>
+                            <param name="sulu-400x400">
+                                <meta><title lang="de">Groß (400x400)</title></meta>
+                            </param>
+                            <param name="sulu-240x">
+                                <meta><title lang="de">Mittel breit (240px)</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="image_rounded" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Bild-Ecken</title>
+                        <title lang="en">Image Corners</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value=""/>
+                        <param name="values" type="collection">
+                            <param name="">
+                                <meta><title lang="de">Eckig</title></meta>
+                            </param>
+                            <param name="rounded">
+                                <meta><title lang="de">Leicht abgerundet</title></meta>
+                            </param>
+                            <param name="rounded-3">
+                                <meta><title lang="de">Abgerundet</title></meta>
+                            </param>
+                            <param name="rounded-4">
+                                <meta><title lang="de">Stark abgerundet</title></meta>
+                            </param>
+                            <param name="rounded-circle">
+                                <meta><title lang="de">Kreis</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="enable_modal" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">Bild in Modal öffnen</title>
+                        <title lang="en">Open Image in Modal</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="false"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Styling Abschnitt -->
+        <section name="styling">
+            <meta>
+                <title lang="de">Styling</title>
+                <title lang="en">Styling</title>
+            </meta>
+            <properties>
+                <property name="text_color" type="single_select" colspan="12">
+                    <meta>
+                        <title lang="de">Textfarbe</title>
+                        <title lang="en">Text Color</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value=""/>
+                        <param name="values" type="collection">
+                            <param name="">
+                                <meta><title lang="de">Standard</title></meta>
+                            </param>
+                            <param name="text-primary">
+                                <meta><title lang="de">Primär</title></meta>
+                            </param>
+                            <param name="text-secondary">
+                                <meta><title lang="de">Sekundär</title></meta>
+                            </param>
+                            <param name="text-success">
+                                <meta><title lang="de">Erfolg (Grün)</title></meta>
+                            </param>
+                            <param name="text-danger">
+                                <meta><title lang="de">Gefahr (Rot)</title></meta>
+                            </param>
+                            <param name="text-warning">
+                                <meta><title lang="de">Warnung (Gelb)</title></meta>
+                            </param>
+                            <param name="text-info">
+                                <meta><title lang="de">Info (Cyan)</title></meta>
+                            </param>
+                            <param name="text-light">
+                                <meta><title lang="de">Hell</title></meta>
+                            </param>
+                            <param name="text-dark">
+                                <meta><title lang="de">Dunkel</title></meta>
+                            </param>
+                            <param name="text-muted">
+                                <meta><title lang="de">Gedämpft</title></meta>
+                            </param>
+                            <param name="text-white">
+                                <meta><title lang="de">Weiß</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Margin Abschnitt -->
+        <section name="margin">
+            <meta>
+                <title lang="de">Außenabstand (Margin)</title>
+                <title lang="en">Margin</title>
+            </meta>
+            <properties>
+                <property name="margin_top" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Oben</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="mt-3"/>
+                        <param name="values" type="collection">
+                            <param name="mt-0">
+                                <meta><title lang="de">0</title></meta>
+                            </param>
+                            <param name="mt-1">
+                                <meta><title lang="de">1 (0.25rem)</title></meta>
+                            </param>
+                            <param name="mt-2">
+                                <meta><title lang="de">2 (0.5rem)</title></meta>
+                            </param>
+                            <param name="mt-3">
+                                <meta><title lang="de">3 (1rem)</title></meta>
+                            </param>
+                            <param name="mt-4">
+                                <meta><title lang="de">4 (1.5rem)</title></meta>
+                            </param>
+                            <param name="mt-5">
+                                <meta><title lang="de">5 (3rem)</title></meta>
+                            </param>
+                            <param name="mt-auto">
+                                <meta><title lang="de">Auto</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="margin_bottom" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Unten</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="mb-3"/>
+                        <param name="values" type="collection">
+                            <param name="mb-0">
+                                <meta><title lang="de">0</title></meta>
+                            </param>
+                            <param name="mb-1">
+                                <meta><title lang="de">1 (0.25rem)</title></meta>
+                            </param>
+                            <param name="mb-2">
+                                <meta><title lang="de">2 (0.5rem)</title></meta>
+                            </param>
+                            <param name="mb-3">
+                                <meta><title lang="de">3 (1rem)</title></meta>
+                            </param>
+                            <param name="mb-4">
+                                <meta><title lang="de">4 (1.5rem)</title></meta>
+                            </param>
+                            <param name="mb-5">
+                                <meta><title lang="de">5 (3rem)</title></meta>
+                            </param>
+                            <param name="mb-auto">
+                                <meta><title lang="de">Auto</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="margin_start" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Links</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="ms-0"/>
+                        <param name="values" type="collection">
+                            <param name="ms-0">
+                                <meta><title lang="de">0</title></meta>
+                            </param>
+                            <param name="ms-1">
+                                <meta><title lang="de">1 (0.25rem)</title></meta>
+                            </param>
+                            <param name="ms-2">
+                                <meta><title lang="de">2 (0.5rem)</title></meta>
+                            </param>
+                            <param name="ms-3">
+                                <meta><title lang="de">3 (1rem)</title></meta>
+                            </param>
+                            <param name="ms-4">
+                                <meta><title lang="de">4 (1.5rem)</title></meta>
+                            </param>
+                            <param name="ms-5">
+                                <meta><title lang="de">5 (3rem)</title></meta>
+                            </param>
+                            <param name="ms-auto">
+                                <meta><title lang="de">Auto</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="margin_end" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Rechts</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="me-0"/>
+                        <param name="values" type="collection">
+                            <param name="me-0">
+                                <meta><title lang="de">0</title></meta>
+                            </param>
+                            <param name="me-1">
+                                <meta><title lang="de">1 (0.25rem)</title></meta>
+                            </param>
+                            <param name="me-2">
+                                <meta><title lang="de">2 (0.5rem)</title></meta>
+                            </param>
+                            <param name="me-3">
+                                <meta><title lang="de">3 (1rem)</title></meta>
+                            </param>
+                            <param name="me-4">
+                                <meta><title lang="de">4 (1.5rem)</title></meta>
+                            </param>
+                            <param name="me-5">
+                                <meta><title lang="de">5 (3rem)</title></meta>
+                            </param>
+                            <param name="me-auto">
+                                <meta><title lang="de">Auto</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Padding Abschnitt -->
+        <section name="padding">
+            <meta>
+                <title lang="de">Innenabstand (Padding)</title>
+                <title lang="en">Padding</title>
+            </meta>
+            <properties>
+                <property name="padding_top" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Oben</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="pt-0"/>
+                        <param name="values" type="collection">
+                            <param name="pt-0">
+                                <meta><title lang="de">0</title></meta>
+                            </param>
+                            <param name="pt-1">
+                                <meta><title lang="de">1 (0.25rem)</title></meta>
+                            </param>
+                            <param name="pt-2">
+                                <meta><title lang="de">2 (0.5rem)</title></meta>
+                            </param>
+                            <param name="pt-3">
+                                <meta><title lang="de">3 (1rem)</title></meta>
+                            </param>
+                            <param name="pt-4">
+                                <meta><title lang="de">4 (1.5rem)</title></meta>
+                            </param>
+                            <param name="pt-5">
+                                <meta><title lang="de">5 (3rem)</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="padding_bottom" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Unten</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="pb-0"/>
+                        <param name="values" type="collection">
+                            <param name="pb-0">
+                                <meta><title lang="de">0</title></meta>
+                            </param>
+                            <param name="pb-1">
+                                <meta><title lang="de">1 (0.25rem)</title></meta>
+                            </param>
+                            <param name="pb-2">
+                                <meta><title lang="de">2 (0.5rem)</title></meta>
+                            </param>
+                            <param name="pb-3">
+                                <meta><title lang="de">3 (1rem)</title></meta>
+                            </param>
+                            <param name="pb-4">
+                                <meta><title lang="de">4 (1.5rem)</title></meta>
+                            </param>
+                            <param name="pb-5">
+                                <meta><title lang="de">5 (3rem)</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="padding_start" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Links</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="ps-0"/>
+                        <param name="values" type="collection">
+                            <param name="ps-0">
+                                <meta><title lang="de">0</title></meta>
+                            </param>
+                            <param name="ps-1">
+                                <meta><title lang="de">1 (0.25rem)</title></meta>
+                            </param>
+                            <param name="ps-2">
+                                <meta><title lang="de">2 (0.5rem)</title></meta>
+                            </param>
+                            <param name="ps-3">
+                                <meta><title lang="de">3 (1rem)</title></meta>
+                            </param>
+                            <param name="ps-4">
+                                <meta><title lang="de">4 (1.5rem)</title></meta>
+                            </param>
+                            <param name="ps-5">
+                                <meta><title lang="de">5 (3rem)</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="padding_end" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Rechts</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="pe-0"/>
+                        <param name="values" type="collection">
+                            <param name="pe-0">
+                                <meta><title lang="de">0</title></meta>
+                            </param>
+                            <param name="pe-1">
+                                <meta><title lang="de">1 (0.25rem)</title></meta>
+                            </param>
+                            <param name="pe-2">
+                                <meta><title lang="de">2 (0.5rem)</title></meta>
+                            </param>
+                            <param name="pe-3">
+                                <meta><title lang="de">3 (1rem)</title></meta>
+                            </param>
+                            <param name="pe-4">
+                                <meta><title lang="de">4 (1.5rem)</title></meta>
+                            </param>
+                            <param name="pe-5">
+                                <meta><title lang="de">5 (3rem)</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Erweitert Abschnitt -->
+        <section name="advanced">
+            <meta>
+                <title lang="de">Erweitert</title>
+                <title lang="en">Advanced</title>
+            </meta>
+            <properties>
+                <property name="css_class" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">CSS-Klasse</title>
+                        <title lang="en">CSS Class</title>
+                    </meta>
+                </property>
+
+                <property name="html_id" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">HTML-ID</title>
+                        <title lang="en">HTML ID</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+    </properties>
+</template>

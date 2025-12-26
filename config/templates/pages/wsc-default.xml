@@ -38,11 +38,13 @@
 
         <block name="blocks" default-type="wsc-headline" minOccurs="0">
             <meta>
-                <title lang="en">Content Blocks</title>
                 <title lang="de">Inhaltsblöcke</title>
+                <title lang="en">Content Blocks</title>
+                <title lang="fr">Inhaltsblöcke</title>
             </meta>
             <types>
                 <type ref="wsc-headline"/>
+                <type ref="wsc-text-image"/>
             </types>
         </block>
     </properties>
