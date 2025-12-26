@@ -1,0 +1,83 @@
+{# Smart Content: Slider/Carousel-Darstellung #}
+
+{% set carouselId = 'carousel-' ~ uniqueId %}
+
+<div id="{{ carouselId }}" 
+     class="carousel slide"
+     {% if sliderAutoplay %}data-bs-ride="carousel"{% endif %}>
+    
+    {# Indikatoren #}
+    {% if sliderIndicators and smartContent|length > 1 %}
+    <div class="carousel-indicators">
+        {% for item in smartContent %}
+        <button type="button" 
+                data-bs-target="#{{ carouselId }}" 
+                data-bs-slide-to="{{ loop.index0 }}"
+                {% if loop.first %}class="active" aria-current="true"{% endif %}
+                aria-label="Slide {{ loop.index }}"></button>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {# Slides #}
+    <div class="carousel-inner">
+        {% for item in smartContent %}
+        <div class="carousel-item{% if loop.first %} active{% endif %}" data-bs-interval="{{ sliderInterval }}">
+            <div class="container">
+                <div class="row align-items-center py-5">
+                    {% if showImage and item.excerptImages is defined and item.excerptImages|length > 0 %}
+                    <div class="col-md-5">
+                        <a href="{{ sulu_content_path(item.url) }}">
+                            <img src="{{ item.excerptImages[0].thumbnails['sulu-400x400'] }}" 
+                                 alt="{{ item.title }}" 
+                                 class="img-fluid rounded">
+                        </a>
+                    </div>
+                    <div class="col-md-7">
+                    {% else %}
+                    <div class="col-12">
+                    {% endif %}
+                        <h3>
+                            <a href="{{ sulu_content_path(item.url) }}" class="text-decoration-none">{{ item.title }}</a>
+                        </h3>
+                        {% if showDate and item.authored is defined %}
+                        <small class="text-muted d-block mb-2">{{ item.authored|date('d.m.Y') }}</small>
+                        {% endif %}
+                        {% if showExcerpt and item.excerptDescription is defined and item.excerptDescription is not empty %}
+                        <p class="text-muted">{{ item.excerptDescription|striptags|slice(0, 200) }}{% if item.excerptDescription|striptags|length > 200 %}...{% endif %}</p>
+                        {% endif %}
+                        {% if showMoreLink %}
+                        <a href="{{ sulu_content_path(item.url) }}" class="btn btn-primary">{{ moreLinkText }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {# Navigation Pfeile #}
+    {% if sliderArrows and smartContent|length > 1 %}
+    <button class="carousel-control-prev" type="button" data-bs-target="#{{ carouselId }}" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Zurück</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#{{ carouselId }}" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Weiter</span>
+    </button>
+    {% endif %}
+</div>
+
+<style>
+#{{ carouselId }} .carousel-control-prev,
+#{{ carouselId }} .carousel-control-next {
+    width: 5%;
+}
+#{{ carouselId }} .carousel-control-prev-icon,
+#{{ carouselId }} .carousel-control-next-icon {
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 50%;
+    padding: 20px;
+}
+</style>

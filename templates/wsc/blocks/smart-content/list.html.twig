@@ -1,0 +1,27 @@
+{# Smart Content: Listen-Darstellung #}
+
+<div class="list-group">
+    {% for item in smartContent %}
+    <a href="{{ sulu_content_path(item.url) }}" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between align-items-start">
+            <div class="d-flex align-items-start">
+                {% if showImage and item.excerptImages is defined and item.excerptImages|length > 0 %}
+                    <img src="{{ item.excerptImages[0].thumbnails['sulu-100x100'] }}" 
+                         alt="{{ item.title }}" 
+                         class="me-3 rounded" 
+                         style="width: 80px; height: 80px; object-fit: cover;">
+                {% endif %}
+                <div>
+                    <h5 class="mb-1">{{ item.title }}</h5>
+                    {% if showExcerpt and item.excerptDescription is defined and item.excerptDescription is not empty %}
+                    <p class="mb-1 text-muted">{{ item.excerptDescription|striptags|slice(0, 150) }}{% if item.excerptDescription|striptags|length > 150 %}...{% endif %}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% if showDate and item.authored is defined %}
+            <small class="text-muted">{{ item.authored|date('d.m.Y') }}</small>
+            {% endif %}
+        </div>
+    </a>
+    {% endfor %}
+</div>

@@ -1,0 +1,35 @@
+{# Smart Content: Grid-Darstellung #}
+
+{# Grid-Spalten bestimmen #}
+{% set colClass = 'col-12' %}
+{% if displayMode == 'grid-2' %}
+    {% set colClass = 'col-md-6' %}
+{% elseif displayMode == 'grid-3' %}
+    {% set colClass = 'col-md-4' %}
+{% elseif displayMode == 'grid-4' %}
+    {% set colClass = 'col-md-6 col-lg-3' %}
+{% endif %}
+
+<div class="row {{ gutter }}">
+    {% for item in smartContent %}
+    <div class="{{ colClass }}">
+        {% if showImage and item.excerptImages is defined and item.excerptImages|length > 0 %}
+            <a href="{{ sulu_content_path(item.url) }}">
+                <img src="{{ item.excerptImages[0].thumbnails['sulu-400x400'] }}" 
+                     alt="{{ item.title }}" 
+                     class="img-fluid rounded mb-3">
+            </a>
+        {% endif %}
+        <h5><a href="{{ sulu_content_path(item.url) }}" class="text-decoration-none">{{ item.title }}</a></h5>
+        {% if showDate and item.authored is defined %}
+        <small class="text-muted d-block mb-2">{{ item.authored|date('d.m.Y') }}</small>
+        {% endif %}
+        {% if showExcerpt and item.excerptDescription is defined and item.excerptDescription is not empty %}
+        <p class="text-muted">{{ item.excerptDescription|striptags|slice(0, 120) }}{% if item.excerptDescription|striptags|length > 120 %}...{% endif %}</p>
+        {% endif %}
+        {% if showMoreLink %}
+        <a href="{{ sulu_content_path(item.url) }}" class="btn btn-sm btn-outline-primary">{{ moreLinkText }}</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>

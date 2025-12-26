@@ -81,6 +81,12 @@
                             <param name="cards-4">
                                 <meta><title lang="de">Cards (4 Spalten)</title></meta>
                             </param>
+                            <param name="accordion">
+                                <meta><title lang="de">Akkordeon</title></meta>
+                            </param>
+                            <param name="slider">
+                                <meta><title lang="de">Slider / Carousel</title></meta>
+                            </param>
                         </param>
                     </params>
                 </property>
@@ -132,6 +138,111 @@
                     </meta>
                     <params>
                         <param name="default_value" value="Mehr lesen"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Akkordeon-Einstellungen -->
+        <section name="accordion_settings">
+            <meta>
+                <title lang="de">Akkordeon-Einstellungen</title>
+                <title lang="en">Accordion Settings</title>
+            </meta>
+            <properties>
+                <property name="accordion_open_first" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">Erstes Element geöffnet</title>
+                        <title lang="en">First Item Open</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+
+                <property name="accordion_flush" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">Flush (ohne Außenrahmen)</title>
+                        <title lang="en">Flush (no outer border)</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="false"/>
+                    </params>
+                </property>
+
+                <property name="accordion_always_open" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">Mehrere gleichzeitig öffnen</title>
+                        <title lang="en">Multiple open at once</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="false"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Slider-Einstellungen -->
+        <section name="slider_settings">
+            <meta>
+                <title lang="de">Slider-Einstellungen</title>
+                <title lang="en">Slider Settings</title>
+            </meta>
+            <properties>
+                <property name="slider_autoplay" type="checkbox" colspan="3">
+                    <meta>
+                        <title lang="de">Autoplay</title>
+                        <title lang="en">Autoplay</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+
+                <property name="slider_arrows" type="checkbox" colspan="3">
+                    <meta>
+                        <title lang="de">Pfeile anzeigen</title>
+                        <title lang="en">Show Arrows</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+
+                <property name="slider_indicators" type="checkbox" colspan="3">
+                    <meta>
+                        <title lang="de">Indikatoren anzeigen</title>
+                        <title lang="en">Show Indicators</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+
+                <property name="slider_interval" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Intervall</title>
+                        <title lang="en">Interval</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="5000"/>
+                        <param name="values" type="collection">
+                            <param name="2000">
+                                <meta><title lang="de">2 Sekunden</title></meta>
+                            </param>
+                            <param name="3000">
+                                <meta><title lang="de">3 Sekunden</title></meta>
+                            </param>
+                            <param name="5000">
+                                <meta><title lang="de">5 Sekunden</title></meta>
+                            </param>
+                            <param name="7000">
+                                <meta><title lang="de">7 Sekunden</title></meta>
+                            </param>
+                            <param name="10000">
+                                <meta><title lang="de">10 Sekunden</title></meta>
+                            </param>
+                        </param>
                     </params>
                 </property>
             </properties>
@@ -247,27 +358,13 @@
                     <params>
                         <param name="default_value" value="mt-3"/>
                         <param name="values" type="collection">
-                            <param name="mt-0">
-                                <meta><title lang="de">0</title></meta>
-                            </param>
-                            <param name="mt-1">
-                                <meta><title lang="de">1 (0.25rem)</title></meta>
-                            </param>
-                            <param name="mt-2">
-                                <meta><title lang="de">2 (0.5rem)</title></meta>
-                            </param>
-                            <param name="mt-3">
-                                <meta><title lang="de">3 (1rem)</title></meta>
-                            </param>
-                            <param name="mt-4">
-                                <meta><title lang="de">4 (1.5rem)</title></meta>
-                            </param>
-                            <param name="mt-5">
-                                <meta><title lang="de">5 (3rem)</title></meta>
-                            </param>
-                            <param name="mt-auto">
-                                <meta><title lang="de">Auto</title></meta>
-                            </param>
+                            <param name="mt-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="mt-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="mt-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="mt-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="mt-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="mt-5"><meta><title lang="de">5</title></meta></param>
+                            <param name="mt-auto"><meta><title lang="de">Auto</title></meta></param>
                         </param>
                     </params>
                 </property>
@@ -279,27 +376,13 @@
                     <params>
                         <param name="default_value" value="mb-3"/>
                         <param name="values" type="collection">
-                            <param name="mb-0">
-                                <meta><title lang="de">0</title></meta>
-                            </param>
-                            <param name="mb-1">
-                                <meta><title lang="de">1 (0.25rem)</title></meta>
-                            </param>
-                            <param name="mb-2">
-                                <meta><title lang="de">2 (0.5rem)</title></meta>
-                            </param>
-                            <param name="mb-3">
-                                <meta><title lang="de">3 (1rem)</title></meta>
-                            </param>
-                            <param name="mb-4">
-                                <meta><title lang="de">4 (1.5rem)</title></meta>
-                            </param>
-                            <param name="mb-5">
-                                <meta><title lang="de">5 (3rem)</title></meta>
-                            </param>
-                            <param name="mb-auto">
-                                <meta><title lang="de">Auto</title></meta>
-                            </param>
+                            <param name="mb-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="mb-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="mb-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="mb-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="mb-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="mb-5"><meta><title lang="de">5</title></meta></param>
+                            <param name="mb-auto"><meta><title lang="de">Auto</title></meta></param>
                         </param>
                     </params>
                 </property>
@@ -311,27 +394,13 @@
                     <params>
                         <param name="default_value" value="ms-0"/>
                         <param name="values" type="collection">
-                            <param name="ms-0">
-                                <meta><title lang="de">0</title></meta>
-                            </param>
-                            <param name="ms-1">
-                                <meta><title lang="de">1 (0.25rem)</title></meta>
-                            </param>
-                            <param name="ms-2">
-                                <meta><title lang="de">2 (0.5rem)</title></meta>
-                            </param>
-                            <param name="ms-3">
-                                <meta><title lang="de">3 (1rem)</title></meta>
-                            </param>
-                            <param name="ms-4">
-                                <meta><title lang="de">4 (1.5rem)</title></meta>
-                            </param>
-                            <param name="ms-5">
-                                <meta><title lang="de">5 (3rem)</title></meta>
-                            </param>
-                            <param name="ms-auto">
-                                <meta><title lang="de">Auto</title></meta>
-                            </param>
+                            <param name="ms-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="ms-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="ms-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="ms-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="ms-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="ms-5"><meta><title lang="de">5</title></meta></param>
+                            <param name="ms-auto"><meta><title lang="de">Auto</title></meta></param>
                         </param>
                     </params>
                 </property>
@@ -343,27 +412,13 @@
                     <params>
                         <param name="default_value" value="me-0"/>
                         <param name="values" type="collection">
-                            <param name="me-0">
-                                <meta><title lang="de">0</title></meta>
-                            </param>
-                            <param name="me-1">
-                                <meta><title lang="de">1 (0.25rem)</title></meta>
-                            </param>
-                            <param name="me-2">
-                                <meta><title lang="de">2 (0.5rem)</title></meta>
-                            </param>
-                            <param name="me-3">
-                                <meta><title lang="de">3 (1rem)</title></meta>
-                            </param>
-                            <param name="me-4">
-                                <meta><title lang="de">4 (1.5rem)</title></meta>
-                            </param>
-                            <param name="me-5">
-                                <meta><title lang="de">5 (3rem)</title></meta>
-                            </param>
-                            <param name="me-auto">
-                                <meta><title lang="de">Auto</title></meta>
-                            </param>
+                            <param name="me-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="me-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="me-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="me-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="me-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="me-5"><meta><title lang="de">5</title></meta></param>
+                            <param name="me-auto"><meta><title lang="de">Auto</title></meta></param>
                         </param>
                     </params>
                 </property>
@@ -384,24 +439,12 @@
                     <params>
                         <param name="default_value" value="pt-0"/>
                         <param name="values" type="collection">
-                            <param name="pt-0">
-                                <meta><title lang="de">0</title></meta>
-                            </param>
-                            <param name="pt-1">
-                                <meta><title lang="de">1 (0.25rem)</title></meta>
-                            </param>
-                            <param name="pt-2">
-                                <meta><title lang="de">2 (0.5rem)</title></meta>
-                            </param>
-                            <param name="pt-3">
-                                <meta><title lang="de">3 (1rem)</title></meta>
-                            </param>
-                            <param name="pt-4">
-                                <meta><title lang="de">4 (1.5rem)</title></meta>
-                            </param>
-                            <param name="pt-5">
-                                <meta><title lang="de">5 (3rem)</title></meta>
-                            </param>
+                            <param name="pt-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="pt-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="pt-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="pt-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="pt-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="pt-5"><meta><title lang="de">5</title></meta></param>
                         </param>
                     </params>
                 </property>
@@ -413,24 +456,12 @@
                     <params>
                         <param name="default_value" value="pb-0"/>
                         <param name="values" type="collection">
-                            <param name="pb-0">
-                                <meta><title lang="de">0</title></meta>
-                            </param>
-                            <param name="pb-1">
-                                <meta><title lang="de">1 (0.25rem)</title></meta>
-                            </param>
-                            <param name="pb-2">
-                                <meta><title lang="de">2 (0.5rem)</title></meta>
-                            </param>
-                            <param name="pb-3">
-                                <meta><title lang="de">3 (1rem)</title></meta>
-                            </param>
-                            <param name="pb-4">
-                                <meta><title lang="de">4 (1.5rem)</title></meta>
-                            </param>
-                            <param name="pb-5">
-                                <meta><title lang="de">5 (3rem)</title></meta>
-                            </param>
+                            <param name="pb-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="pb-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="pb-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="pb-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="pb-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="pb-5"><meta><title lang="de">5</title></meta></param>
                         </param>
                     </params>
                 </property>
@@ -442,24 +473,12 @@
                     <params>
                         <param name="default_value" value="ps-0"/>
                         <param name="values" type="collection">
-                            <param name="ps-0">
-                                <meta><title lang="de">0</title></meta>
-                            </param>
-                            <param name="ps-1">
-                                <meta><title lang="de">1 (0.25rem)</title></meta>
-                            </param>
-                            <param name="ps-2">
-                                <meta><title lang="de">2 (0.5rem)</title></meta>
-                            </param>
-                            <param name="ps-3">
-                                <meta><title lang="de">3 (1rem)</title></meta>
-                            </param>
-                            <param name="ps-4">
-                                <meta><title lang="de">4 (1.5rem)</title></meta>
-                            </param>
-                            <param name="ps-5">
-                                <meta><title lang="de">5 (3rem)</title></meta>
-                            </param>
+                            <param name="ps-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="ps-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="ps-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="ps-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="ps-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="ps-5"><meta><title lang="de">5</title></meta></param>
                         </param>
                     </params>
                 </property>
@@ -471,24 +490,12 @@
                     <params>
                         <param name="default_value" value="pe-0"/>
                         <param name="values" type="collection">
-                            <param name="pe-0">
-                                <meta><title lang="de">0</title></meta>
-                            </param>
-                            <param name="pe-1">
-                                <meta><title lang="de">1 (0.25rem)</title></meta>
-                            </param>
-                            <param name="pe-2">
-                                <meta><title lang="de">2 (0.5rem)</title></meta>
-                            </param>
-                            <param name="pe-3">
-                                <meta><title lang="de">3 (1rem)</title></meta>
-                            </param>
-                            <param name="pe-4">
-                                <meta><title lang="de">4 (1.5rem)</title></meta>
-                            </param>
-                            <param name="pe-5">
-                                <meta><title lang="de">5 (3rem)</title></meta>
-                            </param>
+                            <param name="pe-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="pe-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="pe-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="pe-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="pe-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="pe-5"><meta><title lang="de">5</title></meta></param>
                         </param>
                     </params>
                 </property>

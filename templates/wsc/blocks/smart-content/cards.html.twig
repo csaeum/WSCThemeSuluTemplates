@@ -1,0 +1,43 @@
+{# Smart Content: Cards-Darstellung #}
+
+{# Grid-Spalten bestimmen #}
+{% set colClass = 'col-12' %}
+{% if displayMode == 'cards-2' %}
+    {% set colClass = 'col-md-6' %}
+{% elseif displayMode == 'cards-3' %}
+    {% set colClass = 'col-md-4' %}
+{% elseif displayMode == 'cards-4' %}
+    {% set colClass = 'col-md-6 col-lg-3' %}
+{% endif %}
+
+<div class="row {{ gutter }}">
+    {% for item in smartContent %}
+    <div class="{{ colClass }}">
+        <div class="card h-100">
+            {% if showImage and item.excerptImages is defined and item.excerptImages|length > 0 %}
+                <a href="{{ sulu_content_path(item.url) }}">
+                    <img src="{{ item.excerptImages[0].thumbnails['sulu-400x400'] }}" 
+                         alt="{{ item.title }}" 
+                         class="card-img-top">
+                </a>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{{ sulu_content_path(item.url) }}" class="text-decoration-none stretched-link">{{ item.title }}</a>
+                </h5>
+                {% if showDate and item.authored is defined %}
+                <small class="text-muted d-block mb-2">{{ item.authored|date('d.m.Y') }}</small>
+                {% endif %}
+                {% if showExcerpt and item.excerptDescription is defined and item.excerptDescription is not empty %}
+                <p class="card-text text-muted">{{ item.excerptDescription|striptags|slice(0, 100) }}{% if item.excerptDescription|striptags|length > 100 %}...{% endif %}</p>
+                {% endif %}
+            </div>
+            {% if showMoreLink %}
+            <div class="card-footer bg-transparent border-0">
+                <span class="btn btn-sm btn-outline-primary">{{ moreLinkText }}</span>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>

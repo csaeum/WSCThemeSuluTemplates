@@ -1,6 +1,6 @@
 {#
     Block: wsc-smart-content
-    Smart Content mit verschiedenen Darstellungsoptionen
+    Smart Content - Haupt-Template mit Include-Logik
 #}
 
 {% set title = block.title|default('') %}
@@ -14,6 +14,17 @@
 {% set showDate = block.show_date|default(false) %}
 {% set showMoreLink = block.show_more_link|default(true) %}
 {% set moreLinkText = block.more_link_text|default('Mehr lesen') %}
+
+{# Akkordeon-Einstellungen #}
+{% set accordionOpenFirst = block.accordion_open_first|default(true) %}
+{% set accordionFlush = block.accordion_flush|default(false) %}
+{% set accordionAlwaysOpen = block.accordion_always_open|default(false) %}
+
+{# Slider-Einstellungen #}
+{% set sliderAutoplay = block.slider_autoplay|default(true) %}
+{% set sliderArrows = block.slider_arrows|default(true) %}
+{% set sliderIndicators = block.slider_indicators|default(true) %}
+{% set sliderInterval = block.slider_interval|default('5000') %}
 
 {# Styling #}
 {% set titleAlignment = block.title_alignment|default('start') %}
@@ -36,65 +47,44 @@
 {% set cssClass = block.css_class|default('') %}
 {% set htmlId = block.html_id|default('') %}
 
+{# Eindeutige IDs #}
+{% set uniqueId = 'smart-content-' ~ random() %}
+
 {# Wrapper-Klassen (Spacing) #}
 {% set wrapperClasses = [] %}
-{% if marginTop != 'mt-0' %}
-    {% set wrapperClasses = wrapperClasses|merge([marginTop]) %}
-{% endif %}
-{% if marginBottom != 'mb-0' %}
-    {% set wrapperClasses = wrapperClasses|merge([marginBottom]) %}
-{% endif %}
-{% if marginStart != 'ms-0' %}
-    {% set wrapperClasses = wrapperClasses|merge([marginStart]) %}
-{% endif %}
-{% if marginEnd != 'me-0' %}
-    {% set wrapperClasses = wrapperClasses|merge([marginEnd]) %}
-{% endif %}
-{% if paddingTop != 'pt-0' %}
-    {% set wrapperClasses = wrapperClasses|merge([paddingTop]) %}
-{% endif %}
-{% if paddingBottom != 'pb-0' %}
-    {% set wrapperClasses = wrapperClasses|merge([paddingBottom]) %}
-{% endif %}
-{% if paddingStart != 'ps-0' %}
-    {% set wrapperClasses = wrapperClasses|merge([paddingStart]) %}
-{% endif %}
-{% if paddingEnd != 'pe-0' %}
-    {% set wrapperClasses = wrapperClasses|merge([paddingEnd]) %}
-{% endif %}
-{% if cssClass is not empty %}
-    {% set wrapperClasses = wrapperClasses|merge([cssClass]) %}
-{% endif %}
+{% if marginTop != 'mt-0' %}{% set wrapperClasses = wrapperClasses|merge([marginTop]) %}{% endif %}
+{% if marginBottom != 'mb-0' %}{% set wrapperClasses = wrapperClasses|merge([marginBottom]) %}{% endif %}
+{% if marginStart != 'ms-0' %}{% set wrapperClasses = wrapperClasses|merge([marginStart]) %}{% endif %}
+{% if marginEnd != 'me-0' %}{% set wrapperClasses = wrapperClasses|merge([marginEnd]) %}{% endif %}
+{% if paddingTop != 'pt-0' %}{% set wrapperClasses = wrapperClasses|merge([paddingTop]) %}{% endif %}
+{% if paddingBottom != 'pb-0' %}{% set wrapperClasses = wrapperClasses|merge([paddingBottom]) %}{% endif %}
+{% if paddingStart != 'ps-0' %}{% set wrapperClasses = wrapperClasses|merge([paddingStart]) %}{% endif %}
+{% if paddingEnd != 'pe-0' %}{% set wrapperClasses = wrapperClasses|merge([paddingEnd]) %}{% endif %}
+{% if cssClass is not empty %}{% set wrapperClasses = wrapperClasses|merge([cssClass]) %}{% endif %}
 
 {# Titel-Klassen #}
 {% set titleClasses = ['mb-4'] %}
-{% if titleAlignment == 'center' %}
-    {% set titleClasses = titleClasses|merge(['text-center']) %}
-{% elseif titleAlignment == 'end' %}
-    {% set titleClasses = titleClasses|merge(['text-end']) %}
-{% endif %}
-{% if titleColor is not empty %}
-    {% set titleClasses = titleClasses|merge([titleColor]) %}
-{% endif %}
-
-{# Grid-Spalten bestimmen #}
-{% set colClass = 'col-12' %}
-{% if displayMode == 'grid-2' or displayMode == 'cards-2' %}
-    {% set colClass = 'col-md-6' %}
-{% elseif displayMode == 'grid-3' or displayMode == 'cards-3' %}
-    {% set colClass = 'col-md-4' %}
-{% elseif displayMode == 'grid-4' or displayMode == 'cards-4' %}
-    {% set colClass = 'col-md-6 col-lg-3' %}
-{% endif %}
-
-{# Prüfen ob Cards-Modus #}
-{% set isCards = displayMode starts with 'cards' %}
-{% set isGrid = displayMode starts with 'grid' %}
-{% set isList = displayMode == 'list' %}
+{% if titleAlignment == 'center' %}{% set titleClasses = titleClasses|merge(['text-center']) %}{% endif %}
+{% if titleAlignment == 'end' %}{% set titleClasses = titleClasses|merge(['text-end']) %}{% endif %}
+{% if titleColor is not empty %}{% set titleClasses = titleClasses|merge([titleColor]) %}{% endif %}
 
 {# Finale Klassen-Strings #}
 {% set wrapperClassString = wrapperClasses|join(' ') %}
 {% set titleClassString = titleClasses|join(' ') %}
+
+{# Template-Mapping #}
+{% set templateMap = {
+    'list': 'list',
+    'grid-2': 'grid',
+    'grid-3': 'grid',
+    'grid-4': 'grid',
+    'cards-2': 'cards',
+    'cards-3': 'cards',
+    'cards-4': 'cards',
+    'accordion': 'accordion',
+    'slider': 'slider'
+} %}
+{% set templateName = templateMap[displayMode]|default('list') %}
 
 {% if smartContent|length > 0 %}
 <div{% if htmlId %} id="{{ htmlId }}"{% endif %}{% if wrapperClassString %} class="{{ wrapperClassString }}"{% endif %}>
@@ -107,87 +97,25 @@
     </h2>
     {% endif %}
 
-    {# Listen-Darstellung #}
-    {% if isList %}
-    <div class="list-group">
-        {% for item in smartContent %}
-        <a href="{{ sulu_content_path(item.url) }}" class="list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-between align-items-start">
-                <div class="d-flex align-items-start">
-                    {% if showImage and item.excerptImages is defined and item.excerptImages|length > 0 %}
-                        <img src="{{ item.excerptImages[0].thumbnails['sulu-100x100'] }}" alt="{{ item.title }}" class="me-3 rounded" style="width: 80px; height: 80px; object-fit: cover;">
-                    {% endif %}
-                    <div>
-                        <h5 class="mb-1">{{ item.title }}</h5>
-                        {% if showExcerpt and item.excerptDescription is defined and item.excerptDescription is not empty %}
-                        <p class="mb-1 text-muted">{{ item.excerptDescription|striptags|slice(0, 150) }}{% if item.excerptDescription|striptags|length > 150 %}...{% endif %}</p>
-                        {% endif %}
-                    </div>
-                </div>
-                {% if showDate and item.authored is defined %}
-                <small class="text-muted">{{ item.authored|date('d.m.Y') }}</small>
-                {% endif %}
-            </div>
-        </a>
-        {% endfor %}
-    </div>
-
-    {# Grid-Darstellung #}
-    {% elseif isGrid %}
-    <div class="row {{ gutter }}">
-        {% for item in smartContent %}
-        <div class="{{ colClass }}">
-            {% if showImage and item.excerptImages is defined and item.excerptImages|length > 0 %}
-                <a href="{{ sulu_content_path(item.url) }}">
-                    <img src="{{ item.excerptImages[0].thumbnails['sulu-400x400'] }}" alt="{{ item.title }}" class="img-fluid rounded mb-3">
-                </a>
-            {% endif %}
-            <h5><a href="{{ sulu_content_path(item.url) }}" class="text-decoration-none">{{ item.title }}</a></h5>
-            {% if showDate and item.authored is defined %}
-            <small class="text-muted d-block mb-2">{{ item.authored|date('d.m.Y') }}</small>
-            {% endif %}
-            {% if showExcerpt and item.excerptDescription is defined and item.excerptDescription is not empty %}
-            <p class="text-muted">{{ item.excerptDescription|striptags|slice(0, 120) }}{% if item.excerptDescription|striptags|length > 120 %}...{% endif %}</p>
-            {% endif %}
-            {% if showMoreLink %}
-            <a href="{{ sulu_content_path(item.url) }}" class="btn btn-sm btn-outline-primary">{{ moreLinkText }}</a>
-            {% endif %}
-        </div>
-        {% endfor %}
-    </div>
-
-    {# Cards-Darstellung #}
-    {% elseif isCards %}
-    <div class="row {{ gutter }}">
-        {% for item in smartContent %}
-        <div class="{{ colClass }}">
-            <div class="card h-100">
-                {% if showImage and item.excerptImages is defined and item.excerptImages|length > 0 %}
-                    <a href="{{ sulu_content_path(item.url) }}">
-                        <img src="{{ item.excerptImages[0].thumbnails['sulu-400x400'] }}" alt="{{ item.title }}" class="card-img-top">
-                    </a>
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a href="{{ sulu_content_path(item.url) }}" class="text-decoration-none stretched-link">{{ item.title }}</a>
-                    </h5>
-                    {% if showDate and item.authored is defined %}
-                    <small class="text-muted d-block mb-2">{{ item.authored|date('d.m.Y') }}</small>
-                    {% endif %}
-                    {% if showExcerpt and item.excerptDescription is defined and item.excerptDescription is not empty %}
-                    <p class="card-text text-muted">{{ item.excerptDescription|striptags|slice(0, 100) }}{% if item.excerptDescription|striptags|length > 100 %}...{% endif %}</p>
-                    {% endif %}
-                </div>
-                {% if showMoreLink %}
-                <div class="card-footer bg-transparent border-0">
-                    <span class="btn btn-sm btn-outline-primary">{{ moreLinkText }}</span>
-                </div>
-                {% endif %}
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
+    {# Sub-Template inkludieren #}
+    {% include 'wsc/blocks/smart-content/' ~ templateName ~ '.html.twig' with {
+        smartContent: smartContent,
+        displayMode: displayMode,
+        showImage: showImage,
+        showExcerpt: showExcerpt,
+        showDate: showDate,
+        showMoreLink: showMoreLink,
+        moreLinkText: moreLinkText,
+        gutter: gutter,
+        uniqueId: uniqueId,
+        accordionOpenFirst: accordionOpenFirst,
+        accordionFlush: accordionFlush,
+        accordionAlwaysOpen: accordionAlwaysOpen,
+        sliderAutoplay: sliderAutoplay,
+        sliderArrows: sliderArrows,
+        sliderIndicators: sliderIndicators,
+        sliderInterval: sliderInterval
+    } %}
 
 </div>
 {% endif %}

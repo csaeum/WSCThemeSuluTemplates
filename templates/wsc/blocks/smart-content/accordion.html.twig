@@ -1,0 +1,52 @@
+{# Smart Content: Akkordeon-Darstellung #}
+
+{% set accordionId = 'accordion-' ~ uniqueId %}
+
+{# Akkordeon-Klassen #}
+{% set accordionClasses = ['accordion'] %}
+{% if accordionFlush %}
+    {% set accordionClasses = accordionClasses|merge(['accordion-flush']) %}
+{% endif %}
+
+<div class="{{ accordionClasses|join(' ') }}" id="{{ accordionId }}">
+    {% for item in smartContent %}
+        {% set itemId = accordionId ~ '-item-' ~ loop.index %}
+        {% set isOpen = accordionOpenFirst and loop.first %}
+        
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button{% if not isOpen %} collapsed{% endif %}" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#{{ itemId }}" 
+                        aria-expanded="{{ isOpen ? 'true' : 'false' }}" 
+                        aria-controls="{{ itemId }}">
+                    {% if showImage and item.excerptImages is defined and item.excerptImages|length > 0 %}
+                        <img src="{{ item.excerptImages[0].thumbnails['sulu-100x100'] }}" 
+                             alt="{{ item.title }}" 
+                             class="me-3 rounded" 
+                             style="width: 40px; height: 40px; object-fit: cover;">
+                    {% endif %}
+                    <span>
+                        {{ item.title }}
+                        {% if showDate and item.authored is defined %}
+                            <small class="text-muted ms-2">{{ item.authored|date('d.m.Y') }}</small>
+                        {% endif %}
+                    </span>
+                </button>
+            </h2>
+            <div id="{{ itemId }}" 
+                 class="accordion-collapse collapse{% if isOpen %} show{% endif %}" 
+                 {% if not accordionAlwaysOpen %}data-bs-parent="#{{ accordionId }}"{% endif %}>
+                <div class="accordion-body">
+                    {% if showExcerpt and item.excerptDescription is defined and item.excerptDescription is not empty %}
+                    <p class="text-muted">{{ item.excerptDescription|striptags }}</p>
+                    {% endif %}
+                    {% if showMoreLink %}
+                    <a href="{{ sulu_content_path(item.url) }}" class="btn btn-sm btn-outline-primary">{{ moreLinkText }}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
