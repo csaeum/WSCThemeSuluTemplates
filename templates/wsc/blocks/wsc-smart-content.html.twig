@@ -1,0 +1,193 @@
+{#
+    Block: wsc-smart-content
+    Smart Content mit verschiedenen Darstellungsoptionen
+#}
+
+{% set title = block.title|default('') %}
+{% set titleIcon = block.title_icon|default('') %}
+{% set smartContent = block.smart_content|default([]) %}
+
+{# Layout #}
+{% set displayMode = block.display_mode|default('list') %}
+{% set showImage = block.show_image|default(true) %}
+{% set showExcerpt = block.show_excerpt|default(true) %}
+{% set showDate = block.show_date|default(false) %}
+{% set showMoreLink = block.show_more_link|default(true) %}
+{% set moreLinkText = block.more_link_text|default('Mehr lesen') %}
+
+{# Styling #}
+{% set titleAlignment = block.title_alignment|default('start') %}
+{% set titleColor = block.title_color|default('') %}
+{% set gutter = block.gutter|default('g-4') %}
+
+{# Margin #}
+{% set marginTop = block.margin_top|default('mt-3') %}
+{% set marginBottom = block.margin_bottom|default('mb-3') %}
+{% set marginStart = block.margin_start|default('ms-0') %}
+{% set marginEnd = block.margin_end|default('me-0') %}
+
+{# Padding #}
+{% set paddingTop = block.padding_top|default('pt-0') %}
+{% set paddingBottom = block.padding_bottom|default('pb-0') %}
+{% set paddingStart = block.padding_start|default('ps-0') %}
+{% set paddingEnd = block.padding_end|default('pe-0') %}
+
+{# Erweiterte Optionen #}
+{% set cssClass = block.css_class|default('') %}
+{% set htmlId = block.html_id|default('') %}
+
+{# Wrapper-Klassen (Spacing) #}
+{% set wrapperClasses = [] %}
+{% if marginTop != 'mt-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([marginTop]) %}
+{% endif %}
+{% if marginBottom != 'mb-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([marginBottom]) %}
+{% endif %}
+{% if marginStart != 'ms-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([marginStart]) %}
+{% endif %}
+{% if marginEnd != 'me-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([marginEnd]) %}
+{% endif %}
+{% if paddingTop != 'pt-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([paddingTop]) %}
+{% endif %}
+{% if paddingBottom != 'pb-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([paddingBottom]) %}
+{% endif %}
+{% if paddingStart != 'ps-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([paddingStart]) %}
+{% endif %}
+{% if paddingEnd != 'pe-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([paddingEnd]) %}
+{% endif %}
+{% if cssClass is not empty %}
+    {% set wrapperClasses = wrapperClasses|merge([cssClass]) %}
+{% endif %}
+
+{# Titel-Klassen #}
+{% set titleClasses = ['mb-4'] %}
+{% if titleAlignment == 'center' %}
+    {% set titleClasses = titleClasses|merge(['text-center']) %}
+{% elseif titleAlignment == 'end' %}
+    {% set titleClasses = titleClasses|merge(['text-end']) %}
+{% endif %}
+{% if titleColor is not empty %}
+    {% set titleClasses = titleClasses|merge([titleColor]) %}
+{% endif %}
+
+{# Grid-Spalten bestimmen #}
+{% set colClass = 'col-12' %}
+{% if displayMode == 'grid-2' or displayMode == 'cards-2' %}
+    {% set colClass = 'col-md-6' %}
+{% elseif displayMode == 'grid-3' or displayMode == 'cards-3' %}
+    {% set colClass = 'col-md-4' %}
+{% elseif displayMode == 'grid-4' or displayMode == 'cards-4' %}
+    {% set colClass = 'col-md-6 col-lg-3' %}
+{% endif %}
+
+{# Prüfen ob Cards-Modus #}
+{% set isCards = displayMode starts with 'cards' %}
+{% set isGrid = displayMode starts with 'grid' %}
+{% set isList = displayMode == 'list' %}
+
+{# Finale Klassen-Strings #}
+{% set wrapperClassString = wrapperClasses|join(' ') %}
+{% set titleClassString = titleClasses|join(' ') %}
+
+{% if smartContent|length > 0 %}
+<div{% if htmlId %} id="{{ htmlId }}"{% endif %}{% if wrapperClassString %} class="{{ wrapperClassString }}"{% endif %}>
+
+    {# Optionale Überschrift #}
+    {% if title is not empty %}
+    <h2 class="{{ titleClassString }}">
+        {% if titleIcon is not empty %}<i class="fa-solid {{ titleIcon }} me-2"></i>{% endif %}
+        {{ title }}
+    </h2>
+    {% endif %}
+
+    {# Listen-Darstellung #}
+    {% if isList %}
+    <div class="list-group">
+        {% for item in smartContent %}
+        <a href="{{ sulu_content_path(item.url) }}" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between align-items-start">
+                <div class="d-flex align-items-start">
+                    {% if showImage and item.excerptImages is defined and item.excerptImages|length > 0 %}
+                        <img src="{{ item.excerptImages[0].thumbnails['sulu-100x100'] }}" alt="{{ item.title }}" class="me-3 rounded" style="width: 80px; height: 80px; object-fit: cover;">
+                    {% endif %}
+                    <div>
+                        <h5 class="mb-1">{{ item.title }}</h5>
+                        {% if showExcerpt and item.excerptDescription is defined and item.excerptDescription is not empty %}
+                        <p class="mb-1 text-muted">{{ item.excerptDescription|striptags|slice(0, 150) }}{% if item.excerptDescription|striptags|length > 150 %}...{% endif %}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if showDate and item.authored is defined %}
+                <small class="text-muted">{{ item.authored|date('d.m.Y') }}</small>
+                {% endif %}
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    {# Grid-Darstellung #}
+    {% elseif isGrid %}
+    <div class="row {{ gutter }}">
+        {% for item in smartContent %}
+        <div class="{{ colClass }}">
+            {% if showImage and item.excerptImages is defined and item.excerptImages|length > 0 %}
+                <a href="{{ sulu_content_path(item.url) }}">
+                    <img src="{{ item.excerptImages[0].thumbnails['sulu-400x400'] }}" alt="{{ item.title }}" class="img-fluid rounded mb-3">
+                </a>
+            {% endif %}
+            <h5><a href="{{ sulu_content_path(item.url) }}" class="text-decoration-none">{{ item.title }}</a></h5>
+            {% if showDate and item.authored is defined %}
+            <small class="text-muted d-block mb-2">{{ item.authored|date('d.m.Y') }}</small>
+            {% endif %}
+            {% if showExcerpt and item.excerptDescription is defined and item.excerptDescription is not empty %}
+            <p class="text-muted">{{ item.excerptDescription|striptags|slice(0, 120) }}{% if item.excerptDescription|striptags|length > 120 %}...{% endif %}</p>
+            {% endif %}
+            {% if showMoreLink %}
+            <a href="{{ sulu_content_path(item.url) }}" class="btn btn-sm btn-outline-primary">{{ moreLinkText }}</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    {# Cards-Darstellung #}
+    {% elseif isCards %}
+    <div class="row {{ gutter }}">
+        {% for item in smartContent %}
+        <div class="{{ colClass }}">
+            <div class="card h-100">
+                {% if showImage and item.excerptImages is defined and item.excerptImages|length > 0 %}
+                    <a href="{{ sulu_content_path(item.url) }}">
+                        <img src="{{ item.excerptImages[0].thumbnails['sulu-400x400'] }}" alt="{{ item.title }}" class="card-img-top">
+                    </a>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ sulu_content_path(item.url) }}" class="text-decoration-none stretched-link">{{ item.title }}</a>
+                    </h5>
+                    {% if showDate and item.authored is defined %}
+                    <small class="text-muted d-block mb-2">{{ item.authored|date('d.m.Y') }}</small>
+                    {% endif %}
+                    {% if showExcerpt and item.excerptDescription is defined and item.excerptDescription is not empty %}
+                    <p class="card-text text-muted">{{ item.excerptDescription|striptags|slice(0, 100) }}{% if item.excerptDescription|striptags|length > 100 %}...{% endif %}</p>
+                    {% endif %}
+                </div>
+                {% if showMoreLink %}
+                <div class="card-footer bg-transparent border-0">
+                    <span class="btn btn-sm btn-outline-primary">{{ moreLinkText }}</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</div>
+{% endif %}

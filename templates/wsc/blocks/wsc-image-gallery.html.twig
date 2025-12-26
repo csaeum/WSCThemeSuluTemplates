@@ -1,0 +1,318 @@
+{#
+    Block: wsc-image-gallery
+    Bild / Galerie mit Einzelbild, Grid, Masonry und Slider
+#}
+{% set imageData = block.images|default(null) %}
+{% set imageIds = [] %}
+{% if imageData.ids is defined %}
+    {% set imageIds = imageData.ids %}
+{% elseif imageData is iterable %}
+    {% for img in imageData %}
+        {% if img.id is defined %}
+            {% set imageIds = imageIds|merge([img.id]) %}
+        {% elseif img is not iterable %}
+            {% set imageIds = imageIds|merge([img]) %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{# Layout #}
+{% set displayMode = block.display_mode|default('single') %}
+{% set columns = block.columns|default('3') %}
+{% set singleAlignment = block.single_alignment|default('center') %}
+
+{# Bild-Einstellungen #}
+{% set thumbnailFormat = block.thumbnail_format|default('sulu-400x400') %}
+{% set imageRounded = block.image_rounded|default('') %}
+{% set enableLightbox = block.enable_lightbox|default(true) %}
+{% set showCaption = block.show_caption|default(false) %}
+{% set gutter = block.gutter|default('g-3') %}
+
+{# Slider-Einstellungen #}
+{% set sliderAutoplay = block.slider_autoplay|default(true) %}
+{% set sliderArrows = block.slider_arrows|default(true) %}
+{% set sliderIndicators = block.slider_indicators|default(true) %}
+{% set sliderInterval = block.slider_interval|default('5000') %}
+
+{# Margin #}
+{% set marginTop = block.margin_top|default('mt-3') %}
+{% set marginBottom = block.margin_bottom|default('mb-3') %}
+{% set marginStart = block.margin_start|default('ms-0') %}
+{% set marginEnd = block.margin_end|default('me-0') %}
+
+{# Padding #}
+{% set paddingTop = block.padding_top|default('pt-0') %}
+{% set paddingBottom = block.padding_bottom|default('pb-0') %}
+{% set paddingStart = block.padding_start|default('ps-0') %}
+{% set paddingEnd = block.padding_end|default('pe-0') %}
+
+{# Erweiterte Optionen #}
+{% set cssClass = block.css_class|default('') %}
+{% set htmlId = block.html_id|default('') %}
+
+{# Eindeutige IDs generieren #}
+{% set uniqueId = 'gallery-' ~ random() %}
+{% set carouselId = 'carousel-' ~ random() %}
+{% set lightboxId = 'lightbox-' ~ random() %}
+
+{# Wrapper-Klassen (Spacing) #}
+{% set wrapperClasses = [] %}
+{% if marginTop != 'mt-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([marginTop]) %}
+{% endif %}
+{% if marginBottom != 'mb-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([marginBottom]) %}
+{% endif %}
+{% if marginStart != 'ms-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([marginStart]) %}
+{% endif %}
+{% if marginEnd != 'me-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([marginEnd]) %}
+{% endif %}
+{% if paddingTop != 'pt-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([paddingTop]) %}
+{% endif %}
+{% if paddingBottom != 'pb-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([paddingBottom]) %}
+{% endif %}
+{% if paddingStart != 'ps-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([paddingStart]) %}
+{% endif %}
+{% if paddingEnd != 'pe-0' %}
+    {% set wrapperClasses = wrapperClasses|merge([paddingEnd]) %}
+{% endif %}
+{% if cssClass is not empty %}
+    {% set wrapperClasses = wrapperClasses|merge([cssClass]) %}
+{% endif %}
+
+{# Bild-Klassen #}
+{% set imageClasses = ['img-fluid'] %}
+{% if imageRounded is not empty %}
+    {% set imageClasses = imageClasses|merge([imageRounded]) %}
+{% endif %}
+{% if enableLightbox %}
+    {% set imageClasses = imageClasses|merge(['cursor-pointer']) %}
+{% endif %}
+
+{# Grid-Spaltenbreite berechnen #}
+{% set colClass = 'col-6 col-md-4' %}
+{% if columns == '2' %}
+    {% set colClass = 'col-6' %}
+{% elseif columns == '3' %}
+    {% set colClass = 'col-6 col-md-4' %}
+{% elseif columns == '4' %}
+    {% set colClass = 'col-6 col-md-3' %}
+{% elseif columns == '6' %}
+    {% set colClass = 'col-4 col-md-2' %}
+{% endif %}
+
+{# Finale Klassen-Strings #}
+{% set wrapperClassString = wrapperClasses|join(' ') %}
+{% set imageClassString = imageClasses|join(' ') %}
+
+{# Medien auflösen #}
+{% set resolvedImages = [] %}
+{% for imageId in imageIds %}
+    {% set media = sulu_resolve_media(imageId, app.request.locale) %}
+    {% if media %}
+        {% set resolvedImages = resolvedImages|merge([media]) %}
+    {% endif %}
+{% endfor %}
+
+{# Debug: Ausgabe wenn keine Bilder #}
+{# {% if resolvedImages|length == 0 %}
+<div class="alert alert-warning">Keine Bilder gefunden. imageIds: {{ imageIds|json_encode }}</div>
+{% endif %} #}
+
+{% if resolvedImages|length > 0 %}
+<div{% if htmlId %} id="{{ htmlId }}"{% endif %}{% if wrapperClassString %} class="{{ wrapperClassString }}"{% endif %}>
+
+    {# ===== EINZELBILD ===== #}
+    {% if displayMode == 'single' %}
+        {% set media = resolvedImages[0] %}
+        <div class="text-{{ singleAlignment }}">
+            {% if enableLightbox %}
+            <a href="{{ media.url }}" data-bs-toggle="modal" data-bs-target="#{{ lightboxId }}-0">
+            {% endif %}
+                <img src="{{ media.thumbnails[thumbnailFormat] }}" 
+                     alt="{{ media.title }}" 
+                     class="{{ imageClassString }}">
+            {% if enableLightbox %}
+            </a>
+            {% endif %}
+            {% if showCaption and media.title %}
+            <p class="text-muted mt-2 mb-0"><small>{{ media.title }}</small></p>
+            {% endif %}
+        </div>
+
+    {# ===== GRID ===== #}
+    {% elseif displayMode == 'grid' %}
+        <div class="row {{ gutter }}">
+            {% for media in resolvedImages %}
+            <div class="{{ colClass }}">
+                <figure class="figure mb-0">
+                    {% if enableLightbox %}
+                    <a href="{{ media.url }}" data-bs-toggle="modal" data-bs-target="#{{ lightboxId }}-{{ loop.index0 }}">
+                    {% endif %}
+                        <img src="{{ media.thumbnails[thumbnailFormat] }}" 
+                             alt="{{ media.title }}" 
+                             class="{{ imageClassString }} w-100">
+                    {% if enableLightbox %}
+                    </a>
+                    {% endif %}
+                    {% if showCaption and media.title %}
+                    <figcaption class="figure-caption text-center">{{ media.title }}</figcaption>
+                    {% endif %}
+                </figure>
+            </div>
+            {% endfor %}
+        </div>
+
+    {# ===== MASONRY ===== #}
+    {% elseif displayMode == 'masonry' %}
+        <div class="wsc-masonry wsc-masonry-{{ columns }}" id="{{ uniqueId }}">
+            {% for media in resolvedImages %}
+            <div class="wsc-masonry-item">
+                <figure class="figure mb-0">
+                    {% if enableLightbox %}
+                    <a href="{{ media.url }}" data-bs-toggle="modal" data-bs-target="#{{ lightboxId }}-{{ loop.index0 }}">
+                    {% endif %}
+                        <img src="{{ media.thumbnails[thumbnailFormat] }}" 
+                             alt="{{ media.title }}" 
+                             class="{{ imageClassString }} w-100">
+                    {% if enableLightbox %}
+                    </a>
+                    {% endif %}
+                    {% if showCaption and media.title %}
+                    <figcaption class="figure-caption text-center">{{ media.title }}</figcaption>
+                    {% endif %}
+                </figure>
+            </div>
+            {% endfor %}
+        </div>
+        <style>
+            .wsc-masonry {
+                column-gap: 1rem;
+            }
+            .wsc-masonry-2 { column-count: 2; }
+            .wsc-masonry-3 { column-count: 3; }
+            .wsc-masonry-4 { column-count: 4; }
+            .wsc-masonry-6 { column-count: 6; }
+            .wsc-masonry-item {
+                break-inside: avoid;
+                margin-bottom: 1rem;
+            }
+            @media (max-width: 768px) {
+                .wsc-masonry-3,
+                .wsc-masonry-4,
+                .wsc-masonry-6 { column-count: 2; }
+            }
+        </style>
+
+    {# ===== SLIDER / CAROUSEL ===== #}
+    {% elseif displayMode == 'slider' %}
+        <div id="{{ carouselId }}" class="carousel slide"{% if sliderAutoplay %} data-bs-ride="carousel"{% endif %}>
+            
+            {# Indikatoren #}
+            {% if sliderIndicators and resolvedImages|length > 1 %}
+            <div class="carousel-indicators">
+                {% for media in resolvedImages %}
+                <button type="button" 
+                        data-bs-target="#{{ carouselId }}" 
+                        data-bs-slide-to="{{ loop.index0 }}"
+                        {% if loop.first %}class="active" aria-current="true"{% endif %}
+                        aria-label="Slide {{ loop.index }}"></button>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {# Slides #}
+            <div class="carousel-inner">
+                {% for media in resolvedImages %}
+                <div class="carousel-item{% if loop.first %} active{% endif %}" data-bs-interval="{{ sliderInterval }}">
+                    {% if enableLightbox %}
+                    <a href="{{ media.url }}" data-bs-toggle="modal" data-bs-target="#{{ lightboxId }}-{{ loop.index0 }}">
+                    {% endif %}
+                        <img src="{{ media.thumbnails[thumbnailFormat] }}" 
+                             class="d-block w-100 {{ imageRounded }}" 
+                             alt="{{ media.title }}">
+                    {% if enableLightbox %}
+                    </a>
+                    {% endif %}
+                    {% if showCaption and media.title %}
+                    <div class="carousel-caption d-none d-md-block">
+                        <p class="mb-0">{{ media.title }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+
+            {# Navigation Pfeile #}
+            {% if sliderArrows and resolvedImages|length > 1 %}
+            <button class="carousel-control-prev" type="button" data-bs-target="#{{ carouselId }}" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Zurück</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#{{ carouselId }}" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Weiter</span>
+            </button>
+            {% endif %}
+        </div>
+    {% endif %}
+
+</div>
+
+{# ===== LIGHTBOX MODALS ===== #}
+{% if enableLightbox %}
+    {% for media in resolvedImages %}
+    <div class="modal fade" id="{{ lightboxId }}-{{ loop.index0 }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content bg-dark">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-white">{{ media.title }}</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                </div>
+                <div class="modal-body text-center p-0">
+                    <img src="{{ media.url }}" alt="{{ media.title }}" class="img-fluid">
+                </div>
+                {% if resolvedImages|length > 1 %}
+                <div class="modal-footer border-0 justify-content-between">
+                    {% if not loop.first %}
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#{{ lightboxId }}-{{ loop.index0 - 1 }}">
+                        <i class="fa-solid fa-chevron-left me-2"></i>Zurück
+                    </button>
+                    {% else %}
+                    <span></span>
+                    {% endif %}
+                    <span class="text-white">{{ loop.index }} / {{ resolvedImages|length }}</span>
+                    {% if not loop.last %}
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#{{ lightboxId }}-{{ loop.index0 + 1 }}">
+                        Weiter<i class="fa-solid fa-chevron-right ms-2"></i>
+                    </button>
+                    {% else %}
+                    <span></span>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
+
+{# CSS für Cursor bei klickbaren Bildern #}
+{% if enableLightbox %}
+<style>
+    .cursor-pointer {
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+    }
+    .cursor-pointer:hover {
+        opacity: 0.85;
+    }
+</style>
+{% endif %}
+
+{% endif %}

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>wsc-snippet</key>
+
+    <meta>
+        <title lang="de">WSC Snippet</title>
+        <title lang="en">WSC Snippet</title>
+    </meta>
+
+    <properties>
+        <block name="blocks" default-type="wsc-headline" minOccurs="0">
+            <meta>
+                <title lang="de">Inhaltsblöcke</title>
+                <title lang="en">Content Blocks</title>
+            </meta>
+            <types>
+                <type ref="wsc-columns"/>
+                <type ref="wsc-headline"/>
+                <type ref="wsc-image-gallery"/>
+                <type ref="wsc-list-group"/>
+                <type ref="wsc-smart-content"/>
+                <type ref="wsc-text-image"/>
+            </types>
+        </block>
+    </properties>
+</template>

@@ -3,150 +3,184 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
 
-    <key>wsc-columns</key>
+    <key>wsc-image-gallery</key>
 
     <meta>
-        <title lang="de">Spalten</title>
-        <title lang="en">Columns</title>
+        <title lang="de">Bild / Galerie</title>
+        <title lang="en">Image / Gallery</title>
     </meta>
 
     <properties>
-        <!-- Spalten -->
-        <block name="columns" default-type="column" minOccurs="1" maxOccurs="6">
+        <property name="images" type="media_selection" mandatory="true">
             <meta>
-                <title lang="de">Spalten</title>
-                <title lang="en">Columns</title>
+                <title lang="de">Bilder</title>
+                <title lang="en">Images</title>
             </meta>
-            <types>
-                <type name="column">
-                    <meta>
-                        <title lang="de">Spalte</title>
-                        <title lang="en">Column</title>
-                    </meta>
-                    <properties>
-                        <!-- Spalten-Breite -->
-                        <property name="col_width" type="single_select" colspan="6">
-                            <meta>
-                                <title lang="de">Spalten-Breite</title>
-                                <title lang="en">Column Width</title>
-                            </meta>
-                            <params>
-                                <param name="default_value" value="col-md-6"/>
-                                <param name="values" type="collection">
-                                    <param name="col-md">
-                                        <meta><title lang="de">Auto</title></meta>
-                                    </param>
-                                    <param name="col-md-1">
-                                        <meta><title lang="de">1/12 (8.33%)</title></meta>
-                                    </param>
-                                    <param name="col-md-2">
-                                        <meta><title lang="de">2/12 (16.66%)</title></meta>
-                                    </param>
-                                    <param name="col-md-3">
-                                        <meta><title lang="de">3/12 (25%)</title></meta>
-                                    </param>
-                                    <param name="col-md-4">
-                                        <meta><title lang="de">4/12 (33.33%)</title></meta>
-                                    </param>
-                                    <param name="col-md-5">
-                                        <meta><title lang="de">5/12 (41.66%)</title></meta>
-                                    </param>
-                                    <param name="col-md-6">
-                                        <meta><title lang="de">6/12 (50%)</title></meta>
-                                    </param>
-                                    <param name="col-md-7">
-                                        <meta><title lang="de">7/12 (58.33%)</title></meta>
-                                    </param>
-                                    <param name="col-md-8">
-                                        <meta><title lang="de">8/12 (66.66%)</title></meta>
-                                    </param>
-                                    <param name="col-md-9">
-                                        <meta><title lang="de">9/12 (75%)</title></meta>
-                                    </param>
-                                    <param name="col-md-10">
-                                        <meta><title lang="de">10/12 (83.33%)</title></meta>
-                                    </param>
-                                    <param name="col-md-11">
-                                        <meta><title lang="de">11/12 (91.66%)</title></meta>
-                                    </param>
-                                    <param name="col-md-12">
-                                        <meta><title lang="de">12/12 (100%)</title></meta>
-                                    </param>
-                                </param>
-                            </params>
-                        </property>
+            <params>
+                <param name="types" value="image"/>
+            </params>
+        </property>
 
-                        <!-- Vertikale Ausrichtung der Spalte -->
-                        <property name="col_align" type="single_select" colspan="6">
-                            <meta>
-                                <title lang="de">Vertikale Ausrichtung</title>
-                                <title lang="en">Vertical Alignment</title>
-                            </meta>
-                            <params>
-                                <param name="default_value" value=""/>
-                                <param name="values" type="collection">
-                                    <param name="">
-                                        <meta><title lang="de">Standard</title></meta>
-                                    </param>
-                                    <param name="align-self-start">
-                                        <meta><title lang="de">Oben</title></meta>
-                                    </param>
-                                    <param name="align-self-center">
-                                        <meta><title lang="de">Mitte</title></meta>
-                                    </param>
-                                    <param name="align-self-end">
-                                        <meta><title lang="de">Unten</title></meta>
-                                    </param>
-                                </param>
-                            </params>
-                        </property>
-
-                        <!-- Spalten CSS-Klasse -->
-                        <property name="col_css_class" type="text_line" colspan="6">
-                            <meta>
-                                <title lang="de">CSS-Klasse</title>
-                                <title lang="en">CSS Class</title>
-                            </meta>
-                        </property>
-
-                        <!-- Spalten HTML-ID -->
-                        <property name="col_html_id" type="text_line" colspan="6">
-                            <meta>
-                                <title lang="de">HTML-ID</title>
-                                <title lang="en">HTML ID</title>
-                            </meta>
-                        </property>
-
-                        <!-- Verschachtelte Blöcke in der Spalte -->
-                        <block name="column_blocks" default-type="wsc-headline" minOccurs="0">
-                            <meta>
-                                <title lang="de">Inhalte</title>
-                                <title lang="en">Contents</title>
-                            </meta>
-                            <types>
-                                <type ref="wsc-headline"/>
-                                <type ref="wsc-image-gallery"/>
-                                <type ref="wsc-list-group"/>
-                                <type ref="wsc-smart-content"/>
-                                <type ref="wsc-text-image"/>
-                            </types>
-                        </block>
-                    </properties>
-                </type>
-            </types>
-        </block>
-
-        <!-- Row Einstellungen -->
-        <section name="row_settings">
+        <!-- Layout Abschnitt -->
+        <section name="layout">
             <meta>
-                <title lang="de">Zeilen-Einstellungen</title>
-                <title lang="en">Row Settings</title>
+                <title lang="de">Layout</title>
+                <title lang="en">Layout</title>
             </meta>
             <properties>
-                <property name="gutter" type="single_select" colspan="4">
+                <property name="display_mode" type="single_select" colspan="4">
                     <meta>
-                        <title lang="de">Spalten-Abstand (Gutter)</title>
-                        <title lang="en">Gutter</title>
+                        <title lang="de">Darstellung</title>
+                        <title lang="en">Display Mode</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="single"/>
+                        <param name="values" type="collection">
+                            <param name="single">
+                                <meta><title lang="de">Einzelbild</title></meta>
+                            </param>
+                            <param name="grid">
+                                <meta><title lang="de">Grid</title></meta>
+                            </param>
+                            <param name="masonry">
+                                <meta><title lang="de">Masonry</title></meta>
+                            </param>
+                            <param name="slider">
+                                <meta><title lang="de">Slider / Carousel</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="columns" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Spalten (Grid/Masonry)</title>
+                        <title lang="en">Columns (Grid/Masonry)</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="3"/>
+                        <param name="values" type="collection">
+                            <param name="2">
+                                <meta><title lang="de">2 Spalten</title></meta>
+                            </param>
+                            <param name="3">
+                                <meta><title lang="de">3 Spalten</title></meta>
+                            </param>
+                            <param name="4">
+                                <meta><title lang="de">4 Spalten</title></meta>
+                            </param>
+                            <param name="6">
+                                <meta><title lang="de">6 Spalten</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="single_alignment" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Ausrichtung (Einzelbild)</title>
+                        <title lang="en">Alignment (Single)</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="center"/>
+                        <param name="values" type="collection">
+                            <param name="start">
+                                <meta><title lang="de">Links</title></meta>
+                            </param>
+                            <param name="center">
+                                <meta><title lang="de">Zentriert</title></meta>
+                            </param>
+                            <param name="end">
+                                <meta><title lang="de">Rechts</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Bild-Einstellungen -->
+        <section name="image_settings">
+            <meta>
+                <title lang="de">Bild-Einstellungen</title>
+                <title lang="en">Image Settings</title>
+            </meta>
+            <properties>
+                <property name="thumbnail_format" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Thumbnail-Format</title>
+                        <title lang="en">Thumbnail Format</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="sulu-400x400"/>
+                        <param name="values" type="collection">
+                            <param name="sulu-100x100">
+                                <meta><title lang="de">Klein (100x100)</title></meta>
+                            </param>
+                            <param name="sulu-170x170">
+                                <meta><title lang="de">Mittel (170x170)</title></meta>
+                            </param>
+                            <param name="sulu-260x">
+                                <meta><title lang="de">Breit (260px)</title></meta>
+                            </param>
+                            <param name="sulu-400x400">
+                                <meta><title lang="de">Groß (400x400)</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="image_rounded" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Bild-Ecken</title>
+                        <title lang="en">Image Corners</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value=""/>
+                        <param name="values" type="collection">
+                            <param name="">
+                                <meta><title lang="de">Eckig</title></meta>
+                            </param>
+                            <param name="rounded">
+                                <meta><title lang="de">Leicht abgerundet</title></meta>
+                            </param>
+                            <param name="rounded-3">
+                                <meta><title lang="de">Abgerundet</title></meta>
+                            </param>
+                            <param name="rounded-4">
+                                <meta><title lang="de">Stark abgerundet</title></meta>
+                            </param>
+                            <param name="rounded-circle">
+                                <meta><title lang="de">Kreis</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="enable_lightbox" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">Lightbox / Fullbild aktivieren</title>
+                        <title lang="en">Enable Lightbox / Fullscreen</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+
+                <property name="show_caption" type="checkbox" colspan="6">
+                    <meta>
+                        <title lang="de">Bildunterschrift anzeigen</title>
+                        <title lang="en">Show Caption</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="false"/>
+                    </params>
+                </property>
+
+                <property name="gutter" type="single_select" colspan="6">
+                    <meta>
+                        <title lang="de">Abstand (Grid/Masonry)</title>
+                        <title lang="en">Gutter (Grid/Masonry)</title>
                     </meta>
                     <params>
                         <param name="default_value" value="g-3"/>
@@ -172,59 +206,68 @@
                         </param>
                     </params>
                 </property>
+            </properties>
+        </section>
 
-                <property name="row_align_vertical" type="single_select" colspan="4">
+        <!-- Slider-Einstellungen -->
+        <section name="slider_settings">
+            <meta>
+                <title lang="de">Slider-Einstellungen</title>
+                <title lang="en">Slider Settings</title>
+            </meta>
+            <properties>
+                <property name="slider_autoplay" type="checkbox" colspan="3">
                     <meta>
-                        <title lang="de">Vertikale Ausrichtung</title>
-                        <title lang="en">Vertical Alignment</title>
+                        <title lang="de">Autoplay</title>
+                        <title lang="en">Autoplay</title>
                     </meta>
                     <params>
-                        <param name="default_value" value=""/>
-                        <param name="values" type="collection">
-                            <param name="">
-                                <meta><title lang="de">Standard</title></meta>
-                            </param>
-                            <param name="align-items-start">
-                                <meta><title lang="de">Oben</title></meta>
-                            </param>
-                            <param name="align-items-center">
-                                <meta><title lang="de">Mitte</title></meta>
-                            </param>
-                            <param name="align-items-end">
-                                <meta><title lang="de">Unten</title></meta>
-                            </param>
-                        </param>
+                        <param name="default_value" value="true"/>
                     </params>
                 </property>
 
-                <property name="row_align_horizontal" type="single_select" colspan="4">
+                <property name="slider_arrows" type="checkbox" colspan="3">
                     <meta>
-                        <title lang="de">Horizontale Ausrichtung</title>
-                        <title lang="en">Horizontal Alignment</title>
+                        <title lang="de">Pfeile anzeigen</title>
+                        <title lang="en">Show Arrows</title>
                     </meta>
                     <params>
-                        <param name="default_value" value=""/>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+
+                <property name="slider_indicators" type="checkbox" colspan="3">
+                    <meta>
+                        <title lang="de">Indikatoren anzeigen</title>
+                        <title lang="en">Show Indicators</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+
+                <property name="slider_interval" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Intervall</title>
+                        <title lang="en">Interval</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="5000"/>
                         <param name="values" type="collection">
-                            <param name="">
-                                <meta><title lang="de">Standard</title></meta>
+                            <param name="2000">
+                                <meta><title lang="de">2 Sekunden</title></meta>
                             </param>
-                            <param name="justify-content-start">
-                                <meta><title lang="de">Links</title></meta>
+                            <param name="3000">
+                                <meta><title lang="de">3 Sekunden</title></meta>
                             </param>
-                            <param name="justify-content-center">
-                                <meta><title lang="de">Zentriert</title></meta>
+                            <param name="5000">
+                                <meta><title lang="de">5 Sekunden</title></meta>
                             </param>
-                            <param name="justify-content-end">
-                                <meta><title lang="de">Rechts</title></meta>
+                            <param name="7000">
+                                <meta><title lang="de">7 Sekunden</title></meta>
                             </param>
-                            <param name="justify-content-between">
-                                <meta><title lang="de">Verteilt (zwischen)</title></meta>
-                            </param>
-                            <param name="justify-content-around">
-                                <meta><title lang="de">Verteilt (um)</title></meta>
-                            </param>
-                            <param name="justify-content-evenly">
-                                <meta><title lang="de">Gleichmäßig</title></meta>
+                            <param name="10000">
+                                <meta><title lang="de">10 Sekunden</title></meta>
                             </param>
                         </param>
                     </params>

@@ -3,159 +3,217 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
 
-    <key>wsc-columns</key>
+    <key>wsc-smart-content</key>
 
     <meta>
-        <title lang="de">Spalten</title>
-        <title lang="en">Columns</title>
+        <title lang="de">Smart Content</title>
+        <title lang="en">Smart Content</title>
     </meta>
 
     <properties>
-        <!-- Spalten -->
-        <block name="columns" default-type="column" minOccurs="1" maxOccurs="6">
+        <property name="title" type="text_line" colspan="8">
             <meta>
-                <title lang="de">Spalten</title>
-                <title lang="en">Columns</title>
+                <title lang="de">Überschrift (optional)</title>
+                <title lang="en">Headline (optional)</title>
             </meta>
-            <types>
-                <type name="column">
-                    <meta>
-                        <title lang="de">Spalte</title>
-                        <title lang="en">Column</title>
-                    </meta>
-                    <properties>
-                        <!-- Spalten-Breite -->
-                        <property name="col_width" type="single_select" colspan="6">
-                            <meta>
-                                <title lang="de">Spalten-Breite</title>
-                                <title lang="en">Column Width</title>
-                            </meta>
-                            <params>
-                                <param name="default_value" value="col-md-6"/>
-                                <param name="values" type="collection">
-                                    <param name="col-md">
-                                        <meta><title lang="de">Auto</title></meta>
-                                    </param>
-                                    <param name="col-md-1">
-                                        <meta><title lang="de">1/12 (8.33%)</title></meta>
-                                    </param>
-                                    <param name="col-md-2">
-                                        <meta><title lang="de">2/12 (16.66%)</title></meta>
-                                    </param>
-                                    <param name="col-md-3">
-                                        <meta><title lang="de">3/12 (25%)</title></meta>
-                                    </param>
-                                    <param name="col-md-4">
-                                        <meta><title lang="de">4/12 (33.33%)</title></meta>
-                                    </param>
-                                    <param name="col-md-5">
-                                        <meta><title lang="de">5/12 (41.66%)</title></meta>
-                                    </param>
-                                    <param name="col-md-6">
-                                        <meta><title lang="de">6/12 (50%)</title></meta>
-                                    </param>
-                                    <param name="col-md-7">
-                                        <meta><title lang="de">7/12 (58.33%)</title></meta>
-                                    </param>
-                                    <param name="col-md-8">
-                                        <meta><title lang="de">8/12 (66.66%)</title></meta>
-                                    </param>
-                                    <param name="col-md-9">
-                                        <meta><title lang="de">9/12 (75%)</title></meta>
-                                    </param>
-                                    <param name="col-md-10">
-                                        <meta><title lang="de">10/12 (83.33%)</title></meta>
-                                    </param>
-                                    <param name="col-md-11">
-                                        <meta><title lang="de">11/12 (91.66%)</title></meta>
-                                    </param>
-                                    <param name="col-md-12">
-                                        <meta><title lang="de">12/12 (100%)</title></meta>
-                                    </param>
-                                </param>
-                            </params>
-                        </property>
+        </property>
 
-                        <!-- Vertikale Ausrichtung der Spalte -->
-                        <property name="col_align" type="single_select" colspan="6">
-                            <meta>
-                                <title lang="de">Vertikale Ausrichtung</title>
-                                <title lang="en">Vertical Alignment</title>
-                            </meta>
-                            <params>
-                                <param name="default_value" value=""/>
-                                <param name="values" type="collection">
-                                    <param name="">
-                                        <meta><title lang="de">Standard</title></meta>
-                                    </param>
-                                    <param name="align-self-start">
-                                        <meta><title lang="de">Oben</title></meta>
-                                    </param>
-                                    <param name="align-self-center">
-                                        <meta><title lang="de">Mitte</title></meta>
-                                    </param>
-                                    <param name="align-self-end">
-                                        <meta><title lang="de">Unten</title></meta>
-                                    </param>
-                                </param>
-                            </params>
-                        </property>
-
-                        <!-- Spalten CSS-Klasse -->
-                        <property name="col_css_class" type="text_line" colspan="6">
-                            <meta>
-                                <title lang="de">CSS-Klasse</title>
-                                <title lang="en">CSS Class</title>
-                            </meta>
-                        </property>
-
-                        <!-- Spalten HTML-ID -->
-                        <property name="col_html_id" type="text_line" colspan="6">
-                            <meta>
-                                <title lang="de">HTML-ID</title>
-                                <title lang="en">HTML ID</title>
-                            </meta>
-                        </property>
-
-                        <!-- Verschachtelte Blöcke in der Spalte -->
-                        <block name="column_blocks" default-type="wsc-headline" minOccurs="0">
-                            <meta>
-                                <title lang="de">Inhalte</title>
-                                <title lang="en">Contents</title>
-                            </meta>
-                            <types>
-                                <type ref="wsc-headline"/>
-                                <type ref="wsc-image-gallery"/>
-                                <type ref="wsc-list-group"/>
-                                <type ref="wsc-smart-content"/>
-                                <type ref="wsc-text-image"/>
-                            </types>
-                        </block>
-                    </properties>
-                </type>
-            </types>
-        </block>
-
-        <!-- Row Einstellungen -->
-        <section name="row_settings">
+        <property name="title_icon" type="text_line" colspan="4">
             <meta>
-                <title lang="de">Zeilen-Einstellungen</title>
-                <title lang="en">Row Settings</title>
+                <title lang="de">Icon (z.B. fa-star)</title>
+                <title lang="en">Icon (e.g. fa-star)</title>
+            </meta>
+        </property>
+
+        <property name="smart_content" type="smart_content" mandatory="true">
+            <meta>
+                <title lang="de">Inhalte</title>
+                <title lang="en">Contents</title>
+            </meta>
+            <params>
+                <param name="provider" value="pages"/>
+                <param name="max_per_page" value="12"/>
+                <param name="page_parameter" value="p"/>
+                <param name="properties" type="collection">
+                    <param name="title" value="title"/>
+                    <param name="url" value="url"/>
+                    <param name="excerptTitle" value="excerpt.title"/>
+                    <param name="excerptDescription" value="excerpt.description"/>
+                    <param name="excerptImages" value="excerpt.images"/>
+                    <param name="authored" value="authored"/>
+                </param>
+            </params>
+        </property>
+
+        <!-- Layout Abschnitt -->
+        <section name="layout">
+            <meta>
+                <title lang="de">Layout</title>
+                <title lang="en">Layout</title>
             </meta>
             <properties>
+                <property name="display_mode" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Darstellung</title>
+                        <title lang="en">Display Mode</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="list"/>
+                        <param name="values" type="collection">
+                            <param name="list">
+                                <meta><title lang="de">Liste</title></meta>
+                            </param>
+                            <param name="grid-2">
+                                <meta><title lang="de">Grid (2 Spalten)</title></meta>
+                            </param>
+                            <param name="grid-3">
+                                <meta><title lang="de">Grid (3 Spalten)</title></meta>
+                            </param>
+                            <param name="grid-4">
+                                <meta><title lang="de">Grid (4 Spalten)</title></meta>
+                            </param>
+                            <param name="cards-2">
+                                <meta><title lang="de">Cards (2 Spalten)</title></meta>
+                            </param>
+                            <param name="cards-3">
+                                <meta><title lang="de">Cards (3 Spalten)</title></meta>
+                            </param>
+                            <param name="cards-4">
+                                <meta><title lang="de">Cards (4 Spalten)</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="show_image" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">Bild anzeigen</title>
+                        <title lang="en">Show Image</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+
+                <property name="show_excerpt" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">Teaser-Text anzeigen</title>
+                        <title lang="en">Show Excerpt</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+
+                <property name="show_date" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">Datum anzeigen</title>
+                        <title lang="en">Show Date</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="false"/>
+                    </params>
+                </property>
+
+                <property name="show_more_link" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">"Mehr lesen" Link</title>
+                        <title lang="en">"Read more" Link</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+
+                <property name="more_link_text" type="text_line" colspan="4">
+                    <meta>
+                        <title lang="de">Link-Text</title>
+                        <title lang="en">Link Text</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="Mehr lesen"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Styling Abschnitt -->
+        <section name="styling">
+            <meta>
+                <title lang="de">Styling</title>
+                <title lang="en">Styling</title>
+            </meta>
+            <properties>
+                <property name="title_alignment" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Überschrift-Ausrichtung</title>
+                        <title lang="en">Title Alignment</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="start"/>
+                        <param name="values" type="collection">
+                            <param name="start">
+                                <meta><title lang="de">Links</title></meta>
+                            </param>
+                            <param name="center">
+                                <meta><title lang="de">Zentriert</title></meta>
+                            </param>
+                            <param name="end">
+                                <meta><title lang="de">Rechts</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="title_color" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Überschrift-Farbe</title>
+                        <title lang="en">Title Color</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value=""/>
+                        <param name="values" type="collection">
+                            <param name="">
+                                <meta><title lang="de">Standard</title></meta>
+                            </param>
+                            <param name="text-primary">
+                                <meta><title lang="de">Primär</title></meta>
+                            </param>
+                            <param name="text-secondary">
+                                <meta><title lang="de">Sekundär</title></meta>
+                            </param>
+                            <param name="text-success">
+                                <meta><title lang="de">Erfolg (Grün)</title></meta>
+                            </param>
+                            <param name="text-danger">
+                                <meta><title lang="de">Gefahr (Rot)</title></meta>
+                            </param>
+                            <param name="text-warning">
+                                <meta><title lang="de">Warnung (Gelb)</title></meta>
+                            </param>
+                            <param name="text-info">
+                                <meta><title lang="de">Info (Cyan)</title></meta>
+                            </param>
+                            <param name="text-dark">
+                                <meta><title lang="de">Dunkel</title></meta>
+                            </param>
+                            <param name="text-muted">
+                                <meta><title lang="de">Gedämpft</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
                 <property name="gutter" type="single_select" colspan="4">
                     <meta>
-                        <title lang="de">Spalten-Abstand (Gutter)</title>
+                        <title lang="de">Abstand zwischen Elementen</title>
                         <title lang="en">Gutter</title>
                     </meta>
                     <params>
-                        <param name="default_value" value="g-3"/>
+                        <param name="default_value" value="g-4"/>
                         <param name="values" type="collection">
                             <param name="g-0">
                                 <meta><title lang="de">Kein Abstand</title></meta>
-                            </param>
-                            <param name="g-1">
-                                <meta><title lang="de">Sehr klein</title></meta>
                             </param>
                             <param name="g-2">
                                 <meta><title lang="de">Klein</title></meta>
@@ -168,63 +226,6 @@
                             </param>
                             <param name="g-5">
                                 <meta><title lang="de">Sehr groß</title></meta>
-                            </param>
-                        </param>
-                    </params>
-                </property>
-
-                <property name="row_align_vertical" type="single_select" colspan="4">
-                    <meta>
-                        <title lang="de">Vertikale Ausrichtung</title>
-                        <title lang="en">Vertical Alignment</title>
-                    </meta>
-                    <params>
-                        <param name="default_value" value=""/>
-                        <param name="values" type="collection">
-                            <param name="">
-                                <meta><title lang="de">Standard</title></meta>
-                            </param>
-                            <param name="align-items-start">
-                                <meta><title lang="de">Oben</title></meta>
-                            </param>
-                            <param name="align-items-center">
-                                <meta><title lang="de">Mitte</title></meta>
-                            </param>
-                            <param name="align-items-end">
-                                <meta><title lang="de">Unten</title></meta>
-                            </param>
-                        </param>
-                    </params>
-                </property>
-
-                <property name="row_align_horizontal" type="single_select" colspan="4">
-                    <meta>
-                        <title lang="de">Horizontale Ausrichtung</title>
-                        <title lang="en">Horizontal Alignment</title>
-                    </meta>
-                    <params>
-                        <param name="default_value" value=""/>
-                        <param name="values" type="collection">
-                            <param name="">
-                                <meta><title lang="de">Standard</title></meta>
-                            </param>
-                            <param name="justify-content-start">
-                                <meta><title lang="de">Links</title></meta>
-                            </param>
-                            <param name="justify-content-center">
-                                <meta><title lang="de">Zentriert</title></meta>
-                            </param>
-                            <param name="justify-content-end">
-                                <meta><title lang="de">Rechts</title></meta>
-                            </param>
-                            <param name="justify-content-between">
-                                <meta><title lang="de">Verteilt (zwischen)</title></meta>
-                            </param>
-                            <param name="justify-content-around">
-                                <meta><title lang="de">Verteilt (um)</title></meta>
-                            </param>
-                            <param name="justify-content-evenly">
-                                <meta><title lang="de">Gleichmäßig</title></meta>
                             </param>
                         </param>
                     </params>

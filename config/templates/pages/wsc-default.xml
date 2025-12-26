@@ -10,8 +10,8 @@
     <cacheLifetime>604800</cacheLifetime>
 
     <meta>
-        <title lang="en">WSC Default</title>
         <title lang="de">WSC Standard</title>
+        <title lang="en">WSC Default</title>
     </meta>
 
     <properties>
@@ -45,7 +45,9 @@
             <types>
                 <type ref="wsc-columns"/>
                 <type ref="wsc-headline"/>
+                <type ref="wsc-image-gallery"/>
                 <type ref="wsc-list-group"/>
+                <type ref="wsc-smart-content"/>
                 <type ref="wsc-text-image"/>
             </types>
         </block>
