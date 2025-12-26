@@ -6,26 +6,26 @@
     <key>wsc-text-image</key>
 
     <meta>
-        <title lang="de">Text mit Bild</title>
-        <title lang="en">Text with Image</title>
+        <title lang="de">Text / Text mit Bild</title>
+        <title lang="en">Text / Text with Image</title>
     </meta>
 
     <properties>
-        <property name="image" type="single_media_selection" mandatory="true">
-            <meta>
-                <title lang="de">Bild</title>
-                <title lang="en">Image</title>
-            </meta>
-            <params>
-                <param name="types" value="image"/>
-            </params>
-        </property>
-
         <property name="text" type="text_editor" mandatory="true">
             <meta>
                 <title lang="de">Text</title>
                 <title lang="en">Text</title>
             </meta>
+        </property>
+
+        <property name="image" type="single_media_selection">
+            <meta>
+                <title lang="de">Bild (optional)</title>
+                <title lang="en">Image (optional)</title>
+            </meta>
+            <params>
+                <param name="types" value="image"/>
+            </params>
         </property>
 
         <!-- Layout Abschnitt -->

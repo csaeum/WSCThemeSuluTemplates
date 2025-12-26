@@ -1,6 +1,6 @@
 {#
-Block: wsc-text-image
-Text mit Bild - Bootstrap Grid Layout mit Modal
+    Block: wsc-text-image
+    Text / Text mit Bild - Bootstrap Grid Layout mit Modal
 #}
 
 {% set image = block.image|default(null) %}
@@ -35,11 +35,10 @@ Text mit Bild - Bootstrap Grid Layout mit Modal
 {% set cssClass = block.css_class|default('') %}
 {% set htmlId = block.html_id|default('') %}
 
-{# Media auflösen #}
-{% if image.id is defined %}
+{# Media auflösen - nur wenn Bild vorhanden #}
+{% set media = null %}
+{% if image.id is defined and image.id %}
     {% set media = sulu_resolve_media(image.id, app.request.locale) %}
-{% else %}
-    {% set media = null %}
 {% endif %}
 
 {# Eindeutige Modal-ID generieren #}
@@ -91,7 +90,7 @@ Text mit Bild - Bootstrap Grid Layout mit Modal
 {% if imageRounded is not empty %}
     {% set imageClasses = imageClasses|merge([imageRounded]) %}
 {% endif %}
-{% if enableModal %}
+{% if enableModal and media %}
     {% set imageClasses = imageClasses|merge(['cursor-pointer']) %}
 {% endif %}
 
@@ -120,8 +119,17 @@ Text mit Bild - Bootstrap Grid Layout mit Modal
     {% endif %}
 {% endmacro %}
 
-{% if media and text %}
-    <div{% if htmlId %} id="{{ htmlId }}"{% endif %}{% if wrapperClassString %} class="{{ wrapperClassString }}"{% endif %}>
+{% if text %}
+<div{% if htmlId %} id="{{ htmlId }}"{% endif %}{% if wrapperClassString %} class="{{ wrapperClassString }}"{% endif %}>
+
+    {# NUR TEXT - kein Bild vorhanden #}
+    {% if not media %}
+        <div{% if textClassString %} class="{{ textClassString }}"{% endif %}>
+            {{ text|raw }}
+        </div>
+
+    {# MIT BILD #}
+    {% else %}
 
         {# Bild oben #}
         {% if imagePosition == 'top' %}
@@ -132,7 +140,7 @@ Text mit Bild - Bootstrap Grid Layout mit Modal
                 {{ text|raw }}
             </div>
 
-            {# Bild unten #}
+        {# Bild unten #}
         {% elseif imagePosition == 'bottom' %}
             <div{% if textClassString %} class="{{ textClassString }}"{% endif %}>
                 {{ text|raw }}
@@ -141,7 +149,7 @@ Text mit Bild - Bootstrap Grid Layout mit Modal
                 {{ _self.renderImage(media, thumbnailFormat, imageClassString, enableModal, modalId) }}
             </div>
 
-            {# Bild links #}
+        {# Bild links #}
         {% elseif imagePosition == 'left' %}
             <div class="row {{ alignItemsClass }}">
                 <div class="col-md-{{ imageCol }}">
@@ -154,7 +162,7 @@ Text mit Bild - Bootstrap Grid Layout mit Modal
                 </div>
             </div>
 
-            {# Bild rechts #}
+        {# Bild rechts #}
         {% elseif imagePosition == 'right' %}
             <div class="row {{ alignItemsClass }}">
                 <div class="col-md-{{ textCol }}">
@@ -168,36 +176,38 @@ Text mit Bild - Bootstrap Grid Layout mit Modal
             </div>
         {% endif %}
 
-    </div>
+    {% endif %}
 
-    {# Bootstrap Modal für Vollbild-Ansicht #}
-    {% if enableModal %}
-        <div class="modal fade" id="{{ modalId }}" tabindex="-1" aria-labelledby="{{ modalId }}-label" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header border-0">
-                        <h5 class="modal-title" id="{{ modalId }}-label">{{ media.title }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
-                    </div>
-                    <div class="modal-body text-center p-0">
-                        <img src="{{ media.url }}" alt="{{ media.title }}" class="img-fluid">
-                    </div>
-                </div>
+</div>
+
+{# Bootstrap Modal für Vollbild-Ansicht - nur wenn Bild und Modal aktiviert #}
+{% if media and enableModal %}
+<div class="modal fade" id="{{ modalId }}" tabindex="-1" aria-labelledby="{{ modalId }}-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="{{ modalId }}-label">{{ media.title }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+            </div>
+            <div class="modal-body text-center p-0">
+                <img src="{{ media.url }}" alt="{{ media.title }}" class="img-fluid">
             </div>
         </div>
-    {% endif %}
+    </div>
+</div>
+{% endif %}
 
 {% endif %}
 
 {# CSS für Cursor bei klickbaren Bildern #}
-{% if enableModal %}
-    <style>
-        .cursor-pointer {
-            cursor: pointer;
-            transition: opacity 0.2s ease;
-        }
-        .cursor-pointer:hover {
-            opacity: 0.85;
-        }
-    </style>
+{% if media and enableModal %}
+<style>
+    .cursor-pointer {
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+    }
+    .cursor-pointer:hover {
+        opacity: 0.85;
+    }
+</style>
 {% endif %}
