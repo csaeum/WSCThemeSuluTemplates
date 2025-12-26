@@ -43,6 +43,7 @@
                 <title lang="fr">Inhaltsblöcke</title>
             </meta>
             <types>
+                <type ref="wsc-columns"/>
                 <type ref="wsc-headline"/>
                 <type ref="wsc-text-image"/>
             </types>
