@@ -1,0 +1,329 @@
+/*
+ * WSC Accordion Component
+ * Meta-Accordion mit verschachtelten Blöcken
+ */
+
+/* ============================================
+   Base Accordion Enhancements
+   ============================================ */
+.accordion {
+    --bs-accordion-transition: all 0.3s ease-in-out;
+}
+
+.accordion-button {
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.accordion-button:not(.collapsed) {
+    box-shadow: none;
+}
+
+/* Icon & Badge im Header */
+.accordion-button i {
+    transition: transform 0.3s ease;
+}
+
+.accordion-button:hover i {
+    transform: scale(1.1);
+}
+
+.accordion-button .badge {
+    font-size: 0.7rem;
+    padding: 0.25em 0.5em;
+}
+
+/* ============================================
+   Bordered Style
+   ============================================ */
+.wsc-accordion-bordered {
+    border: 2px solid var(--bs-border-color, #dee2e6);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.wsc-accordion-bordered .accordion-item {
+    border-left: none;
+    border-right: none;
+}
+
+.wsc-accordion-bordered .accordion-item:first-child {
+    border-top: none;
+}
+
+.wsc-accordion-bordered .accordion-item:last-child {
+    border-bottom: none;
+}
+
+/* ============================================
+   Shadow Style
+   ============================================ */
+.wsc-accordion-shadow {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border-radius: 0.5rem;
+    border: none;
+}
+
+.wsc-accordion-shadow .accordion-item {
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.wsc-accordion-shadow .accordion-item:last-child {
+    border-bottom: none;
+}
+
+.wsc-accordion-shadow .accordion-item:first-child {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+.wsc-accordion-shadow .accordion-item:last-child {
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+/* ============================================
+   Header Background Colors
+   ============================================ */
+.accordion-button.bg-primary {
+    background-color: var(--bs-primary, #0d6efd) !important;
+    color: white !important;
+}
+
+.accordion-button.bg-primary:not(.collapsed) {
+    background-color: var(--bs-primary, #0d6efd) !important;
+    color: white !important;
+}
+
+.accordion-button.bg-secondary {
+    background-color: var(--bs-secondary, #6c757d) !important;
+    color: white !important;
+}
+
+.accordion-button.bg-secondary:not(.collapsed) {
+    background-color: var(--bs-secondary, #6c757d) !important;
+    color: white !important;
+}
+
+.accordion-button.bg-light {
+    background-color: var(--bs-light, #f8f9fa) !important;
+    color: var(--bs-dark, #212529) !important;
+}
+
+.accordion-button.bg-light:not(.collapsed) {
+    background-color: var(--bs-light, #f8f9fa) !important;
+}
+
+.accordion-button.bg-dark {
+    background-color: var(--bs-dark, #212529) !important;
+    color: white !important;
+}
+
+.accordion-button.bg-dark:not(.collapsed) {
+    background-color: var(--bs-dark, #212529) !important;
+    color: white !important;
+}
+
+/* Pfeil-Icon für farbige Header */
+.accordion-button.bg-primary::after,
+.accordion-button.bg-secondary::after,
+.accordion-button.bg-dark::after {
+    filter: brightness(0) invert(1);
+}
+
+/* ============================================
+   Accordion Body Enhancements
+   ============================================ */
+.accordion-body {
+    padding: 1.5rem 1.25rem;
+}
+
+/* Spacing für verschachtelte Blöcke */
+.accordion-body > *:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+/* Erste und letzte verschachtelte Blöcke */
+.accordion-body > *:first-child {
+    margin-top: 0;
+}
+
+.accordion-body > *:last-child {
+    margin-bottom: 0;
+}
+
+/* Leerer State */
+.accordion-body p.text-muted em {
+    font-style: italic;
+    opacity: 0.7;
+}
+
+/* ============================================
+   Smooth Transitions
+   ============================================ */
+.accordion-collapse {
+    transition: height 0.35s ease;
+}
+
+/* ============================================
+   Hover Effects (optional)
+   ============================================ */
+.accordion-button:hover {
+    background-color: rgba(var(--bs-primary-rgb, 13, 110, 253), 0.05);
+}
+
+.accordion-button.bg-primary:hover,
+.accordion-button.bg-secondary:hover,
+.accordion-button.bg-dark:hover {
+    filter: brightness(1.1);
+}
+
+/* ============================================
+   Icon Animation beim Öffnen/Schließen
+   ============================================ */
+.accordion-button::after {
+    transition: transform 0.3s ease;
+}
+
+.accordion-button:not(.collapsed)::after {
+    transform: rotate(180deg);
+}
+
+/* ============================================
+   Responsive Anpassungen
+   ============================================ */
+@media (max-width: 768px) {
+    .accordion-body {
+        padding: 1rem;
+    }
+
+    .accordion-button {
+        font-size: 0.95rem;
+        padding: 0.875rem 1rem;
+    }
+
+    .accordion-button i {
+        font-size: 0.9rem;
+    }
+
+    .accordion-button .badge {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .accordion-button {
+        font-size: 0.9rem;
+        padding: 0.75rem 0.875rem;
+    }
+}
+
+/* ============================================
+   Verschachtelte Blöcke: Kein Margin-Top für erste
+   ============================================ */
+.accordion-body .mt-3:first-child,
+.accordion-body .mt-4:first-child,
+.accordion-body .mt-5:first-child {
+    margin-top: 0 !important;
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+@media print {
+    .accordion-item {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .accordion-button {
+        background-color: transparent !important;
+        color: #000 !important;
+        border: 1px solid #000;
+    }
+
+    .accordion-button::after {
+        display: none;
+    }
+
+    .accordion-collapse {
+        display: block !important;
+        height: auto !important;
+    }
+
+    .accordion-body {
+        border: none;
+        padding: 0.5rem 0;
+    }
+}
+
+/* ============================================
+   Accessibility Enhancements
+   ============================================ */
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb, 13, 110, 253), 0.25);
+    border-color: var(--bs-primary, #0d6efd);
+}
+
+/* Reduzierte Bewegung für Nutzer mit motion-sensitive */
+@media (prefers-reduced-motion: reduce) {
+    .accordion-button,
+    .accordion-button::after,
+    .accordion-collapse {
+        transition: none !important;
+    }
+}
+
+/* ============================================
+   Custom: Nested Accordions Support
+   (Falls Accordion in Accordion verschachtelt wird)
+   ============================================ */
+.accordion-body .accordion {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.accordion-body .accordion .accordion-item {
+    border-left: 3px solid rgba(var(--bs-primary-rgb, 13, 110, 253), 0.2);
+}
+
+/* ============================================
+   Optional: Gradient Header (per CSS-Klasse aktivierbar)
+   ============================================ */
+.wsc-accordion-gradient .accordion-button {
+    background: linear-gradient(135deg, var(--bs-primary, #0d6efd), var(--bs-info, #0dcaf0));
+    color: white;
+}
+
+.wsc-accordion-gradient .accordion-button:not(.collapsed) {
+    background: linear-gradient(135deg, var(--bs-primary, #0d6efd), var(--bs-info, #0dcaf0));
+    color: white;
+}
+
+.wsc-accordion-gradient .accordion-button::after {
+    filter: brightness(0) invert(1);
+}
+
+/* ============================================
+   Optional: Minimal Style (per CSS-Klasse aktivierbar)
+   ============================================ */
+.wsc-accordion-minimal .accordion-item {
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.wsc-accordion-minimal .accordion-button {
+    background-color: transparent;
+    font-weight: 600;
+    padding-left: 0;
+}
+
+.wsc-accordion-minimal .accordion-button:not(.collapsed) {
+    background-color: transparent;
+    font-weight: 700;
+}
+
+.wsc-accordion-minimal .accordion-body {
+    padding-left: 0;
+    padding-right: 0;
+}

@@ -1,0 +1,46 @@
+{#
+    This is the template for the default bootstrap navigation bar.
+    It expects the 'settings' object to be passed from the parent template.
+#}
+{% set menu_class = '' %}
+{% if settings.menu_style|default('default') == 'pills' %}
+    {% set menu_class = 'nav-pills' %}
+{% elseif settings.menu_style|default('default') == 'tabs' %}
+    {% set menu_class = 'nav-tabs' %}
+{% endif %}
+
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="{{ settings.menu_layout|default('container') }}">
+        {# Logo - remains in the navbar for mobile view #}
+        <a class="navbar-brand" href="{{ sulu_content_root_path() }}">
+            {% if settings.logo|default and settings.logo is not empty %}
+                {% set logoMedia = settings.logo[0] %}
+                <img src="{{ logoMedia.url }}"
+                     alt="{{ logoMedia.title|default('Logo') }}"
+                     height="40" {# Set a fixed height for navbar consistency, width will scale #}
+                >
+            {% else %}
+                <span>WSC Theme</span>
+            {% endif %}
+        </a>
+
+        {# Burger Menu Button #}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#wsc-main-navbar" aria-controls="wsc-main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        {# Collapsible Navbar Content #}
+        <div class="collapse navbar-collapse" id="wsc-main-navbar">
+            {# Main Menu #}
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 {{ menu_class }}">
+                {% for item in sulu_page_navigation_root_tree('main', 1) %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ sulu_content_path(item.url) }}" title="{{ item.title }}">
+                            {{ item.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</nav>

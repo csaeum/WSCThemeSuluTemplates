@@ -1,0 +1,455 @@
+/*
+ * WSC Timeline Component
+ * Animierte Timeline mit vertikaler, horizontaler und responsiver Darstellung
+ */
+
+/* ============================================
+   Base Timeline Wrapper
+   ============================================ */
+.wsc-timeline-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* ============================================
+   Timeline Container
+   ============================================ */
+.wsc-timeline {
+    position: relative;
+    padding: 2rem 0;
+}
+
+/* ============================================
+   Timeline Item
+   ============================================ */
+.wsc-timeline-item {
+    position: relative;
+    display: flex;
+    margin-bottom: 3rem;
+    opacity: 1;
+    transition: none;
+}
+
+/* Animation: Initial State (wenn aktiviert) */
+.wsc-timeline-item.wsc-timeline-animate {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* Animation: Visible State */
+.wsc-timeline-item.wsc-timeline-animate.wsc-timeline-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* ============================================
+   Timeline Marker (Punkt/Icon)
+   ============================================ */
+.wsc-timeline-marker {
+    position: relative;
+    flex-shrink: 0;
+    z-index: 2;
+}
+
+.wsc-timeline-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--bs-primary, #0d6efd);
+    border: 4px solid var(--bs-body-bg, #fff);
+    box-shadow: 0 0 0 4px var(--bs-primary, #0d6efd);
+}
+
+.wsc-timeline-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--bs-body-bg, #fff);
+    border: 3px solid currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   Timeline Content
+   ============================================ */
+.wsc-timeline-content {
+    flex-grow: 1;
+}
+
+.wsc-timeline-card {
+    background-color: var(--bs-body-bg, #fff);
+    border-radius: 0.375rem;
+    position: relative;
+}
+
+.wsc-timeline-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.wsc-timeline-description {
+    color: var(--bs-secondary-color, #6c757d);
+}
+
+.wsc-timeline-date {
+    font-size: 0.875rem;
+}
+
+.wsc-timeline-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ============================================
+   VERTICAL TIMELINE
+   ============================================ */
+.wsc-timeline-vertical {
+    padding-left: 2rem;
+}
+
+/* Vertikale Linie */
+.wsc-timeline-vertical::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: var(--bs-primary, #0d6efd);
+}
+
+.wsc-timeline-vertical .wsc-timeline-item {
+    flex-direction: row;
+    padding-left: 0;
+}
+
+.wsc-timeline-vertical .wsc-timeline-marker {
+    margin-right: 1.5rem;
+}
+
+.wsc-timeline-vertical .wsc-timeline-content {
+    padding-left: 0;
+}
+
+/* ============================================
+   VERTICAL TIMELINE - ALTERNATE (Abwechselnd)
+   ============================================ */
+@media (min-width: 768px) {
+    .wsc-timeline-vertical.wsc-timeline-position-alternate {
+        padding-left: 0;
+    }
+
+    .wsc-timeline-vertical.wsc-timeline-position-alternate::before {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .wsc-timeline-vertical.wsc-timeline-position-alternate .wsc-timeline-item {
+        width: 100%;
+        padding-left: 0;
+    }
+
+    .wsc-timeline-vertical.wsc-timeline-position-alternate .wsc-timeline-item:nth-child(odd) {
+        flex-direction: row;
+        text-align: right;
+    }
+
+    .wsc-timeline-vertical.wsc-timeline-position-alternate .wsc-timeline-item:nth-child(odd) .wsc-timeline-content {
+        padding-right: 2rem;
+        width: calc(50% - 30px);
+    }
+
+    .wsc-timeline-vertical.wsc-timeline-position-alternate .wsc-timeline-item:nth-child(odd) .wsc-timeline-marker {
+        order: 2;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .wsc-timeline-vertical.wsc-timeline-position-alternate .wsc-timeline-item:nth-child(odd) .wsc-timeline-date {
+        text-align: right;
+    }
+
+    .wsc-timeline-vertical.wsc-timeline-position-alternate .wsc-timeline-item:nth-child(even) {
+        flex-direction: row-reverse;
+        text-align: left;
+    }
+
+    .wsc-timeline-vertical.wsc-timeline-position-alternate .wsc-timeline-item:nth-child(even) .wsc-timeline-content {
+        padding-left: 2rem;
+        width: calc(50% - 30px);
+    }
+
+    .wsc-timeline-vertical.wsc-timeline-position-alternate .wsc-timeline-item:nth-child(even) .wsc-timeline-marker {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .wsc-timeline-vertical.wsc-timeline-position-alternate .wsc-timeline-item:nth-child(even) .wsc-timeline-date {
+        text-align: left;
+    }
+}
+
+/* ============================================
+   VERTICAL TIMELINE - LEFT Position
+   ============================================ */
+.wsc-timeline-vertical.wsc-timeline-position-left .wsc-timeline-item {
+    justify-content: flex-start;
+}
+
+/* ============================================
+   VERTICAL TIMELINE - RIGHT Position
+   ============================================ */
+.wsc-timeline-vertical.wsc-timeline-position-right {
+    padding-left: 0;
+    padding-right: 2rem;
+}
+
+.wsc-timeline-vertical.wsc-timeline-position-right::before {
+    left: auto;
+    right: 20px;
+}
+
+.wsc-timeline-vertical.wsc-timeline-position-right .wsc-timeline-item {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+.wsc-timeline-vertical.wsc-timeline-position-right .wsc-timeline-marker {
+    margin-right: 0;
+    margin-left: 1.5rem;
+}
+
+.wsc-timeline-vertical.wsc-timeline-position-right .wsc-timeline-content {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.wsc-timeline-vertical.wsc-timeline-position-right .wsc-timeline-date {
+    text-align: right;
+}
+
+/* ============================================
+   HORIZONTAL TIMELINE
+   ============================================ */
+.wsc-timeline-horizontal {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 3rem 1rem;
+    gap: 2rem;
+}
+
+/* Horizontale Linie */
+.wsc-timeline-horizontal::before {
+    content: '';
+    position: absolute;
+    top: 55px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--bs-primary, #0d6efd);
+}
+
+.wsc-timeline-horizontal .wsc-timeline-item {
+    flex-direction: column;
+    min-width: 300px;
+    max-width: 350px;
+    margin-bottom: 0;
+    align-items: center;
+}
+
+.wsc-timeline-horizontal .wsc-timeline-marker {
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+}
+
+.wsc-timeline-horizontal .wsc-timeline-content {
+    width: 100%;
+    text-align: center;
+}
+
+.wsc-timeline-horizontal .wsc-timeline-date {
+    text-align: center;
+}
+
+/* ============================================
+   AUTO TIMELINE (Responsive)
+   ============================================ */
+.wsc-timeline-auto {
+    padding-left: 2rem;
+}
+
+/* Mobile: Vertikal */
+.wsc-timeline-auto::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: var(--bs-primary, #0d6efd);
+}
+
+.wsc-timeline-auto .wsc-timeline-item {
+    flex-direction: row;
+}
+
+.wsc-timeline-auto .wsc-timeline-marker {
+    margin-right: 1.5rem;
+}
+
+/* Desktop: Horizontal */
+@media (min-width: 992px) {
+    .wsc-timeline-auto {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 3rem 1rem;
+        gap: 2rem;
+        padding-left: 1rem;
+    }
+
+    .wsc-timeline-auto::before {
+        top: 55px;
+        left: 0;
+        right: 0;
+        bottom: auto;
+        width: auto;
+        height: 3px;
+    }
+
+    .wsc-timeline-auto .wsc-timeline-item {
+        flex-direction: column;
+        min-width: 300px;
+        max-width: 350px;
+        margin-bottom: 0;
+        align-items: center;
+    }
+
+    .wsc-timeline-auto .wsc-timeline-marker {
+        margin-right: 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .wsc-timeline-auto .wsc-timeline-content {
+        width: 100%;
+        text-align: center;
+    }
+
+    .wsc-timeline-auto .wsc-timeline-date {
+        text-align: center;
+    }
+}
+
+/* ============================================
+   Timeline Farben
+   ============================================ */
+.wsc-timeline-primary::before,
+.wsc-timeline-primary .wsc-timeline-dot {
+    background-color: var(--bs-primary, #0d6efd);
+}
+
+.wsc-timeline-primary .wsc-timeline-dot {
+    box-shadow: 0 0 0 4px var(--bs-primary, #0d6efd);
+}
+
+.wsc-timeline-secondary::before,
+.wsc-timeline-secondary .wsc-timeline-dot {
+    background-color: var(--bs-secondary, #6c757d);
+}
+
+.wsc-timeline-secondary .wsc-timeline-dot {
+    box-shadow: 0 0 0 4px var(--bs-secondary, #6c757d);
+}
+
+.wsc-timeline-success::before,
+.wsc-timeline-success .wsc-timeline-dot {
+    background-color: var(--bs-success, #198754);
+}
+
+.wsc-timeline-success .wsc-timeline-dot {
+    box-shadow: 0 0 0 4px var(--bs-success, #198754);
+}
+
+.wsc-timeline-danger::before,
+.wsc-timeline-danger .wsc-timeline-dot {
+    background-color: var(--bs-danger, #dc3545);
+}
+
+.wsc-timeline-danger .wsc-timeline-dot {
+    box-shadow: 0 0 0 4px var(--bs-danger, #dc3545);
+}
+
+.wsc-timeline-warning::before,
+.wsc-timeline-warning .wsc-timeline-dot {
+    background-color: var(--bs-warning, #ffc107);
+}
+
+.wsc-timeline-warning .wsc-timeline-dot {
+    box-shadow: 0 0 0 4px var(--bs-warning, #ffc107);
+}
+
+.wsc-timeline-info::before,
+.wsc-timeline-info .wsc-timeline-dot {
+    background-color: var(--bs-info, #0dcaf0);
+}
+
+.wsc-timeline-info .wsc-timeline-dot {
+    box-shadow: 0 0 0 4px var(--bs-info, #0dcaf0);
+}
+
+.wsc-timeline-dark::before,
+.wsc-timeline-dark .wsc-timeline-dot {
+    background-color: var(--bs-dark, #212529);
+}
+
+.wsc-timeline-dark .wsc-timeline-dot {
+    box-shadow: 0 0 0 4px var(--bs-dark, #212529);
+}
+
+.wsc-timeline-light::before,
+.wsc-timeline-light .wsc-timeline-dot {
+    background-color: var(--bs-light, #f8f9fa);
+}
+
+.wsc-timeline-light .wsc-timeline-dot {
+    box-shadow: 0 0 0 4px var(--bs-light, #f8f9fa);
+}
+
+/* ============================================
+   Responsive Anpassungen
+   ============================================ */
+@media (max-width: 767px) {
+    .wsc-timeline-vertical .wsc-timeline-marker {
+        margin-right: 1rem;
+    }
+
+    .wsc-timeline-card {
+        padding: 1rem !important;
+    }
+
+    .wsc-timeline-title {
+        font-size: 1.1rem;
+    }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+@media print {
+    .wsc-timeline-item {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .wsc-timeline-item.wsc-timeline-animate {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

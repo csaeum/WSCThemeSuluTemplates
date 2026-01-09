@@ -1,0 +1,12 @@
+{#
+    This template acts as a dispatcher.
+    It includes the top-header and the correct menu template.
+    It expects the 'settings' object to be passed from the parent template.
+#}
+
+{# 1. Include the top part (logo + slogan), which is only visible on large screens #}
+{% include 'wsc/parts/top_header.html.twig' with { settings: settings } %}
+
+{# 2. Include the chosen menu template (e.g., navbar or mega menu) #}
+{% set menu_type = settings.menu_type|default('default_navbar') %}
+{% include 'wsc/parts/menus/' ~ menu_type ~ '.html.twig' with { settings: settings } %}

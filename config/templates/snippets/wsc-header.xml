@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>wsc_header</key>
+    <meta>
+        <title lang="de">WSC Header</title>
+        <title lang="en">WSC Header</title>
+    </meta>
+
+    <areas>
+        <area key="global_settings">
+            <meta>
+                <title lang="de">Globale Einstellungen</title>
+                <title lang="en">Global Settings</title>
+            </meta>
+        </area>
+    </areas>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <tag name="sulu.node.name"/>
+        </property>
+
+        <property name="menu_type" type="single_select">
+            <meta>
+                <title lang="de">Menü-Typ</title>
+                <title lang="en">Menu Type</title>
+            </meta>
+            <params>
+                <param name="default_value" value="default_navbar"/>
+                <param name="values" type="collection">
+                    <param name="default_navbar">
+                        <meta>
+                            <title lang="de">Normales Bootstrap Menü</title>
+                            <title lang="en">Default Bootstrap Menu</title>
+                        </meta>
+                    </param>
+                    <param name="mega_menu">
+                        <meta>
+                            <title lang="de">Mega Menü</title>
+                            <title lang="en">Mega Menu</title>
+                        </meta>
+                    </param>
+                </param>
+            </params>
+        </property>
+
+        <property name="menu_style" type="single_select">
+            <meta>
+                <title lang="de">Menü-Stil</title>
+                <title lang="en">Menu Style</title>
+            </meta>
+            <params>
+                <param name="default_value" value="default"/>
+                <param name="values" type="collection">
+                    <param name="default">
+                        <meta>
+                            <title lang="de">Standard</title>
+                            <title lang="en">Default</title>
+                        </meta>
+                    </param>
+                    <param name="pills">
+                        <meta>
+                            <title lang="de">Pills / Buttons</title>
+                            <title lang="en">Pills / Buttons</title>
+                        </meta>
+                    </param>
+                    <param name="tabs">
+                        <meta>
+                            <title lang="de">Tabs</title>
+                            <title lang="en">Tabs</title>
+                        </meta>
+                    </param>
+                </param>
+            </params>
+        </property>
+
+
+
+        <property name="logo" type="media_selection">
+            <meta>
+                <title lang="de">Logo</title>
+            </meta>
+            <params>
+                <param name="types" value="image"/>
+
+            </params>
+        </property>
+
+        <property name="slogan" type="text_line">
+            <meta>
+                <title lang="de">Slogan</title>
+                <title lang="en">Slogan</title>
+            </meta>
+        </property>
+        <property name="logo_width" type="number">
+            <meta>
+                <title lang="de">Logo Breite (px)</title>
+                <title lang="en">Logo Width (px)</title>
+            </meta>
+            <params>
+                <param name="min" value="1"/>
+                <param name="max" value="2000"/>
+                <param name="step" value="10"/>
+                <param name="default_value" value="150"/>
+            </params>
+        </property>
+    </properties>
+</template>

@@ -1,0 +1,810 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>wsc-cta</key>
+
+    <meta>
+        <title lang="de">Call-to-Action / Link / Button</title>
+        <title lang="en">Call-to-Action / Link / Button</title>
+    </meta>
+
+    <properties>
+        <!-- CTA-Typ Auswahl -->
+        <property name="cta_type" type="single_select" colspan="12">
+            <meta>
+                <title lang="de">CTA-Typ</title>
+                <title lang="en">CTA Type</title>
+            </meta>
+            <params>
+                <param name="default_value" value="button"/>
+                <param name="values" type="collection">
+                    <param name="text_link">
+                        <meta><title lang="de">Text-Link (einfacher Link)</title></meta>
+                    </param>
+                    <param name="button">
+                        <meta><title lang="de">Button</title></meta>
+                    </param>
+                    <param name="button_group">
+                        <meta><title lang="de">Button-Gruppe (mehrere Buttons)</title></meta>
+                    </param>
+                    <param name="image_link">
+                        <meta><title lang="de">Bild-Link (klickbares Bild)</title></meta>
+                    </param>
+                    <param name="image_button">
+                        <meta><title lang="de">Bild + Button (Bild mit Button darunter)</title></meta>
+                    </param>
+                    <param name="card">
+                        <meta><title lang="de">Card mit CTA (Card mit Titel, Text, Bild, Button)</title></meta>
+                    </param>
+                    <param name="hero">
+                        <meta><title lang="de">Hero / Banner (Bild als Hintergrund)</title></meta>
+                    </param>
+                </param>
+            </params>
+        </property>
+
+        <!-- Content Abschnitt -->
+        <section name="content">
+            <meta>
+                <title lang="de">Inhalt</title>
+                <title lang="en">Content</title>
+            </meta>
+            <properties>
+                <property name="title" type="text_line" colspan="12">
+                    <meta>
+                        <title lang="de">Titel (optional)</title>
+                        <title lang="en">Title (optional)</title>
+                    </meta>
+                </property>
+
+                <property name="description" type="text_area" colspan="12">
+                    <meta>
+                        <title lang="de">Beschreibung (optional)</title>
+                        <title lang="en">Description (optional)</title>
+                    </meta>
+                </property>
+
+                <property name="image" type="media_selection" colspan="12">
+                    <meta>
+                        <title lang="de">Bild (optional)</title>
+                        <title lang="en">Image (optional)</title>
+                    </meta>
+                </property>
+
+                <property name="link_url" type="url" mandatory="true" colspan="8">
+                    <meta>
+                        <title lang="de">Link-URL</title>
+                        <title lang="en">Link URL</title>
+                    </meta>
+                </property>
+
+                <property name="link_target" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">In neuem Fenster öffnen</title>
+                        <title lang="en">Open in new window</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="false"/>
+                    </params>
+                </property>
+
+                <property name="link_text" type="text_line" mandatory="true" colspan="8">
+                    <meta>
+                        <title lang="de">Link-Text / Button-Text</title>
+                        <title lang="en">Link Text / Button Text</title>
+                    </meta>
+                </property>
+
+                <property name="icon" type="text_line" colspan="4">
+                    <meta>
+                        <title lang="de">Icon (z.B. fa-download)</title>
+                        <title lang="en">Icon (e.g. fa-download)</title>
+                    </meta>
+                </property>
+
+                <property name="icon_position" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Icon-Position</title>
+                        <title lang="en">Icon Position</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="before"/>
+                        <param name="values" type="collection">
+                            <param name="before">
+                                <meta><title lang="de">Vor Text</title></meta>
+                            </param>
+                            <param name="after">
+                                <meta><title lang="de">Nach Text</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="badge_text" type="text_line" colspan="4">
+                    <meta>
+                        <title lang="de">Badge-Text (optional, z.B. "NEU")</title>
+                        <title lang="en">Badge Text (optional, e.g. "NEW")</title>
+                    </meta>
+                </property>
+
+                <property name="badge_color" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Badge-Farbe</title>
+                        <title lang="en">Badge Color</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="bg-danger"/>
+                        <param name="values" type="collection">
+                            <param name="bg-primary">
+                                <meta><title lang="de">Primär</title></meta>
+                            </param>
+                            <param name="bg-secondary">
+                                <meta><title lang="de">Sekundär</title></meta>
+                            </param>
+                            <param name="bg-success">
+                                <meta><title lang="de">Erfolg (Grün)</title></meta>
+                            </param>
+                            <param name="bg-danger">
+                                <meta><title lang="de">Gefahr (Rot)</title></meta>
+                            </param>
+                            <param name="bg-warning">
+                                <meta><title lang="de">Warnung (Gelb)</title></meta>
+                            </param>
+                            <param name="bg-info">
+                                <meta><title lang="de">Info (Cyan)</title></meta>
+                            </param>
+                            <param name="bg-dark">
+                                <meta><title lang="de">Dunkel</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Button-Gruppe (für mehrere Buttons) -->
+        <block name="buttons" default-type="button_item" minOccurs="0">
+            <meta>
+                <title lang="de">Button-Gruppe (mehrere Buttons)</title>
+                <title lang="en">Button Group (multiple buttons)</title>
+            </meta>
+            <types>
+                <type name="button_item">
+                    <meta>
+                        <title lang="de">Button</title>
+                        <title lang="en">Button</title>
+                    </meta>
+                    <properties>
+                        <property name="button_text" type="text_line" mandatory="true" colspan="8">
+                            <meta>
+                                <title lang="de">Button-Text</title>
+                                <title lang="en">Button Text</title>
+                            </meta>
+                        </property>
+
+                        <property name="button_url" type="url" mandatory="true" colspan="8">
+                            <meta>
+                                <title lang="de">Button-URL</title>
+                                <title lang="en">Button URL</title>
+                            </meta>
+                        </property>
+
+                        <property name="button_target" type="checkbox" colspan="4">
+                            <meta>
+                                <title lang="de">In neuem Fenster</title>
+                                <title lang="en">New window</title>
+                            </meta>
+                        </property>
+
+                        <property name="button_color" type="single_select" colspan="4">
+                            <meta>
+                                <title lang="de">Farbe</title>
+                                <title lang="en">Color</title>
+                            </meta>
+                            <params>
+                                <param name="default_value" value="btn-primary"/>
+                                <param name="values" type="collection">
+                                    <param name="btn-primary">
+                                        <meta><title lang="de">Primär</title></meta>
+                                    </param>
+                                    <param name="btn-secondary">
+                                        <meta><title lang="de">Sekundär</title></meta>
+                                    </param>
+                                    <param name="btn-success">
+                                        <meta><title lang="de">Erfolg</title></meta>
+                                    </param>
+                                    <param name="btn-danger">
+                                        <meta><title lang="de">Gefahr</title></meta>
+                                    </param>
+                                    <param name="btn-warning">
+                                        <meta><title lang="de">Warnung</title></meta>
+                                    </param>
+                                    <param name="btn-info">
+                                        <meta><title lang="de">Info</title></meta>
+                                    </param>
+                                    <param name="btn-dark">
+                                        <meta><title lang="de">Dunkel</title></meta>
+                                    </param>
+                                    <param name="btn-light">
+                                        <meta><title lang="de">Hell</title></meta>
+                                    </param>
+                                    <param name="btn-outline-primary">
+                                        <meta><title lang="de">Outline Primär</title></meta>
+                                    </param>
+                                    <param name="btn-outline-secondary">
+                                        <meta><title lang="de">Outline Sekundär</title></meta>
+                                    </param>
+                                </param>
+                            </params>
+                        </property>
+
+                        <property name="button_size" type="single_select" colspan="4">
+                            <meta>
+                                <title lang="de">Größe</title>
+                                <title lang="en">Size</title>
+                            </meta>
+                            <params>
+                                <param name="default_value" value=""/>
+                                <param name="values" type="collection">
+                                    <param name="btn-sm">
+                                        <meta><title lang="de">Klein</title></meta>
+                                    </param>
+                                    <param name="">
+                                        <meta><title lang="de">Normal</title></meta>
+                                    </param>
+                                    <param name="btn-lg">
+                                        <meta><title lang="de">Groß</title></meta>
+                                    </param>
+                                </param>
+                            </params>
+                        </property>
+
+                        <property name="button_icon" type="text_line" colspan="4">
+                            <meta>
+                                <title lang="de">Icon (optional)</title>
+                                <title lang="en">Icon (optional)</title>
+                            </meta>
+                        </property>
+
+                        <property name="button_css_class" type="text_line" colspan="6">
+                            <meta>
+                                <title lang="de">CSS-Klasse</title>
+                                <title lang="en">CSS Class</title>
+                            </meta>
+                        </property>
+                    </properties>
+                </type>
+            </types>
+        </block>
+
+        <!-- Button-Styling (für single button) -->
+        <section name="button_styling">
+            <meta>
+                <title lang="de">Button-Styling</title>
+                <title lang="en">Button Styling</title>
+            </meta>
+            <properties>
+                <property name="button_color" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Button-Farbe</title>
+                        <title lang="en">Button Color</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="btn-primary"/>
+                        <param name="values" type="collection">
+                            <param name="btn-primary">
+                                <meta><title lang="de">Primär</title></meta>
+                            </param>
+                            <param name="btn-secondary">
+                                <meta><title lang="de">Sekundär</title></meta>
+                            </param>
+                            <param name="btn-success">
+                                <meta><title lang="de">Erfolg (Grün)</title></meta>
+                            </param>
+                            <param name="btn-danger">
+                                <meta><title lang="de">Gefahr (Rot)</title></meta>
+                            </param>
+                            <param name="btn-warning">
+                                <meta><title lang="de">Warnung (Gelb)</title></meta>
+                            </param>
+                            <param name="btn-info">
+                                <meta><title lang="de">Info (Cyan)</title></meta>
+                            </param>
+                            <param name="btn-dark">
+                                <meta><title lang="de">Dunkel</title></meta>
+                            </param>
+                            <param name="btn-light">
+                                <meta><title lang="de">Hell</title></meta>
+                            </param>
+                            <param name="btn-outline-primary">
+                                <meta><title lang="de">Outline Primär</title></meta>
+                            </param>
+                            <param name="btn-outline-secondary">
+                                <meta><title lang="de">Outline Sekundär</title></meta>
+                            </param>
+                            <param name="btn-outline-success">
+                                <meta><title lang="de">Outline Erfolg</title></meta>
+                            </param>
+                            <param name="btn-outline-danger">
+                                <meta><title lang="de">Outline Gefahr</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="button_size" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Button-Größe</title>
+                        <title lang="en">Button Size</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value=""/>
+                        <param name="values" type="collection">
+                            <param name="btn-sm">
+                                <meta><title lang="de">Klein</title></meta>
+                            </param>
+                            <param name="">
+                                <meta><title lang="de">Normal</title></meta>
+                            </param>
+                            <param name="btn-lg">
+                                <meta><title lang="de">Groß</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="button_block" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">Volle Breite (Block)</title>
+                        <title lang="en">Full Width (Block)</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="false"/>
+                    </params>
+                </property>
+
+                <property name="button_css_class" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">Button CSS-Klasse (individuell)</title>
+                        <title lang="en">Button CSS Class (individual)</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Layout Abschnitt -->
+        <section name="layout">
+            <meta>
+                <title lang="de">Layout</title>
+                <title lang="en">Layout</title>
+            </meta>
+            <properties>
+                <property name="image_position" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Bild-Position</title>
+                        <title lang="en">Image Position</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="top"/>
+                        <param name="values" type="collection">
+                            <param name="top">
+                                <meta><title lang="de">Oben</title></meta>
+                            </param>
+                            <param name="left">
+                                <meta><title lang="de">Links</title></meta>
+                            </param>
+                            <param name="right">
+                                <meta><title lang="de">Rechts</title></meta>
+                            </param>
+                            <param name="background">
+                                <meta><title lang="de">Hintergrund</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="text_align" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Text-Ausrichtung</title>
+                        <title lang="en">Text Alignment</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="start"/>
+                        <param name="values" type="collection">
+                            <param name="start">
+                                <meta><title lang="de">Links</title></meta>
+                            </param>
+                            <param name="center">
+                                <meta><title lang="de">Zentriert</title></meta>
+                            </param>
+                            <param name="end">
+                                <meta><title lang="de">Rechts</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="container_width" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Container-Breite</title>
+                        <title lang="en">Container Width</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="auto"/>
+                        <param name="values" type="collection">
+                            <param name="auto">
+                                <meta><title lang="de">Auto</title></meta>
+                            </param>
+                            <param name="container">
+                                <meta><title lang="de">Container (begrenzt)</title></meta>
+                            </param>
+                            <param name="container-fluid">
+                                <meta><title lang="de">Container Fluid (breit)</title></meta>
+                            </param>
+                            <param name="full">
+                                <meta><title lang="de">Volle Breite</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Card-Styling (für Card-Typ) -->
+        <section name="card_styling">
+            <meta>
+                <title lang="de">Card-Styling</title>
+                <title lang="en">Card Styling</title>
+            </meta>
+            <properties>
+                <property name="card_style" type="single_select" colspan="6">
+                    <meta>
+                        <title lang="de">Card-Stil</title>
+                        <title lang="en">Card Style</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="shadow"/>
+                        <param name="values" type="collection">
+                            <param name="border">
+                                <meta><title lang="de">Mit Rahmen</title></meta>
+                            </param>
+                            <param name="shadow">
+                                <meta><title lang="de">Mit Schatten</title></meta>
+                            </param>
+                            <param name="shadow-sm">
+                                <meta><title lang="de">Mit kleinem Schatten</title></meta>
+                            </param>
+                            <param name="none">
+                                <meta><title lang="de">Kein Rahmen/Schatten</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="card_bg_color" type="single_select" colspan="6">
+                    <meta>
+                        <title lang="de">Card Hintergrund-Farbe</title>
+                        <title lang="en">Card Background Color</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value=""/>
+                        <param name="values" type="collection">
+                            <param name="">
+                                <meta><title lang="de">Standard</title></meta>
+                            </param>
+                            <param name="bg-primary">
+                                <meta><title lang="de">Primär</title></meta>
+                            </param>
+                            <param name="bg-secondary">
+                                <meta><title lang="de">Sekundär</title></meta>
+                            </param>
+                            <param name="bg-light">
+                                <meta><title lang="de">Hell</title></meta>
+                            </param>
+                            <param name="bg-dark">
+                                <meta><title lang="de">Dunkel</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Hero-Styling (für Hero-Typ) -->
+        <section name="hero_styling">
+            <meta>
+                <title lang="de">Hero / Banner Styling</title>
+                <title lang="en">Hero / Banner Styling</title>
+            </meta>
+            <properties>
+                <property name="hero_min_height" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Minimale Höhe</title>
+                        <title lang="en">Minimum Height</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="400px"/>
+                        <param name="values" type="collection">
+                            <param name="300px">
+                                <meta><title lang="de">300px (Klein)</title></meta>
+                            </param>
+                            <param name="400px">
+                                <meta><title lang="de">400px (Mittel)</title></meta>
+                            </param>
+                            <param name="500px">
+                                <meta><title lang="de">500px (Groß)</title></meta>
+                            </param>
+                            <param name="600px">
+                                <meta><title lang="de">600px (Sehr groß)</title></meta>
+                            </param>
+                            <param name="100vh">
+                                <meta><title lang="de">100vh (Volle Bildschirmhöhe)</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="hero_overlay" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Overlay (Abdunklung)</title>
+                        <title lang="en">Overlay (Darkening)</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="dark"/>
+                        <param name="values" type="collection">
+                            <param name="none">
+                                <meta><title lang="de">Kein Overlay</title></meta>
+                            </param>
+                            <param name="dark">
+                                <meta><title lang="de">Dunkel</title></meta>
+                            </param>
+                            <param name="light">
+                                <meta><title lang="de">Hell</title></meta>
+                            </param>
+                            <param name="primary">
+                                <meta><title lang="de">Primär-Farbe</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="hero_overlay_opacity" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Overlay-Deckkraft</title>
+                        <title lang="en">Overlay Opacity</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="0.5"/>
+                        <param name="values" type="collection">
+                            <param name="0.2">
+                                <meta><title lang="de">20%</title></meta>
+                            </param>
+                            <param name="0.3">
+                                <meta><title lang="de">30%</title></meta>
+                            </param>
+                            <param name="0.4">
+                                <meta><title lang="de">40%</title></meta>
+                            </param>
+                            <param name="0.5">
+                                <meta><title lang="de">50%</title></meta>
+                            </param>
+                            <param name="0.6">
+                                <meta><title lang="de">60%</title></meta>
+                            </param>
+                            <param name="0.7">
+                                <meta><title lang="de">70%</title></meta>
+                            </param>
+                            <param name="0.8">
+                                <meta><title lang="de">80%</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="hero_text_color" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Text-Farbe</title>
+                        <title lang="en">Text Color</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="text-white"/>
+                        <param name="values" type="collection">
+                            <param name="text-white">
+                                <meta><title lang="de">Weiß</title></meta>
+                            </param>
+                            <param name="text-dark">
+                                <meta><title lang="de">Dunkel</title></meta>
+                            </param>
+                            <param name="text-primary">
+                                <meta><title lang="de">Primär</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Margin Abschnitt -->
+        <section name="margin">
+            <meta>
+                <title lang="de">Außenabstand (Margin)</title>
+                <title lang="en">Margin</title>
+            </meta>
+            <properties>
+                <property name="margin_top" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Oben</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="mt-3"/>
+                        <param name="values" type="collection">
+                            <param name="mt-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="mt-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="mt-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="mt-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="mt-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="mt-5"><meta><title lang="de">5</title></meta></param>
+                            <param name="mt-auto"><meta><title lang="de">Auto</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="margin_bottom" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Unten</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="mb-3"/>
+                        <param name="values" type="collection">
+                            <param name="mb-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="mb-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="mb-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="mb-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="mb-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="mb-5"><meta><title lang="de">5</title></meta></param>
+                            <param name="mb-auto"><meta><title lang="de">Auto</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="margin_start" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Links</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="ms-0"/>
+                        <param name="values" type="collection">
+                            <param name="ms-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="ms-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="ms-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="ms-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="ms-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="ms-5"><meta><title lang="de">5</title></meta></param>
+                            <param name="ms-auto"><meta><title lang="de">Auto</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="margin_end" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Rechts</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="me-0"/>
+                        <param name="values" type="collection">
+                            <param name="me-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="me-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="me-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="me-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="me-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="me-5"><meta><title lang="de">5</title></meta></param>
+                            <param name="me-auto"><meta><title lang="de">Auto</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Padding Abschnitt -->
+        <section name="padding">
+            <meta>
+                <title lang="de">Innenabstand (Padding)</title>
+                <title lang="en">Padding</title>
+            </meta>
+            <properties>
+                <property name="padding_top" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Oben</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="pt-0"/>
+                        <param name="values" type="collection">
+                            <param name="pt-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="pt-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="pt-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="pt-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="pt-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="pt-5"><meta><title lang="de">5</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="padding_bottom" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Unten</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="pb-0"/>
+                        <param name="values" type="collection">
+                            <param name="pb-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="pb-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="pb-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="pb-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="pb-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="pb-5"><meta><title lang="de">5</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="padding_start" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Links</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="ps-0"/>
+                        <param name="values" type="collection">
+                            <param name="ps-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="ps-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="ps-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="ps-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="ps-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="ps-5"><meta><title lang="de">5</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="padding_end" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Rechts</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="pe-0"/>
+                        <param name="values" type="collection">
+                            <param name="pe-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="pe-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="pe-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="pe-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="pe-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="pe-5"><meta><title lang="de">5</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Erweitert Abschnitt -->
+        <section name="advanced">
+            <meta>
+                <title lang="de">Erweitert</title>
+                <title lang="en">Advanced</title>
+            </meta>
+            <properties>
+                <property name="css_class" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">CSS-Klasse</title>
+                        <title lang="en">CSS Class</title>
+                    </meta>
+                </property>
+
+                <property name="html_id" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">HTML-ID</title>
+                        <title lang="en">HTML ID</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+    </properties>
+</template>

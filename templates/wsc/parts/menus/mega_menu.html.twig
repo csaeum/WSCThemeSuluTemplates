@@ -1,0 +1,20 @@
+{#
+    This is the placeholder for the Mega Menu.
+    Implement your Mega Menu HTML/CSS structure here.
+    It expects the 'settings' object to be passed from the parent template.
+#}
+
+<div class="container my-5">
+    <div class="p-5 text-center bg-body-tertiary rounded-3">
+        <h1 class="text-body-emphasis">Mega Menu</h1>
+        <p class="lead">
+            This is the placeholder for the <strong>Mega Menu</strong>.
+            Edit the file <code>templates/wsc/parts/menus/mega_menu.html.twig</code> to implement your custom mega menu.
+        </p>
+        <p>The Logo and Slogan are available in the <code>settings</code> object:</p>
+        <ul>
+            {% if settings.logo.media|default %}<li>Logo-ID: {{ settings.logo.media[0].id }}</li>{% endif %}
+            {% if settings.slogan|default %}<li>Slogan: {{ settings.slogan }}</li>{% endif %}
+        </ul>
+    </div>
+</div>

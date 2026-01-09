@@ -1,0 +1,20 @@
+<footer class="bg-light text-center text-lg-start mt-auto py-3">
+    <div class="{{ settings.footer_layout|default('container') }}">
+        <nav>
+            <ul class="nav justify-content-center">
+                {# Render the 'footer' navigation context #}
+                {% for item in sulu_page_navigation_root_tree('footer', 1) %}
+                    <li class="nav-item">
+                        <a href="{{ sulu_content_path(item.url) }}"
+                           title="{{ item.title }}"
+                           class="nav-link px-2 text-muted"
+                        >
+                            {{ item.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+        <p class="text-center text-muted mt-2">Copyright {{ 'now'|date('Y') }}</p>
+    </div>
+</footer>

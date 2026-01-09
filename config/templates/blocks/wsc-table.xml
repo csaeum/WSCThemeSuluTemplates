@@ -1,0 +1,459 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>wsc-table</key>
+
+    <meta>
+        <title lang="de">Tabelle</title>
+        <title lang="en">Table</title>
+    </meta>
+
+    <properties>
+        <!-- Header-Zeile -->
+        <block name="header_cells" default-type="header_cell" minOccurs="1">
+            <meta>
+                <title lang="de">Tabellen-Kopf (Header-Zeilen definieren die Spaltenanzahl)</title>
+                <title lang="en">Table Header (Header cells define column count)</title>
+            </meta>
+            <types>
+                <type name="header_cell">
+                    <meta>
+                        <title lang="de">Spalte</title>
+                        <title lang="en">Column</title>
+                    </meta>
+                    <properties>
+                        <property name="content" type="text_area" mandatory="true" colspan="8">
+                            <meta>
+                                <title lang="de">Inhalt</title>
+                                <title lang="en">Content</title>
+                            </meta>
+                        </property>
+
+                        <property name="align" type="single_select" colspan="4">
+                            <meta>
+                                <title lang="de">Ausrichtung</title>
+                                <title lang="en">Alignment</title>
+                            </meta>
+                            <params>
+                                <param name="default_value" value="start"/>
+                                <param name="values" type="collection">
+                                    <param name="start">
+                                        <meta><title lang="de">Links</title></meta>
+                                    </param>
+                                    <param name="center">
+                                        <meta><title lang="de">Zentriert</title></meta>
+                                    </param>
+                                    <param name="end">
+                                        <meta><title lang="de">Rechts</title></meta>
+                                    </param>
+                                </param>
+                            </params>
+                        </property>
+                    </properties>
+                </type>
+            </types>
+        </block>
+
+        <!-- Body-Zeilen -->
+        <block name="body_rows" default-type="body_row" minOccurs="0">
+            <meta>
+                <title lang="de">Tabellen-Zeilen</title>
+                <title lang="en">Table Rows</title>
+            </meta>
+            <types>
+                <type name="body_row">
+                    <meta>
+                        <title lang="de">Zeile</title>
+                        <title lang="en">Row</title>
+                    </meta>
+                    <properties>
+                        <block name="cells" default-type="cell" minOccurs="0">
+                            <meta>
+                                <title lang="de">Zellen</title>
+                                <title lang="en">Cells</title>
+                            </meta>
+                            <types>
+                                <type name="cell">
+                                    <meta>
+                                        <title lang="de">Zelle</title>
+                                        <title lang="en">Cell</title>
+                                    </meta>
+                                    <properties>
+                                        <property name="content" type="text_area" colspan="8">
+                                            <meta>
+                                                <title lang="de">Inhalt</title>
+                                                <title lang="en">Content</title>
+                                            </meta>
+                                        </property>
+
+                                        <property name="align" type="single_select" colspan="4">
+                                            <meta>
+                                                <title lang="de">Ausrichtung</title>
+                                                <title lang="en">Alignment</title>
+                                            </meta>
+                                            <params>
+                                                <param name="default_value" value="start"/>
+                                                <param name="values" type="collection">
+                                                    <param name="start">
+                                                        <meta><title lang="de">Links</title></meta>
+                                                    </param>
+                                                    <param name="center">
+                                                        <meta><title lang="de">Zentriert</title></meta>
+                                                    </param>
+                                                    <param name="end">
+                                                        <meta><title lang="de">Rechts</title></meta>
+                                                    </param>
+                                                </param>
+                                            </params>
+                                        </property>
+                                    </properties>
+                                </type>
+                            </types>
+                        </block>
+
+                        <property name="row_color" type="single_select" colspan="6">
+                            <meta>
+                                <title lang="de">Zeilen-Farbe</title>
+                                <title lang="en">Row Color</title>
+                            </meta>
+                            <params>
+                                <param name="default_value" value=""/>
+                                <param name="values" type="collection">
+                                    <param name="">
+                                        <meta><title lang="de">Standard</title></meta>
+                                    </param>
+                                    <param name="table-primary">
+                                        <meta><title lang="de">Primär</title></meta>
+                                    </param>
+                                    <param name="table-secondary">
+                                        <meta><title lang="de">Sekundär</title></meta>
+                                    </param>
+                                    <param name="table-success">
+                                        <meta><title lang="de">Erfolg (Grün)</title></meta>
+                                    </param>
+                                    <param name="table-danger">
+                                        <meta><title lang="de">Gefahr (Rot)</title></meta>
+                                    </param>
+                                    <param name="table-warning">
+                                        <meta><title lang="de">Warnung (Gelb)</title></meta>
+                                    </param>
+                                    <param name="table-info">
+                                        <meta><title lang="de">Info (Cyan)</title></meta>
+                                    </param>
+                                    <param name="table-light">
+                                        <meta><title lang="de">Hell</title></meta>
+                                    </param>
+                                    <param name="table-dark">
+                                        <meta><title lang="de">Dunkel</title></meta>
+                                    </param>
+                                    <param name="table-active">
+                                        <meta><title lang="de">Aktiv</title></meta>
+                                    </param>
+                                </param>
+                            </params>
+                        </property>
+
+                        <property name="row_css_class" type="text_line" colspan="6">
+                            <meta>
+                                <title lang="de">CSS-Klasse</title>
+                                <title lang="en">CSS Class</title>
+                            </meta>
+                        </property>
+                    </properties>
+                </type>
+            </types>
+        </block>
+
+        <!-- Layout Abschnitt -->
+        <section name="layout">
+            <meta>
+                <title lang="de">Layout</title>
+                <title lang="en">Layout</title>
+            </meta>
+            <properties>
+                <property name="table_style" type="select" colspan="12">
+                    <meta>
+                        <title lang="de">Tabellen-Stil (Mehrfachauswahl möglich)</title>
+                        <title lang="en">Table Style (Multiple selection possible)</title>
+                    </meta>
+                    <params>
+                        <param name="multiple" value="true"/>
+                        <param name="values" type="collection">
+                            <param name="table-striped">
+                                <meta><title lang="de">Gestreift (Zebra-Muster)</title></meta>
+                            </param>
+                            <param name="table-bordered">
+                                <meta><title lang="de">Mit Rahmen</title></meta>
+                            </param>
+                            <param name="table-borderless">
+                                <meta><title lang="de">Ohne Rahmen</title></meta>
+                            </param>
+                            <param name="table-hover">
+                                <meta><title lang="de">Hover-Effekt</title></meta>
+                            </param>
+                            <param name="table-sm">
+                                <meta><title lang="de">Kompakt (kleine Abstände)</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="table_color" type="single_select" colspan="4">
+                    <meta>
+                        <title lang="de">Tabellen-Farbe</title>
+                        <title lang="en">Table Color</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value=""/>
+                        <param name="values" type="collection">
+                            <param name="">
+                                <meta><title lang="de">Standard</title></meta>
+                            </param>
+                            <param name="table-primary">
+                                <meta><title lang="de">Primär</title></meta>
+                            </param>
+                            <param name="table-secondary">
+                                <meta><title lang="de">Sekundär</title></meta>
+                            </param>
+                            <param name="table-success">
+                                <meta><title lang="de">Erfolg (Grün)</title></meta>
+                            </param>
+                            <param name="table-danger">
+                                <meta><title lang="de">Gefahr (Rot)</title></meta>
+                            </param>
+                            <param name="table-warning">
+                                <meta><title lang="de">Warnung (Gelb)</title></meta>
+                            </param>
+                            <param name="table-info">
+                                <meta><title lang="de">Info (Cyan)</title></meta>
+                            </param>
+                            <param name="table-dark">
+                                <meta><title lang="de">Dunkel</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="responsive" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">Responsive (horizontal scrollbar auf Mobile)</title>
+                        <title lang="en">Responsive (horizontal scrollbar on mobile)</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+
+                <property name="allow_html" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">HTML in Zellen erlauben</title>
+                        <title lang="en">Allow HTML in cells</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="false"/>
+                    </params>
+                </property>
+
+                <property name="header_dark" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">Dunkler Header</title>
+                        <title lang="en">Dark Header</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="false"/>
+                    </params>
+                </property>
+
+                <property name="caption" type="text_line" colspan="8">
+                    <meta>
+                        <title lang="de">Tabellen-Beschriftung (optional)</title>
+                        <title lang="en">Table Caption (optional)</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Margin Abschnitt -->
+        <section name="margin">
+            <meta>
+                <title lang="de">Außenabstand (Margin)</title>
+                <title lang="en">Margin</title>
+            </meta>
+            <properties>
+                <property name="margin_top" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Oben</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="mt-3"/>
+                        <param name="values" type="collection">
+                            <param name="mt-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="mt-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="mt-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="mt-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="mt-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="mt-5"><meta><title lang="de">5</title></meta></param>
+                            <param name="mt-auto"><meta><title lang="de">Auto</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="margin_bottom" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Unten</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="mb-3"/>
+                        <param name="values" type="collection">
+                            <param name="mb-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="mb-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="mb-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="mb-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="mb-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="mb-5"><meta><title lang="de">5</title></meta></param>
+                            <param name="mb-auto"><meta><title lang="de">Auto</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="margin_start" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Links</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="ms-0"/>
+                        <param name="values" type="collection">
+                            <param name="ms-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="ms-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="ms-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="ms-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="ms-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="ms-5"><meta><title lang="de">5</title></meta></param>
+                            <param name="ms-auto"><meta><title lang="de">Auto</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="margin_end" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Rechts</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="me-0"/>
+                        <param name="values" type="collection">
+                            <param name="me-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="me-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="me-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="me-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="me-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="me-5"><meta><title lang="de">5</title></meta></param>
+                            <param name="me-auto"><meta><title lang="de">Auto</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Padding Abschnitt -->
+        <section name="padding">
+            <meta>
+                <title lang="de">Innenabstand (Padding)</title>
+                <title lang="en">Padding</title>
+            </meta>
+            <properties>
+                <property name="padding_top" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Oben</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="pt-0"/>
+                        <param name="values" type="collection">
+                            <param name="pt-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="pt-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="pt-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="pt-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="pt-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="pt-5"><meta><title lang="de">5</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="padding_bottom" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Unten</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="pb-0"/>
+                        <param name="values" type="collection">
+                            <param name="pb-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="pb-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="pb-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="pb-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="pb-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="pb-5"><meta><title lang="de">5</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="padding_start" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Links</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="ps-0"/>
+                        <param name="values" type="collection">
+                            <param name="ps-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="ps-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="ps-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="ps-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="ps-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="ps-5"><meta><title lang="de">5</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="padding_end" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Rechts</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="pe-0"/>
+                        <param name="values" type="collection">
+                            <param name="pe-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="pe-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="pe-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="pe-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="pe-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="pe-5"><meta><title lang="de">5</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Erweitert Abschnitt -->
+        <section name="advanced">
+            <meta>
+                <title lang="de">Erweitert</title>
+                <title lang="en">Advanced</title>
+            </meta>
+            <properties>
+                <property name="css_class" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">CSS-Klasse</title>
+                        <title lang="en">CSS Class</title>
+                    </meta>
+                </property>
+
+                <property name="html_id" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">HTML-ID</title>
+                        <title lang="en">HTML ID</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+    </properties>
+</template>

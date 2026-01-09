@@ -1,0 +1,327 @@
+{#
+    Block: wsc-cta
+    Universeller Call-to-Action Block: Text-Link, Button, Button-Gruppe, Bild-Link, Card, Hero
+#}
+
+{% set ctaType = block.cta_type|default('button') %}
+
+{# Content #}
+{% set title = block.title|default('') %}
+{% set description = block.description|default('') %}
+{% set image = block.image|default(null) %}
+{% set linkUrl = block.link_url|default('#') %}
+{% set linkText = block.link_text|default('') %}
+{% set linkTarget = block.link_target|default(false) %}
+{% set icon = block.icon|default('') %}
+{% set iconPosition = block.icon_position|default('before') %}
+{% set badgeText = block.badge_text|default('') %}
+{% set badgeColor = block.badge_color|default('bg-danger') %}
+
+{# Button-Gruppe #}
+{% set buttons = block.buttons|default([]) %}
+
+{# Button-Styling #}
+{% set buttonColor = block.button_color|default('btn-primary') %}
+{% set buttonSize = block.button_size|default('') %}
+{% set buttonBlock = block.button_block|default(false) %}
+{% set buttonCssClass = block.button_css_class|default('') %}
+
+{# Layout #}
+{% set imagePosition = block.image_position|default('top') %}
+{% set textAlign = block.text_align|default('start') %}
+{% set containerWidth = block.container_width|default('auto') %}
+
+{# Card-Styling #}
+{% set cardStyle = block.card_style|default('shadow') %}
+{% set cardBgColor = block.card_bg_color|default('') %}
+
+{# Hero-Styling #}
+{% set heroMinHeight = block.hero_min_height|default('400px') %}
+{% set heroOverlay = block.hero_overlay|default('dark') %}
+{% set heroOverlayOpacity = block.hero_overlay_opacity|default('0.5') %}
+{% set heroTextColor = block.hero_text_color|default('text-white') %}
+
+{# Margin #}
+{% set marginTop = block.margin_top|default('mt-3') %}
+{% set marginBottom = block.margin_bottom|default('mb-3') %}
+{% set marginStart = block.margin_start|default('ms-0') %}
+{% set marginEnd = block.margin_end|default('me-0') %}
+
+{# Padding #}
+{% set paddingTop = block.padding_top|default('pt-0') %}
+{% set paddingBottom = block.padding_bottom|default('pb-0') %}
+{% set paddingStart = block.padding_start|default('ps-0') %}
+{% set paddingEnd = block.padding_end|default('pe-0') %}
+
+{# Erweiterte Optionen #}
+{% set cssClass = block.css_class|default('') %}
+{% set htmlId = block.html_id|default('') %}
+
+{# Helper: Link Target #}
+{% set targetAttr = linkTarget ? ' target="_blank" rel="noopener noreferrer"' : '' %}
+
+{# Helper: Button Klassen zusammenstellen #}
+{% set btnClasses = ['btn', buttonColor] %}
+{% if buttonSize is not empty %}{% set btnClasses = btnClasses|merge([buttonSize]) %}{% endif %}
+{% if buttonBlock %}{% set btnClasses = btnClasses|merge(['d-block', 'w-100']) %}{% endif %}
+{% if buttonCssClass is not empty %}{% set btnClasses = btnClasses|merge([buttonCssClass]) %}{% endif %}
+{% set btnClassString = btnClasses|join(' ') %}
+
+{# Helper: Text-Ausrichtungs-Klasse #}
+{% set textAlignClass = textAlign != 'start' ? 'text-' ~ textAlign : '' %}
+
+{# Wrapper-Klassen #}
+{% set wrapperClasses = ['wsc-cta-wrapper', 'wsc-cta-' ~ ctaType] %}
+{% if marginTop != 'mt-0' %}{% set wrapperClasses = wrapperClasses|merge([marginTop]) %}{% endif %}
+{% if marginBottom != 'mb-0' %}{% set wrapperClasses = wrapperClasses|merge([marginBottom]) %}{% endif %}
+{% if marginStart != 'ms-0' %}{% set wrapperClasses = wrapperClasses|merge([marginStart]) %}{% endif %}
+{% if marginEnd != 'me-0' %}{% set wrapperClasses = wrapperClasses|merge([marginEnd]) %}{% endif %}
+{% if paddingTop != 'pt-0' %}{% set wrapperClasses = wrapperClasses|merge([paddingTop]) %}{% endif %}
+{% if paddingBottom != 'pb-0' %}{% set wrapperClasses = wrapperClasses|merge([paddingBottom]) %}{% endif %}
+{% if paddingStart != 'ps-0' %}{% set wrapperClasses = wrapperClasses|merge([paddingStart]) %}{% endif %}
+{% if paddingEnd != 'pe-0' %}{% set wrapperClasses = wrapperClasses|merge([paddingEnd]) %}{% endif %}
+{% if textAlignClass is not empty %}{% set wrapperClasses = wrapperClasses|merge([textAlignClass]) %}{% endif %}
+{% if cssClass is not empty %}{% set wrapperClasses = wrapperClasses|merge([cssClass]) %}{% endif %}
+{% set wrapperClassString = wrapperClasses|join(' ') %}
+
+{# Container Wrapper (wenn gewünscht) #}
+{% set useContainer = containerWidth in ['container', 'container-fluid'] %}
+
+<div{% if htmlId %} id="{{ htmlId }}"{% endif %} class="{{ wrapperClassString }}">
+    {% if useContainer %}<div class="{{ containerWidth }}">{% endif %}
+
+    {# ============================================
+       CTA-Typ: TEXT_LINK
+       ============================================ #}
+    {% if ctaType == 'text_link' %}
+        <a href="{{ linkUrl }}" class="wsc-cta-link{{ buttonCssClass ? ' ' ~ buttonCssClass : '' }}"{{ targetAttr|raw }}>
+            {% if icon and iconPosition == 'before' %}
+                <i class="fa-solid {{ icon }} me-2"></i>
+            {% endif %}
+            {{ linkText }}
+            {% if badgeText %}
+                <span class="badge {{ badgeColor }} ms-2">{{ badgeText }}</span>
+            {% endif %}
+            {% if icon and iconPosition == 'after' %}
+                <i class="fa-solid {{ icon }} ms-2"></i>
+            {% endif %}
+        </a>
+
+    {# ============================================
+       CTA-Typ: BUTTON
+       ============================================ #}
+    {% elseif ctaType == 'button' %}
+        <a href="{{ linkUrl }}" class="{{ btnClassString }}"{{ targetAttr|raw }}>
+            {% if icon and iconPosition == 'before' %}
+                <i class="fa-solid {{ icon }} me-2"></i>
+            {% endif %}
+            {{ linkText }}
+            {% if badgeText %}
+                <span class="badge {{ badgeColor }} ms-2">{{ badgeText }}</span>
+            {% endif %}
+            {% if icon and iconPosition == 'after' %}
+                <i class="fa-solid {{ icon }} ms-2"></i>
+            {% endif %}
+        </a>
+
+    {# ============================================
+       CTA-Typ: BUTTON_GROUP
+       ============================================ #}
+    {% elseif ctaType == 'button_group' and buttons|length > 0 %}
+        <div class="btn-group" role="group">
+            {% for button in buttons %}
+                {% set btnText = button.button_text|default('') %}
+                {% set btnUrl = button.button_url|default('#') %}
+                {% set btnTarget = button.button_target|default(false) %}
+                {% set btnColor = button.button_color|default('btn-primary') %}
+                {% set btnSize = button.button_size|default('') %}
+                {% set btnIcon = button.button_icon|default('') %}
+                {% set btnCss = button.button_css_class|default('') %}
+                {% set btnTargetAttr = btnTarget ? ' target="_blank" rel="noopener noreferrer"' : '' %}
+
+                {% set btnClasses = ['btn', btnColor] %}
+                {% if btnSize is not empty %}{% set btnClasses = btnClasses|merge([btnSize]) %}{% endif %}
+                {% if btnCss is not empty %}{% set btnClasses = btnClasses|merge([btnCss]) %}{% endif %}
+
+                <a href="{{ btnUrl }}" class="{{ btnClasses|join(' ') }}"{{ btnTargetAttr|raw }}>
+                    {% if btnIcon %}
+                        <i class="fa-solid {{ btnIcon }} me-2"></i>
+                    {% endif %}
+                    {{ btnText }}
+                </a>
+            {% endfor %}
+        </div>
+
+    {# ============================================
+       CTA-Typ: IMAGE_LINK
+       ============================================ #}
+    {% elseif ctaType == 'image_link' and image %}
+        <a href="{{ linkUrl }}" class="wsc-cta-image-link d-block{{ buttonCssClass ? ' ' ~ buttonCssClass : '' }}"{{ targetAttr|raw }}>
+            <img src="{{ image.url }}"
+                 alt="{{ image.title|default(linkText) }}"
+                 class="img-fluid">
+            {% if badgeText %}
+                <span class="badge {{ badgeColor }} position-absolute top-0 end-0 m-3">{{ badgeText }}</span>
+            {% endif %}
+        </a>
+
+    {# ============================================
+       CTA-Typ: IMAGE_BUTTON
+       ============================================ #}
+    {% elseif ctaType == 'image_button' and image %}
+        <div class="wsc-cta-image-button">
+            {% if image %}
+                <img src="{{ image.url }}"
+                     alt="{{ image.title|default(title) }}"
+                     class="img-fluid mb-3">
+            {% endif %}
+
+            {% if title %}
+                <h3 class="mb-2">{{ title }}</h3>
+            {% endif %}
+
+            {% if description %}
+                <p class="mb-3">{{ description|nl2br }}</p>
+            {% endif %}
+
+            <a href="{{ linkUrl }}" class="{{ btnClassString }}"{{ targetAttr|raw }}>
+                {% if icon and iconPosition == 'before' %}
+                    <i class="fa-solid {{ icon }} me-2"></i>
+                {% endif %}
+                {{ linkText }}
+                {% if badgeText %}
+                    <span class="badge {{ badgeColor }} ms-2">{{ badgeText }}</span>
+                {% endif %}
+                {% if icon and iconPosition == 'after' %}
+                    <i class="fa-solid {{ icon }} ms-2"></i>
+                {% endif %}
+            </a>
+        </div>
+
+    {# ============================================
+       CTA-Typ: CARD
+       ============================================ #}
+    {% elseif ctaType == 'card' %}
+        {% set cardClasses = ['card', 'wsc-cta-card'] %}
+        {% if cardStyle == 'border' %}
+            {% set cardClasses = cardClasses|merge(['border']) %}
+        {% elseif cardStyle == 'shadow' %}
+            {% set cardClasses = cardClasses|merge(['shadow']) %}
+        {% elseif cardStyle == 'shadow-sm' %}
+            {% set cardClasses = cardClasses|merge(['shadow-sm']) %}
+        {% endif %}
+        {% if cardBgColor is not empty %}
+            {% set cardClasses = cardClasses|merge([cardBgColor]) %}
+            {% if cardBgColor in ['bg-primary', 'bg-secondary', 'bg-dark'] %}
+                {% set cardClasses = cardClasses|merge(['text-white']) %}
+            {% endif %}
+        {% endif %}
+
+        <div class="{{ cardClasses|join(' ') }}">
+            {% if image and imagePosition == 'top' %}
+                <img src="{{ image.url }}" class="card-img-top" alt="{{ image.title|default(title) }}">
+            {% endif %}
+
+            <div class="card-body">
+                {% if imagePosition == 'left' and image %}
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{ image.url }}" class="img-fluid rounded-start" alt="{{ image.title|default(title) }}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="ps-md-3">
+                {% endif %}
+
+                {% if badgeText %}
+                    <span class="badge {{ badgeColor }} mb-2">{{ badgeText }}</span>
+                {% endif %}
+
+                {% if title %}
+                    <h3 class="card-title">{{ title }}</h3>
+                {% endif %}
+
+                {% if description %}
+                    <p class="card-text">{{ description|nl2br }}</p>
+                {% endif %}
+
+                <a href="{{ linkUrl }}" class="{{ btnClassString }}"{{ targetAttr|raw }}>
+                    {% if icon and iconPosition == 'before' %}
+                        <i class="fa-solid {{ icon }} me-2"></i>
+                    {% endif %}
+                    {{ linkText }}
+                    {% if icon and iconPosition == 'after' %}
+                        <i class="fa-solid {{ icon }} ms-2"></i>
+                    {% endif %}
+                </a>
+
+                {% if imagePosition == 'left' and image %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if imagePosition == 'right' and image %}
+                <div class="row g-0">
+                    <div class="col-md-8 order-md-1">
+                        <div class="card-body">
+                            {# Content already rendered above #}
+                        </div>
+                    </div>
+                    <div class="col-md-4 order-md-2">
+                        <img src="{{ image.url }}" class="img-fluid rounded-end" alt="{{ image.title|default(title) }}">
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+    {# ============================================
+       CTA-Typ: HERO / BANNER
+       ============================================ #}
+    {% elseif ctaType == 'hero' %}
+        {% set heroClasses = ['wsc-cta-hero', 'd-flex', 'align-items-center', 'justify-content-center', 'position-relative', heroTextColor] %}
+
+        <div class="{{ heroClasses|join(' ') }}"
+             style="min-height: {{ heroMinHeight }}; {% if image %}background-image: url('{{ image.url }}'); background-size: cover; background-position: center;{% endif %}">
+
+            {# Overlay #}
+            {% if heroOverlay != 'none' and image %}
+                {% set overlayColor = 'rgba(0, 0, 0, ' ~ heroOverlayOpacity ~ ')' %}
+                {% if heroOverlay == 'light' %}
+                    {% set overlayColor = 'rgba(255, 255, 255, ' ~ heroOverlayOpacity ~ ')' %}
+                {% elseif heroOverlay == 'primary' %}
+                    {% set overlayColor = 'rgba(13, 110, 253, ' ~ heroOverlayOpacity ~ ')' %}
+                {% endif %}
+                <div class="wsc-cta-hero-overlay position-absolute top-0 start-0 w-100 h-100"
+                     style="background-color: {{ overlayColor }};"></div>
+            {% endif %}
+
+            {# Content #}
+            <div class="wsc-cta-hero-content position-relative z-1 px-4">
+                {% if badgeText %}
+                    <span class="badge {{ badgeColor }} mb-3">{{ badgeText }}</span>
+                {% endif %}
+
+                {% if title %}
+                    <h1 class="display-4 mb-3">{{ title }}</h1>
+                {% endif %}
+
+                {% if description %}
+                    <p class="lead mb-4">{{ description|nl2br }}</p>
+                {% endif %}
+
+                <a href="{{ linkUrl }}" class="{{ btnClassString }}"{{ targetAttr|raw }}>
+                    {% if icon and iconPosition == 'before' %}
+                        <i class="fa-solid {{ icon }} me-2"></i>
+                    {% endif %}
+                    {{ linkText }}
+                    {% if icon and iconPosition == 'after' %}
+                        <i class="fa-solid {{ icon }} ms-2"></i>
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if useContainer %}</div>{% endif %}
+</div>

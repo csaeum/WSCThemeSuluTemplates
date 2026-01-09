@@ -1,0 +1,26 @@
+{#
+    This is the "Top Header" part, visible only on large screens (lg and up).
+    It displays the logo and the slogan side-by-side.
+    It expects the 'settings' object to be passed from the parent template.
+#}
+<div class="{{ settings.header_layout|default('container') }} d-none d-lg-flex justify-content-between align-items-center py-2">
+    {# Logo #}
+    <a href="{{ sulu_content_root_path() }}">
+        {% if settings.logo|default and settings.logo is not empty %}
+            {% set logoMedia = settings.logo[0] %}
+            <img src="{{ logoMedia.url }}"
+                 alt="{{ logoMedia.title|default('Logo') }}"
+                 height="50" {# A bit larger for the top header #}
+            >
+        {% else %}
+            <h3>WSC Theme</h3>
+        {% endif %}
+    </a>
+
+    {# Slogan #}
+    {% if settings and settings.slogan is not empty %}
+        <span class="lead">
+            {{ settings.slogan }}
+        </span>
+    {% endif %}
+</div>

@@ -1,0 +1,487 @@
+/*
+ * WSC CTA (Call-to-Action) Component
+ * Universeller CTA-Block für Links, Buttons, Cards, Hero/Banner
+ */
+
+/* ============================================
+   Base CTA Wrapper
+   ============================================ */
+.wsc-cta-wrapper {
+    position: relative;
+}
+
+/* ============================================
+   Text-Link
+   ============================================ */
+.wsc-cta-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.wsc-cta-link:hover {
+    text-decoration: underline;
+    transform: translateX(3px);
+}
+
+.wsc-cta-link i {
+    transition: transform 0.3s ease;
+}
+
+.wsc-cta-link:hover i {
+    transform: scale(1.1);
+}
+
+/* ============================================
+   Button Enhancements
+   ============================================ */
+.btn {
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn i {
+    transition: transform 0.3s ease;
+}
+
+.btn:hover i {
+    transform: scale(1.1);
+}
+
+/* ============================================
+   Button-Gruppe
+   ============================================ */
+.wsc-cta-button_group .btn-group {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+@media (max-width: 576px) {
+    .wsc-cta-button_group .btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .wsc-cta-button_group .btn-group .btn {
+        width: 100%;
+    }
+}
+
+/* ============================================
+   Image-Link
+   ============================================ */
+.wsc-cta-image-link {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.375rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wsc-cta-image-link img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.5s ease;
+}
+
+.wsc-cta-image-link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.wsc-cta-image-link:hover img {
+    transform: scale(1.05);
+}
+
+.wsc-cta-image-link .badge {
+    z-index: 10;
+}
+
+/* ============================================
+   Image + Button
+   ============================================ */
+.wsc-cta-image-button img {
+    border-radius: 0.375rem;
+    transition: transform 0.3s ease;
+}
+
+.wsc-cta-image-button:hover img {
+    transform: scale(1.02);
+}
+
+/* ============================================
+   Card CTA
+   ============================================ */
+.wsc-cta-card .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.wsc-cta-card .card:hover {
+    transform: translateY(-5px);
+}
+
+.wsc-cta-card .card.shadow:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
+}
+
+.wsc-cta-card .card-img-top {
+    transition: transform 0.5s ease;
+}
+
+.wsc-cta-card .card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.wsc-cta-card .card-body {
+    position: relative;
+}
+
+/* Card mit Bild links/rechts */
+.wsc-cta-card .row.g-0 img {
+    object-fit: cover;
+    height: 100%;
+}
+
+/* ============================================
+   Hero / Banner
+   ============================================ */
+.wsc-cta-hero {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.wsc-cta-hero-overlay {
+    pointer-events: none;
+}
+
+.wsc-cta-hero-content {
+    max-width: 800px;
+    padding: 2rem;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.wsc-cta-hero h1 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.wsc-cta-hero .lead {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Hero responsive */
+@media (max-width: 768px) {
+    .wsc-cta-hero-content {
+        padding: 1.5rem;
+    }
+
+    .wsc-cta-hero h1 {
+        font-size: 2rem;
+    }
+
+    .wsc-cta-hero .lead {
+        font-size: 1rem;
+    }
+}
+
+/* ============================================
+   Badge in CTA
+   ============================================ */
+.wsc-cta-wrapper .badge {
+    font-size: 0.75rem;
+    padding: 0.35em 0.65em;
+    font-weight: 600;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Badge nur bei Hover animieren */
+.wsc-cta-wrapper:hover .badge {
+    animation: none;
+    transform: scale(1);
+}
+
+/* ============================================
+   Icon Animationen
+   ============================================ */
+.wsc-cta-link i.fa-arrow-right,
+.wsc-cta-link i.fa-chevron-right {
+    transition: transform 0.3s ease;
+}
+
+.wsc-cta-link:hover i.fa-arrow-right,
+.wsc-cta-link:hover i.fa-chevron-right {
+    transform: translateX(5px);
+}
+
+.btn i.fa-download,
+.btn i.fa-arrow-down {
+    transition: transform 0.3s ease;
+}
+
+.btn:hover i.fa-download,
+.btn:hover i.fa-arrow-down {
+    transform: translateY(3px);
+}
+
+/* ============================================
+   Loading State (optional)
+   ============================================ */
+.wsc-cta-loading {
+    pointer-events: none;
+    opacity: 0.6;
+    position: relative;
+}
+
+.wsc-cta-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-top-color: var(--bs-primary, #0d6efd);
+    border-radius: 50%;
+    animation: spinner 0.8s linear infinite;
+    z-index: 999;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   Ripple Effect auf Buttons (optional)
+   ============================================ */
+.btn-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-ripple:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* ============================================
+   Glassmorphism Effect (optional)
+   Kann per CSS-Klasse "glass-effect" aktiviert werden
+   ============================================ */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+/* ============================================
+   Gradient Button (optional)
+   Kann per CSS-Klasse "btn-gradient" aktiviert werden
+   ============================================ */
+.btn-gradient {
+    background: linear-gradient(135deg, var(--bs-primary, #0d6efd), var(--bs-info, #0dcaf0));
+    border: none;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.btn-gradient:hover::before {
+    left: 100%;
+}
+
+/* ============================================
+   Neon Button (optional)
+   Kann per CSS-Klasse "btn-neon" aktiviert werden
+   ============================================ */
+.btn-neon {
+    border: 2px solid var(--bs-primary, #0d6efd);
+    color: var(--bs-primary, #0d6efd);
+    background: transparent;
+    text-shadow: 0 0 10px rgba(13, 110, 253, 0.5);
+    box-shadow: 0 0 20px rgba(13, 110, 253, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-neon:hover {
+    background: var(--bs-primary, #0d6efd);
+    color: white;
+    box-shadow: 0 0 30px rgba(13, 110, 253, 0.6);
+    text-shadow: none;
+}
+
+/* ============================================
+   3D Button (optional)
+   Kann per CSS-Klasse "btn-3d" aktiviert werden
+   ============================================ */
+.btn-3d {
+    box-shadow: 0 5px 0 darken(var(--bs-primary, #0d6efd), 10%);
+    position: relative;
+    top: 0;
+}
+
+.btn-3d:hover {
+    top: 2px;
+    box-shadow: 0 3px 0 darken(var(--bs-primary, #0d6efd), 10%);
+}
+
+.btn-3d:active {
+    top: 5px;
+    box-shadow: none;
+}
+
+/* ============================================
+   Arrow CTA (optional)
+   Kann per CSS-Klasse "cta-arrow" aktiviert werden
+   ============================================ */
+.cta-arrow::after {
+    content: '→';
+    margin-left: 0.5rem;
+    transition: margin-left 0.3s ease;
+}
+
+.cta-arrow:hover::after {
+    margin-left: 1rem;
+}
+
+/* ============================================
+   Full-Width Container
+   ============================================ */
+.wsc-cta-wrapper.full-width {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+}
+
+/* ============================================
+   Responsive Anpassungen
+   ============================================ */
+@media (max-width: 768px) {
+    .btn-lg {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .wsc-cta-card .card-body {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .wsc-cta-hero-content {
+        padding: 1rem;
+    }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+@media print {
+    .wsc-cta-hero {
+        min-height: auto !important;
+        page-break-inside: avoid;
+    }
+
+    .wsc-cta-hero-overlay {
+        display: none;
+    }
+
+    .btn {
+        border: 1px solid #000;
+        color: #000 !important;
+        background: transparent !important;
+    }
+
+    .wsc-cta-wrapper {
+        page-break-inside: avoid;
+    }
+}
+
+/* ============================================
+   Accessibility Enhancements
+   ============================================ */
+.btn:focus,
+.wsc-cta-link:focus {
+    outline: 2px solid var(--bs-primary, #0d6efd);
+    outline-offset: 2px;
+}
+
+/* Reduzierte Bewegung für Nutzer mit motion-sensitive */
+@media (prefers-reduced-motion: reduce) {
+    .wsc-cta-wrapper *,
+    .wsc-cta-wrapper *::before,
+    .wsc-cta-wrapper *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

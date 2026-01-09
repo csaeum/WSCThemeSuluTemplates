@@ -1,0 +1,153 @@
+{#
+    Block: wsc-timeline
+    Timeline / Zeitstrahl mit Scroll-Animationen
+#}
+
+{% set items = block.items|default([]) %}
+
+{# Layout #}
+{% set orientation = block.orientation|default('vertical') %}
+{% set position = block.position|default('alternate') %}
+{% set enableAnimation = block.enable_animation|default(true) %}
+{% set showDates = block.show_dates|default(true) %}
+{% set showImages = block.show_images|default(true) %}
+{% set showIcons = block.show_icons|default(true) %}
+
+{# Styling #}
+{% set timelineColor = block.timeline_color|default('primary') %}
+{% set cardStyle = block.card_style|default('shadow') %}
+
+{# Margin #}
+{% set marginTop = block.margin_top|default('mt-3') %}
+{% set marginBottom = block.margin_bottom|default('mb-3') %}
+{% set marginStart = block.margin_start|default('ms-0') %}
+{% set marginEnd = block.margin_end|default('me-0') %}
+
+{# Padding #}
+{% set paddingTop = block.padding_top|default('pt-0') %}
+{% set paddingBottom = block.padding_bottom|default('pb-0') %}
+{% set paddingStart = block.padding_start|default('ps-0') %}
+{% set paddingEnd = block.padding_end|default('pe-0') %}
+
+{# Erweiterte Optionen #}
+{% set cssClass = block.css_class|default('') %}
+{% set htmlId = block.html_id|default('') %}
+
+{# Eindeutige ID für diese Timeline-Instanz #}
+{% set uniqueId = htmlId ?: ('timeline-' ~ random()) %}
+
+{# Wrapper-Klassen zusammenstellen #}
+{% set wrapperClasses = ['wsc-timeline-wrapper'] %}
+{% if marginTop != 'mt-0' %}{% set wrapperClasses = wrapperClasses|merge([marginTop]) %}{% endif %}
+{% if marginBottom != 'mb-0' %}{% set wrapperClasses = wrapperClasses|merge([marginBottom]) %}{% endif %}
+{% if marginStart != 'ms-0' %}{% set wrapperClasses = wrapperClasses|merge([marginStart]) %}{% endif %}
+{% if marginEnd != 'me-0' %}{% set wrapperClasses = wrapperClasses|merge([marginEnd]) %}{% endif %}
+{% if paddingTop != 'pt-0' %}{% set wrapperClasses = wrapperClasses|merge([paddingTop]) %}{% endif %}
+{% if paddingBottom != 'pb-0' %}{% set wrapperClasses = wrapperClasses|merge([paddingBottom]) %}{% endif %}
+{% if paddingStart != 'ps-0' %}{% set wrapperClasses = wrapperClasses|merge([paddingStart]) %}{% endif %}
+{% if paddingEnd != 'pe-0' %}{% set wrapperClasses = wrapperClasses|merge([paddingEnd]) %}{% endif %}
+{% if cssClass is not empty %}{% set wrapperClasses = wrapperClasses|merge([cssClass]) %}{% endif %}
+
+{# Timeline-Container Klassen #}
+{% set timelineClasses = ['wsc-timeline'] %}
+{% set timelineClasses = timelineClasses|merge(['wsc-timeline-' ~ orientation]) %}
+{% set timelineClasses = timelineClasses|merge(['wsc-timeline-' ~ timelineColor]) %}
+{% if orientation == 'vertical' %}
+    {% set timelineClasses = timelineClasses|merge(['wsc-timeline-position-' ~ position]) %}
+{% endif %}
+
+{# Card Style Klassen #}
+{% set cardClasses = ['wsc-timeline-card'] %}
+{% if cardStyle == 'border' %}
+    {% set cardClasses = cardClasses|merge(['border']) %}
+{% elseif cardStyle == 'shadow' %}
+    {% set cardClasses = cardClasses|merge(['shadow']) %}
+{% elseif cardStyle == 'shadow-sm' %}
+    {% set cardClasses = cardClasses|merge(['shadow-sm']) %}
+{% endif %}
+
+{# Finale Klassen-Strings #}
+{% set wrapperClassString = wrapperClasses|join(' ') %}
+{% set timelineClassString = timelineClasses|join(' ') %}
+
+{% if items|length > 0 %}
+<div id="{{ uniqueId }}" class="{{ wrapperClassString }}" data-animation="{{ enableAnimation ? 'true' : 'false' }}">
+    <div class="{{ timelineClassString }}">
+        {% for item in items %}
+            {% set itemTitle = item.title|default('') %}
+            {% set itemDate = item.date|default('') %}
+            {% set itemBadge = item.badge|default('') %}
+            {% set itemIcon = item.icon|default('') %}
+            {% set itemIconColor = item.icon_color|default('text-primary') %}
+            {% set itemDescription = item.description|default('') %}
+            {% set itemImage = item.image|default(null) %}
+            {% set itemCssClass = item.item_css_class|default('') %}
+            {% set itemHtmlId = item.item_html_id|default('') %}
+
+            {# Item Wrapper Klassen #}
+            {% set itemClasses = ['wsc-timeline-item'] %}
+            {% if enableAnimation %}
+                {% set itemClasses = itemClasses|merge(['wsc-timeline-animate']) %}
+            {% endif %}
+            {% if itemCssClass is not empty %}
+                {% set itemClasses = itemClasses|merge([itemCssClass]) %}
+            {% endif %}
+            {% set itemClassString = itemClasses|join(' ') %}
+
+            <div class="{{ itemClassString }}"{% if itemHtmlId is not empty %} id="{{ itemHtmlId }}"{% endif %}>
+                {# Timeline Punkt/Marker #}
+                <div class="wsc-timeline-marker">
+                    {% if showIcons and itemIcon is not empty %}
+                        <div class="wsc-timeline-icon {{ itemIconColor }}">
+                            <i class="fa-solid {{ itemIcon }}"></i>
+                        </div>
+                    {% else %}
+                        <div class="wsc-timeline-dot"></div>
+                    {% endif %}
+                </div>
+
+                {# Timeline Content #}
+                <div class="wsc-timeline-content">
+                    {# Datum Badge #}
+                    {% if showDates and itemDate is not empty %}
+                        <div class="wsc-timeline-date mb-2">
+                            <span class="badge bg-secondary">{{ itemDate }}</span>
+                        </div>
+                    {% endif %}
+
+                    {# Card mit Inhalt #}
+                    <div class="{{ cardClasses|join(' ') }} p-3 mb-3">
+                        {# Badge/Label #}
+                        {% if itemBadge is not empty %}
+                            <div class="mb-2">
+                                <span class="badge bg-primary">{{ itemBadge }}</span>
+                            </div>
+                        {% endif %}
+
+                        {# Titel #}
+                        {% if itemTitle is not empty %}
+                            <h4 class="wsc-timeline-title mb-2">{{ itemTitle }}</h4>
+                        {% endif %}
+
+                        {# Bild #}
+                        {% if showImages and itemImage %}
+                            <div class="wsc-timeline-image mb-3">
+                                <img src="{{ itemImage.url }}"
+                                     alt="{{ itemImage.title|default(itemTitle) }}"
+                                     class="img-fluid rounded">
+                            </div>
+                        {% endif %}
+
+                        {# Beschreibung #}
+                        {% if itemDescription is not empty %}
+                            <div class="wsc-timeline-description">
+                                {{ itemDescription|raw }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

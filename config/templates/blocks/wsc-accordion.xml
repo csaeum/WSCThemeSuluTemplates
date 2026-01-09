@@ -1,0 +1,397 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>wsc-accordion</key>
+
+    <meta>
+        <title lang="de">Accordion (mit verschachtelten Blöcken)</title>
+        <title lang="en">Accordion (with nested blocks)</title>
+    </meta>
+
+    <properties>
+        <!-- Accordion Items -->
+        <block name="accordion_items" default-type="accordion_item" minOccurs="1">
+            <meta>
+                <title lang="de">Accordion-Einträge</title>
+                <title lang="en">Accordion Items</title>
+            </meta>
+            <types>
+                <type name="accordion_item">
+                    <meta>
+                        <title lang="de">Eintrag</title>
+                        <title lang="en">Item</title>
+                    </meta>
+                    <properties>
+                        <!-- Item Header Informationen -->
+                        <property name="title" type="text_line" mandatory="true" colspan="8">
+                            <meta>
+                                <title lang="de">Titel</title>
+                                <title lang="en">Title</title>
+                            </meta>
+                        </property>
+
+                        <property name="icon" type="text_line" colspan="4">
+                            <meta>
+                                <title lang="de">Icon (z.B. fa-star)</title>
+                                <title lang="en">Icon (e.g. fa-star)</title>
+                            </meta>
+                        </property>
+
+                        <property name="badge_text" type="text_line" colspan="6">
+                            <meta>
+                                <title lang="de">Badge-Text (optional, z.B. "NEU")</title>
+                                <title lang="en">Badge Text (optional, e.g. "NEW")</title>
+                            </meta>
+                        </property>
+
+                        <property name="badge_color" type="single_select" colspan="6">
+                            <meta>
+                                <title lang="de">Badge-Farbe</title>
+                                <title lang="en">Badge Color</title>
+                            </meta>
+                            <params>
+                                <param name="default_value" value="bg-primary"/>
+                                <param name="values" type="collection">
+                                    <param name="bg-primary">
+                                        <meta><title lang="de">Primär</title></meta>
+                                    </param>
+                                    <param name="bg-secondary">
+                                        <meta><title lang="de">Sekundär</title></meta>
+                                    </param>
+                                    <param name="bg-success">
+                                        <meta><title lang="de">Erfolg (Grün)</title></meta>
+                                    </param>
+                                    <param name="bg-danger">
+                                        <meta><title lang="de">Gefahr (Rot)</title></meta>
+                                    </param>
+                                    <param name="bg-warning">
+                                        <meta><title lang="de">Warnung (Gelb)</title></meta>
+                                    </param>
+                                    <param name="bg-info">
+                                        <meta><title lang="de">Info (Cyan)</title></meta>
+                                    </param>
+                                    <param name="bg-dark">
+                                        <meta><title lang="de">Dunkel</title></meta>
+                                    </param>
+                                </param>
+                            </params>
+                        </property>
+
+                        <!-- Verschachtelte Blöcke im Accordion-Item -->
+                        <block name="content" default-type="wsc-text-image" minOccurs="0">
+                            <meta>
+                                <title lang="de">Inhalt (alle Blöcke verfügbar)</title>
+                                <title lang="en">Content (all blocks available)</title>
+                            </meta>
+                            <types>
+                                <type ref="wsc-headline"/>
+                                <type ref="wsc-text-image"/>
+                                <type ref="wsc-list-group"/>
+                                <type ref="wsc-image-gallery"/>
+                                <type ref="wsc-smart-content"/>
+                                <type ref="wsc-timeline"/>
+                                <type ref="wsc-table"/>
+                                <type ref="wsc-cta"/>
+                                <type ref="wsc-columns"/>
+                            </types>
+                        </block>
+
+                        <!-- Item CSS & ID -->
+                        <property name="item_css_class" type="text_line" colspan="6">
+                            <meta>
+                                <title lang="de">CSS-Klasse (für diesen Eintrag)</title>
+                                <title lang="en">CSS Class (for this item)</title>
+                            </meta>
+                        </property>
+
+                        <property name="item_html_id" type="text_line" colspan="6">
+                            <meta>
+                                <title lang="de">HTML-ID (optional, sonst automatisch)</title>
+                                <title lang="en">HTML ID (optional, otherwise automatic)</title>
+                            </meta>
+                        </property>
+                    </properties>
+                </type>
+            </types>
+        </block>
+
+        <!-- Accordion-Einstellungen -->
+        <section name="accordion_settings">
+            <meta>
+                <title lang="de">Accordion-Einstellungen</title>
+                <title lang="en">Accordion Settings</title>
+            </meta>
+            <properties>
+                <property name="first_open" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">Erstes Element geöffnet</title>
+                        <title lang="en">First Item Open</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+
+                <property name="always_open" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">Mehrere gleichzeitig öffnen (wie Collapses)</title>
+                        <title lang="en">Multiple open at once (like collapses)</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="false"/>
+                    </params>
+                </property>
+
+                <property name="flush" type="checkbox" colspan="4">
+                    <meta>
+                        <title lang="de">Flush (ohne Außenrahmen)</title>
+                        <title lang="en">Flush (no outer border)</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="false"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Styling Abschnitt -->
+        <section name="styling">
+            <meta>
+                <title lang="de">Styling</title>
+                <title lang="en">Styling</title>
+            </meta>
+            <properties>
+                <property name="accordion_style" type="single_select" colspan="6">
+                    <meta>
+                        <title lang="de">Accordion-Stil</title>
+                        <title lang="en">Accordion Style</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="default"/>
+                        <param name="values" type="collection">
+                            <param name="default">
+                                <meta><title lang="de">Standard</title></meta>
+                            </param>
+                            <param name="bordered">
+                                <meta><title lang="de">Mit Rahmen</title></meta>
+                            </param>
+                            <param name="shadow">
+                                <meta><title lang="de">Mit Schatten</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="header_bg_color" type="single_select" colspan="6">
+                    <meta>
+                        <title lang="de">Header Hintergrund-Farbe</title>
+                        <title lang="en">Header Background Color</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value=""/>
+                        <param name="values" type="collection">
+                            <param name="">
+                                <meta><title lang="de">Standard</title></meta>
+                            </param>
+                            <param name="bg-primary">
+                                <meta><title lang="de">Primär</title></meta>
+                            </param>
+                            <param name="bg-secondary">
+                                <meta><title lang="de">Sekundär</title></meta>
+                            </param>
+                            <param name="bg-light">
+                                <meta><title lang="de">Hell</title></meta>
+                            </param>
+                            <param name="bg-dark">
+                                <meta><title lang="de">Dunkel</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Margin Abschnitt -->
+        <section name="margin">
+            <meta>
+                <title lang="de">Außenabstand (Margin)</title>
+                <title lang="en">Margin</title>
+            </meta>
+            <properties>
+                <property name="margin_top" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Oben</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="mt-3"/>
+                        <param name="values" type="collection">
+                            <param name="mt-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="mt-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="mt-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="mt-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="mt-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="mt-5"><meta><title lang="de">5</title></meta></param>
+                            <param name="mt-auto"><meta><title lang="de">Auto</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="margin_bottom" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Unten</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="mb-3"/>
+                        <param name="values" type="collection">
+                            <param name="mb-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="mb-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="mb-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="mb-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="mb-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="mb-5"><meta><title lang="de">5</title></meta></param>
+                            <param name="mb-auto"><meta><title lang="de">Auto</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="margin_start" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Links</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="ms-0"/>
+                        <param name="values" type="collection">
+                            <param name="ms-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="ms-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="ms-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="ms-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="ms-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="ms-5"><meta><title lang="de">5</title></meta></param>
+                            <param name="ms-auto"><meta><title lang="de">Auto</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="margin_end" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Rechts</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="me-0"/>
+                        <param name="values" type="collection">
+                            <param name="me-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="me-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="me-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="me-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="me-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="me-5"><meta><title lang="de">5</title></meta></param>
+                            <param name="me-auto"><meta><title lang="de">Auto</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Padding Abschnitt -->
+        <section name="padding">
+            <meta>
+                <title lang="de">Innenabstand (Padding)</title>
+                <title lang="en">Padding</title>
+            </meta>
+            <properties>
+                <property name="padding_top" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Oben</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="pt-0"/>
+                        <param name="values" type="collection">
+                            <param name="pt-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="pt-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="pt-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="pt-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="pt-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="pt-5"><meta><title lang="de">5</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="padding_bottom" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Unten</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="pb-0"/>
+                        <param name="values" type="collection">
+                            <param name="pb-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="pb-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="pb-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="pb-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="pb-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="pb-5"><meta><title lang="de">5</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="padding_start" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Links</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="ps-0"/>
+                        <param name="values" type="collection">
+                            <param name="ps-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="ps-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="ps-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="ps-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="ps-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="ps-5"><meta><title lang="de">5</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="padding_end" type="single_select" colspan="3">
+                    <meta>
+                        <title lang="de">Rechts</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="pe-0"/>
+                        <param name="values" type="collection">
+                            <param name="pe-0"><meta><title lang="de">0</title></meta></param>
+                            <param name="pe-1"><meta><title lang="de">1</title></meta></param>
+                            <param name="pe-2"><meta><title lang="de">2</title></meta></param>
+                            <param name="pe-3"><meta><title lang="de">3</title></meta></param>
+                            <param name="pe-4"><meta><title lang="de">4</title></meta></param>
+                            <param name="pe-5"><meta><title lang="de">5</title></meta></param>
+                        </param>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Erweitert Abschnitt -->
+        <section name="advanced">
+            <meta>
+                <title lang="de">Erweitert</title>
+                <title lang="en">Advanced</title>
+            </meta>
+            <properties>
+                <property name="css_class" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">CSS-Klasse</title>
+                        <title lang="en">CSS Class</title>
+                    </meta>
+                </property>
+
+                <property name="html_id" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">HTML-ID</title>
+                        <title lang="en">HTML ID</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+    </properties>
+</template>
