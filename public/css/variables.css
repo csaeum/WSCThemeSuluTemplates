@@ -1,0 +1,43 @@
+/* ==========================================================================
+   WunschSchreiner - CSS Variables
+   ========================================================================== */
+
+:root {
+    /* Hauptfarben */
+    --color-primary: #d4a574;
+    --color-primary-hover: #c49464;
+
+    /* Dunkle Farben */
+    --color-dark: #1a1a1a;
+    --color-dark-light: #2a2a2a;
+
+    /* Helle Farben */
+    --color-white: #ffffff;
+    --color-gray: #999999;
+    --color-gray-light: #f8f9fa;
+    --color-border: #333333;
+    --color-border-light: #dddddd;
+
+    /* Schatten */
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 5px 20px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+    /* Abstände */
+    --spacing-xs: 10px;
+    --spacing-sm: 15px;
+    --spacing-md: 20px;
+    --spacing-lg: 30px;
+    --spacing-xl: 40px;
+    --spacing-xxl: 60px;
+
+    /* Schriftgrößen */
+    --font-size-sm: 14px;
+    --font-size-base: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 20px;
+    --font-size-2xl: 32px;
+
+    /* Übergänge */
+    --transition-base: all 0.3s ease;
+}

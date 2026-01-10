@@ -12,6 +12,7 @@
     <meta>
         <title lang="de">WSC Standard</title>
         <title lang="en">WSC Default</title>
+        <title lang="fr">WSC Default</title>
     </meta>
 
     <properties>
@@ -29,8 +30,9 @@
 
         <property name="url" type="route" mandatory="true">
             <meta>
-                <title lang="en">Resourcelocator</title>
                 <title lang="de">Adresse</title>
+                <title lang="en">Resourcelocator</title>
+                <title lang="fr">Adresse</title>
             </meta>
 
             <tag name="sulu.rlp"/>
@@ -43,12 +45,18 @@
                 <title lang="fr">Inhaltsblöcke</title>
             </meta>
             <types>
+                <type ref="wsc-accordion"/>
                 <type ref="wsc-columns"/>
+                <type ref="wsc-container"/>
+                <type ref="wsc-cta"/>
+                <type ref="wsc-faq"/>
                 <type ref="wsc-headline"/>
                 <type ref="wsc-image-gallery"/>
                 <type ref="wsc-list-group"/>
                 <type ref="wsc-smart-content"/>
+                <type ref="wsc-table"/>
                 <type ref="wsc-text-image"/>
+                <type ref="wsc-timeline"/>
             </types>
         </block>
     </properties>

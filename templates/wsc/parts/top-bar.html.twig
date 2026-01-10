@@ -1,0 +1,59 @@
+{#
+    Top Bar mit Kontaktinformationen, Social Media und Call-to-Action Button
+    Erwartet: settings-Objekt mit Top Bar Konfiguration
+#}
+
+{% if settings.content.topbar_enabled|default(true) %}
+<div class="top-bar">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5">
+                <div class="contact-info">
+                    {% if settings.content.topbar_phone|default('') is not empty %}
+                        <a href="tel:{{ settings.content.topbar_phone|replace({' ': '', '(': '', ')': '', '/': ''}) }}" class="me-4">
+                            <i class="fa-solid fa-phone"></i> {{ settings.content.topbar_phone }}
+                        </a>
+                    {% endif %}
+                    {% if settings.content.topbar_email|default('') is not empty %}
+                        <a href="mailto:{{ settings.content.topbar_email }}">
+                            <i class="fa-solid fa-envelope"></i> {{ settings.content.topbar_email }}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-7 text-lg-end">
+                <div class="top-bar-right">
+                    <div class="social-links d-inline-block me-3">
+                        {% for item in sulu_page_navigation_root_tree('social', 1) %}
+                            {% set icon = 'fa-solid fa-link' %}
+                            {% if 'facebook' in item.title|lower %}
+                                {% set icon = 'fa-brands fa-facebook-f' %}
+                            {% elseif 'instagram' in item.title|lower %}
+                                {% set icon = 'fa-brands fa-instagram' %}
+                            {% elseif 'twitter' in item.title|lower or 'x' == item.title|lower %}
+                                {% set icon = 'fa-brands fa-x-twitter' %}
+                            {% elseif 'youtube' in item.title|lower %}
+                                {% set icon = 'fa-brands fa-youtube' %}
+                            {% elseif 'linkedin' in item.title|lower %}
+                                {% set icon = 'fa-brands fa-linkedin-in' %}
+                            {% elseif 'tiktok' in item.title|lower %}
+                                {% set icon = 'fa-brands fa-tiktok' %}
+                            {% elseif 'pinterest' in item.title|lower %}
+                                {% set icon = 'fa-brands fa-pinterest' %}
+                            {% endif %}
+                            <a href="{{ sulu_content_path(item.url) }}" target="_blank" aria-label="{{ item.title }}">
+                                <i class="{{ icon }}"></i>
+                            </a>
+                        {% endfor %}
+                    </div>
+                    {% if settings.content.topbar_button_text|default('') is not empty and settings.content.topbar_button_link|default('') is not empty %}
+                        <a href="{{ settings.content.topbar_button_link }}" class="btn btn-appointment">
+                            {{ settings.content.topbar_button_text }} <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

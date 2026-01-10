@@ -1,0 +1,28 @@
+/* ==========================================================================
+   WunschSchreiner - List Group Block
+   ========================================================================== */
+
+.list-group-item {
+    transition: var(--transition-base);
+}
+
+.list-group-item:hover {
+    background-color: var(--color-gray-light);
+}
+
+.list-group-item i {
+    color: var(--color-primary);
+    margin-right: var(--spacing-xs);
+    width: 20px;
+    text-align: center;
+}
+
+.list-group-item.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+/* List Group Flush */
+.list-group-flush .list-group-item {
+    border-width: 0 0 1px;
+}

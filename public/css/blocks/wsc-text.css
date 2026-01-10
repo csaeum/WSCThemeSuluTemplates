@@ -1,0 +1,40 @@
+/* ==========================================================================
+   WunschSchreiner - Text Block
+   ========================================================================== */
+
+.block-text {
+    font-size: var(--font-size-base);
+    line-height: 1.8;
+}
+
+.block-text p {
+    margin-bottom: 1rem;
+}
+
+.block-text h1,
+.block-text h2,
+.block-text h3,
+.block-text h4,
+.block-text h5,
+.block-text h6 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--color-dark);
+}
+
+.block-text ul,
+.block-text ol {
+    margin-bottom: 1rem;
+    padding-left: var(--spacing-md);
+}
+
+.block-text a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: var(--transition-base);
+}
+
+.block-text a:hover {
+    color: var(--color-primary-hover);
+    text-decoration: underline;
+}

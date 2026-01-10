@@ -1,0 +1,47 @@
+{#
+    Main Header mit Logo und Navigation
+    Erwartet: settings-Objekt mit Logo und Menu-Konfiguration
+#}
+
+<header class="main-header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" href="{{ sulu_content_root_path() }}">
+                {% if settings.content.logo.id|default(null) %}
+                    {% set logoWidth = settings.content.logo_width|default(150) %}
+                    {% set logoMedia = sulu_resolve_media(settings.content.logo.id, app.request.locale) %}
+                    <img src="{{ logoMedia.url }}"
+                         alt="{{ settings.content.title|default('Logo') }}"
+                         style="max-width: {{ logoWidth }}px;">
+                {% else %}
+                    {{ settings.content.title|default('Logo') }}
+                {% endif %}
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Navigation umschalten">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto">
+                    {% for item in sulu_page_navigation_root_tree('main', 2) %}
+                        {% if item.children %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="{{ sulu_content_path(item.url) }}" id="navDropdown{{ loop.index }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ item.title }}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navDropdown{{ loop.index }}">
+                                    {% for child in item.children %}
+                                        <li><a class="dropdown-item" href="{{ sulu_content_path(child.url) }}">{{ child.title }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ sulu_content_path(item.url) }}">{{ item.title }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>

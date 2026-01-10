@@ -1,44 +1,27 @@
 {% extends "base.html.twig" %}
 
-{% set headerSettings = sulu_snippet_load_by_area('global_settings', {
-    'logo': 'logo',
-    'slogan': 'slogan',
-    'logo_width': 'logo_width',
-    'menu_type': 'menu_type',
-    'menu_style': 'menu_style',
-    'header_layout': 'header_layout',
-    'menu_layout': 'menu_layout',
-    'footer_layout': 'footer_layout'
-}) %}
+{#
+    WSC Default Page Template
+    Lädt alle globalen Einstellungen aus dem wsc_header Snippet
+#}
 
-{% block style %}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-    />
+{% set settings = sulu_snippet_load_by_area('global_settings') %}
 
+{% block topbar %}
+    {% include 'wsc/parts/top-bar.html.twig' with { settings: settings } %}
 {% endblock %}
 
 {% block header %}
-    {% include 'wsc/snippets/wsc-header.html.twig' with { settings: headerSettings } %}
+    {% include 'wsc/parts/main-header.html.twig' with { settings: settings } %}
 {% endblock %}
 
 {% block content %}
-    <h1>{{ content.title }}</h1>
-
-    {% for block in content.blocks %}
+    {# Seiten-Blöcke rendern #}
+    {% for block in content.blocks|default([]) %}
         {% include 'wsc/blocks/' ~ block.type ~ '.html.twig' with block %}
     {% endfor %}
 {% endblock %}
 
-{% block javascripts %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-{% endblock %}
-
 {% block footer %}
-    {% include 'wsc/parts/footer.html.twig' with { settings: headerSettings } %}
+    {% include 'wsc/parts/footer.html.twig' with { settings: settings } %}
 {% endblock %}

@@ -1,0 +1,21 @@
+/* ==========================================================================
+   WunschSchreiner - CTA Block
+   ========================================================================== */
+
+.block-cta {
+    background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-dark-light) 100%);
+    padding: var(--spacing-xxl) var(--spacing-xl);
+    border-radius: 10px;
+}
+
+.block-cta .cta-headline {
+    color: var(--color-white);
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-sm);
+}
+
+.block-cta .cta-text {
+    color: var(--color-gray);
+    font-size: var(--font-size-lg);
+    margin-bottom: 25px;
+}

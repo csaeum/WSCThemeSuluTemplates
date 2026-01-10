@@ -1,0 +1,29 @@
+/* ==========================================================================
+   WunschSchreiner - Divider & Spacer Block
+   ========================================================================== */
+
+.block-divider {
+    border: none;
+    border-top: 1px solid #dee2e6;
+    margin: var(--spacing-xl) 0;
+}
+
+.block-divider.divider-thick {
+    border-top-width: 3px;
+}
+
+.block-divider.divider-primary {
+    border-top-color: var(--color-primary);
+}
+
+.block-spacer {
+    height: var(--spacing-xxl);
+}
+
+.block-spacer.spacer-sm {
+    height: var(--spacing-lg);
+}
+
+.block-spacer.spacer-lg {
+    height: 80px;
+}

@@ -1,0 +1,43 @@
+/* ==========================================================================
+   WunschSchreiner - FAQ Block
+   ========================================================================== */
+
+.faq-item {
+    margin-bottom: var(--spacing-md);
+}
+
+.faq-item .faq-question {
+    color: var(--color-dark);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+}
+
+.faq-item .faq-answer {
+    color: #666666;
+    line-height: 1.8;
+}
+
+/* FAQ Card Style */
+.faq-item.card {
+    border: 1px solid var(--color-border-light);
+}
+
+.faq-item.card .card-body {
+    padding: var(--spacing-md);
+}
+
+/* FAQ Bordered Style */
+.faq-item.border {
+    border-color: var(--color-border-light);
+}
+
+/* FAQ Shadow Style */
+.faq-item.shadow-sm {
+    box-shadow: var(--shadow-sm);
+}
+
+/* FAQ mit Icon */
+.faq-question i {
+    color: var(--color-primary);
+    margin-right: var(--spacing-xs);
+}

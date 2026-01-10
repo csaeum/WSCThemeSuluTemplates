@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale|split('_')[0] }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block meta %}
+        {{ include('@SuluWebsite/Extension/seo.html.twig', {
+            seo: extension.seo|default([]),
+            content: content|default([]),
+            localizations: localizations|default([]),
+            shadowBaseLocale: shadowBaseLocale|default(),
+        }) }}
+    {% endblock %}
+
+    {% block style %}
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+        <!-- FontAwesome CSS -->
+        <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
+
+        <!-- Custom CSS - Strukturiert -->
+        <link rel="stylesheet" href="/css/variables.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/footer.css">
+
+        <!-- Block CSS -->
+        <link rel="stylesheet" href="/css/blocks/wsc-accordion.css">
+        <link rel="stylesheet" href="/css/blocks/wsc-container.css">
+        <link rel="stylesheet" href="/css/blocks/wsc-cta.css">
+        <link rel="stylesheet" href="/css/blocks/wsc-faq.css">
+        <link rel="stylesheet" href="/css/blocks/wsc-headline.css">
+        <link rel="stylesheet" href="/css/blocks/wsc-image-gallery.css">
+        <link rel="stylesheet" href="/css/blocks/wsc-list-group.css">
+        <link rel="stylesheet" href="/css/blocks/wsc-quote.css">
+        <link rel="stylesheet" href="/css/blocks/wsc-smart-content.css">
+        <link rel="stylesheet" href="/css/blocks/wsc-table.css">
+        <link rel="stylesheet" href="/css/blocks/wsc-text.css">
+        <link rel="stylesheet" href="/css/blocks/wsc-text-image.css">
+        <link rel="stylesheet" href="/css/blocks/wsc-timeline.css">
+        <link rel="stylesheet" href="/css/blocks/wsc-divider.css">
+        <link rel="stylesheet" href="/css/blocks/wsc-video.css">
+    {% endblock %}
+</head>
+<body>
+    {% block topbar %}
+        {# Top Bar wird in Child-Templates eingebunden #}
+    {% endblock %}
+
+    {% block header %}
+        {# Header wird in Child-Templates eingebunden #}
+    {% endblock %}
+
+    <main>
+        {% block content %}
+            {# Haupt-Content wird in Child-Templates eingebunden #}
+        {% endblock %}
+    </main>
+
+    {% block footer %}
+        {# Footer wird in Child-Templates eingebunden #}
+    {% endblock %}
+
+    {% block javascripts %}
+        <!-- Bootstrap JS -->
+        <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Custom JS -->
+        <script src="/js/main.js"></script>
+    {% endblock %}
+</body>
+</html>

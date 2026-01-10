@@ -1,20 +1,152 @@
-<footer class="bg-light text-center text-lg-start mt-auto py-3">
-    <div class="{{ settings.footer_layout|default('container') }}">
-        <nav>
-            <ul class="nav justify-content-center">
-                {# Render the 'footer' navigation context #}
-                {% for item in sulu_page_navigation_root_tree('footer', 1) %}
-                    <li class="nav-item">
-                        <a href="{{ sulu_content_path(item.url) }}"
-                           title="{{ item.title }}"
-                           class="nav-link px-2 text-muted"
-                        >
-                            {{ item.title }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </nav>
-        <p class="text-center text-muted mt-2">Copyright {{ 'now'|date('Y') }}</p>
+{#
+    Footer mit 4 Spalten: Logo/Newsletter, Quick Links, Rechtliches, Kontakt
+    Erwartet: settings-Objekt mit Footer-Konfiguration
+#}
+
+<footer class="footer-main">
+    <div class="footer-content">
+        <div class="{{ settings.content.footer_layout|default('container') }}">
+            <div class="row">
+                <!-- Spalte 1: Logo, Beschreibung & Newsletter (weiße Karte) -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-card">
+                        {% if settings.content.footer_logo.id|default(null) %}
+                            {% set footerLogoMedia = sulu_resolve_media(settings.content.footer_logo.id, app.request.locale) %}
+                            <img src="{{ footerLogoMedia.url }}"
+                                 alt="{{ settings.content.title|default('Logo') }}"
+                                 class="footer-logo">
+                        {% elseif settings.content.logo.id|default(null) %}
+                            {% set logoMedia = sulu_resolve_media(settings.content.logo.id, app.request.locale) %}
+                            <img src="{{ logoMedia.url }}"
+                                 alt="{{ settings.content.title|default('Logo') }}"
+                                 class="footer-logo">
+                        {% endif %}
+
+                        {% if settings.content.footer_description|default('') is not empty %}
+                            <p class="footer-description">
+                                {{ settings.content.footer_description }}
+                            </p>
+                        {% endif %}
+
+                        {% if settings.content.footer_newsletter_enabled|default(true) %}
+                            <hr class="footer-divider">
+                            <h5>Newsletter</h5>
+                            {% if settings.content.footer_newsletter_html|default('') is not empty %}
+                                {{ settings.content.footer_newsletter_html|raw }}
+                            {% else %}
+                                <form class="newsletter-form">
+                                    <input type="email" class="form-control" placeholder="E-Mail">
+                                    <button class="btn" type="submit">Absenden</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Spalte 2: Quick Links (Hauptmenü Level 1) -->
+                <div class="col-lg-3 col-md-6">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+                        {% for item in sulu_page_navigation_root_tree('main', 1) %}
+                            <li><a href="{{ sulu_content_path(item.url) }}">{{ item.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Spalte 3: Rechtliches -->
+                <div class="col-lg-3 col-md-6">
+                    <h5>Rechtliches</h5>
+                    <ul class="footer-links">
+                        {% for item in sulu_page_navigation_root_tree('footer', 1) %}
+                            <li><a href="{{ sulu_content_path(item.url) }}">{{ item.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Spalte 4: Kontakt -->
+                <div class="col-lg-3 col-md-6">
+                    <h5>Kontakt</h5>
+
+                    {% if settings.content.footer_phone|default('') is not empty %}
+                        <div class="footer-contact-item">
+                            <div class="footer-contact-icon">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div class="footer-contact-content">
+                                <h6>Telefon</h6>
+                                <p><a href="tel:{{ settings.content.footer_phone|replace({' ': '', '(': '', ')': '', '/': ''}) }}">{{ settings.content.footer_phone }}</a></p>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if settings.content.footer_email|default('') is not empty %}
+                        <div class="footer-contact-item">
+                            <div class="footer-contact-icon">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div class="footer-contact-content">
+                                <h6>E-Mail</h6>
+                                <p><a href="mailto:{{ settings.content.footer_email }}">{{ settings.content.footer_email }}</a></p>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if settings.content.footer_address_street|default('') is not empty or settings.content.footer_address_city|default('') is not empty %}
+                        <div class="footer-contact-item">
+                            <div class="footer-contact-icon">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div class="footer-contact-content">
+                                <h6>Adresse</h6>
+                                <p>
+                                    {% if settings.content.footer_address_street|default('') is not empty %}
+                                        {{ settings.content.footer_address_street }}<br>
+                                    {% endif %}
+                                    {% if settings.content.footer_address_city|default('') is not empty %}
+                                        {{ settings.content.footer_address_city }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+        <div class="{{ settings.content.footer_layout|default('container') }}">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p>&copy; {{ 'now'|date('Y') }} {{ settings.content.footer_company_name|default('Ihre Firma') }}</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="footer-social">
+                        {% for item in sulu_page_navigation_root_tree('social', 1) %}
+                            {% set icon = 'fa-solid fa-link' %}
+                            {% if 'facebook' in item.title|lower %}
+                                {% set icon = 'fa-brands fa-facebook-f' %}
+                            {% elseif 'instagram' in item.title|lower %}
+                                {% set icon = 'fa-brands fa-instagram' %}
+                            {% elseif 'twitter' in item.title|lower or 'x' == item.title|lower %}
+                                {% set icon = 'fa-brands fa-x-twitter' %}
+                            {% elseif 'youtube' in item.title|lower %}
+                                {% set icon = 'fa-brands fa-youtube' %}
+                            {% elseif 'linkedin' in item.title|lower %}
+                                {% set icon = 'fa-brands fa-linkedin-in' %}
+                            {% elseif 'tiktok' in item.title|lower %}
+                                {% set icon = 'fa-brands fa-tiktok' %}
+                            {% elseif 'pinterest' in item.title|lower %}
+                                {% set icon = 'fa-brands fa-pinterest' %}
+                            {% endif %}
+                            <a href="{{ sulu_content_path(item.url) }}" target="_blank" aria-label="{{ item.title }}">
+                                <i class="{{ icon }}"></i>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </footer>

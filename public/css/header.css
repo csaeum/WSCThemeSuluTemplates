@@ -1,0 +1,127 @@
+/* ==========================================================================
+   WunschSchreiner - Header Styles
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Top Bar
+   -------------------------------------------------------------------------- */
+.top-bar {
+    background-color: var(--color-dark);
+    padding: var(--spacing-xs) 0;
+    font-size: var(--font-size-sm);
+}
+
+.top-bar a {
+    color: var(--color-white);
+    text-decoration: none;
+    transition: var(--transition-base);
+}
+
+.top-bar a:hover {
+    color: var(--color-primary);
+}
+
+.top-bar .contact-info i {
+    margin-right: 5px;
+    color: var(--color-primary);
+}
+
+.top-bar .social-links a {
+    margin-left: var(--spacing-sm);
+    font-size: var(--font-size-base);
+}
+
+/* --------------------------------------------------------------------------
+   Main Header
+   -------------------------------------------------------------------------- */
+.main-header {
+    background-color: var(--color-white);
+    padding: var(--spacing-sm) 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.navbar-brand img {
+    max-height: 60px;
+}
+
+.navbar-nav .nav-link {
+    color: var(--color-dark);
+    font-weight: 500;
+    padding: var(--spacing-xs) var(--spacing-md);
+    text-transform: uppercase;
+    transition: var(--transition-base);
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--color-primary);
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: var(--shadow-md);
+}
+
+.dropdown-item {
+    transition: var(--transition-base);
+}
+
+.dropdown-item:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+.btn-appointment {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 12px 25px;
+    border: none;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    transition: var(--transition-base);
+}
+
+.btn-appointment:hover {
+    background-color: var(--color-primary-hover);
+    color: var(--color-white);
+}
+
+.btn-appointment i {
+    margin-left: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 991px) {
+    .top-bar .contact-info,
+    .top-bar .social-links {
+        text-align: center;
+    }
+
+    .top-bar .social-links {
+        margin-top: var(--spacing-xs);
+    }
+
+    .top-bar .social-links a:first-child {
+        margin-left: 0;
+    }
+
+    .navbar-nav {
+        padding: var(--spacing-md) 0;
+    }
+
+    .navbar-nav .nav-link {
+        padding: var(--spacing-xs) 0;
+    }
+
+    .btn-appointment {
+        margin: var(--spacing-sm) 0;
+        display: block;
+        text-align: center;
+    }
+}

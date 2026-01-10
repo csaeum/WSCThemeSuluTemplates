@@ -1,0 +1,22 @@
+/* ==========================================================================
+   WunschSchreiner - Video Block
+   ========================================================================== */
+
+.block-video {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.block-video iframe,
+.block-video video {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.video-caption {
+    font-size: var(--font-size-sm);
+    text-align: center;
+    color: var(--color-gray);
+    margin-top: var(--spacing-xs);
+    font-style: italic;
+}

@@ -1,0 +1,31 @@
+/* ==========================================================================
+   WunschSchreiner - Image & Gallery Block
+   ========================================================================== */
+
+/* Image Block */
+.block-image img {
+    border-radius: 5px;
+    max-width: 100%;
+    height: auto;
+}
+
+.block-image figcaption {
+    font-size: var(--font-size-sm);
+    font-style: italic;
+    color: var(--color-gray);
+    margin-top: var(--spacing-xs);
+}
+
+/* Gallery Block */
+.gallery-image {
+    border-radius: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    max-width: 100%;
+    height: auto;
+}
+
+.gallery-image:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-lg);
+}

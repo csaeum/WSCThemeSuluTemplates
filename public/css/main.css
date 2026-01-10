@@ -1,0 +1,66 @@
+/* ==========================================================================
+   WunschSchreiner - Main Styles
+   ========================================================================== */
+
+/* Import Variables */
+@import url('variables.css');
+
+/* Global Styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-dark);
+    background-color: var(--color-white);
+}
+
+/* Main Content */
+main {
+    min-height: 60vh;
+}
+
+/* Links */
+a {
+    transition: var(--transition-base);
+}
+
+/* Utility Classes */
+.text-primary {
+    color: var(--color-primary) !important;
+}
+
+.bg-primary {
+    background-color: var(--color-primary) !important;
+}
+
+.text-dark {
+    color: var(--color-dark) !important;
+}
+
+.bg-dark {
+    background-color: var(--color-dark) !important;
+}
+
+/* Responsive Images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Container Adjustments */
+.container,
+.container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Selection Color */
+::selection {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}

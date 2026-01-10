@@ -1,0 +1,26 @@
+/* ==========================================================================
+   WunschSchreiner - Container Block
+   ========================================================================== */
+
+.wsc-container {
+    width: 100%;
+}
+
+.wsc-container.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.wsc-container.container-fluid {
+    padding: 0 15px;
+}
+
+/* Container mit Hintergrund */
+.wsc-container.bg-primary,
+.wsc-container.bg-secondary,
+.wsc-container.bg-light,
+.wsc-container.bg-dark {
+    padding-top: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+}

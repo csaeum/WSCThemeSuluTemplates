@@ -7,6 +7,7 @@
     <meta>
         <title lang="de">WSC Header</title>
         <title lang="en">WSC Header</title>
+        <title lang="fr">WSC Header</title>
     </meta>
 
     <areas>
@@ -14,6 +15,7 @@
             <meta>
                 <title lang="de">Globale Einstellungen</title>
                 <title lang="en">Global Settings</title>
+                <title lang="fr">Global Settings</title>
             </meta>
         </area>
     </areas>
@@ -83,13 +85,12 @@
 
 
 
-        <property name="logo" type="media_selection">
+        <property name="logo" type="single_media_selection">
             <meta>
                 <title lang="de">Logo</title>
             </meta>
             <params>
                 <param name="types" value="image"/>
-
             </params>
         </property>
 
@@ -111,5 +112,178 @@
                 <param name="default_value" value="150"/>
             </params>
         </property>
+
+        <!-- Top Bar Einstellungen -->
+        <section name="topbar">
+            <meta>
+                <title lang="de">Top Bar Einstellungen</title>
+                <title lang="en">Top Bar Settings</title>
+            </meta>
+            <properties>
+                <property name="topbar_enabled" type="checkbox" colspan="12">
+                    <meta>
+                        <title lang="de">Top Bar anzeigen</title>
+                        <title lang="en">Show Top Bar</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+
+                <property name="topbar_phone" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">Telefonnummer</title>
+                        <title lang="en">Phone Number</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="+49 (0) 9264 / 80251"/>
+                    </params>
+                </property>
+
+                <property name="topbar_email" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">E-Mail</title>
+                        <title lang="en">Email</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="info@wunschschreiner.eu"/>
+                    </params>
+                </property>
+
+                <property name="topbar_button_text" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">Button Text</title>
+                        <title lang="en">Button Text</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="Termin vereinbaren"/>
+                    </params>
+                </property>
+
+                <property name="topbar_button_link" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">Button Link</title>
+                        <title lang="en">Button Link</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="/kontakt"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <!-- Footer Einstellungen -->
+        <section name="footer">
+            <meta>
+                <title lang="de">Footer Einstellungen</title>
+                <title lang="en">Footer Settings</title>
+            </meta>
+            <properties>
+                <property name="footer_layout" type="single_select" colspan="12">
+                    <meta>
+                        <title lang="de">Footer Layout</title>
+                        <title lang="en">Footer Layout</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="container"/>
+                        <param name="values" type="collection">
+                            <param name="container">
+                                <meta><title lang="de">Container (zentriert)</title></meta>
+                            </param>
+                            <param name="container-fluid">
+                                <meta><title lang="de">Container Fluid (volle Breite)</title></meta>
+                            </param>
+                        </param>
+                    </params>
+                </property>
+
+                <property name="footer_logo" type="single_media_selection" colspan="12">
+                    <meta>
+                        <title lang="de">Footer Logo (optional)</title>
+                        <title lang="en">Footer Logo (optional)</title>
+                    </meta>
+                    <params>
+                        <param name="types" value="image"/>
+                    </params>
+                </property>
+
+                <property name="footer_description" type="text_area" colspan="12">
+                    <meta>
+                        <title lang="de">Footer Beschreibung</title>
+                        <title lang="en">Footer Description</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="Ihre Schreinerei für individuelle Möbel und hochwertige Holzarbeiten."/>
+                    </params>
+                </property>
+
+                <property name="footer_newsletter_enabled" type="checkbox" colspan="12">
+                    <meta>
+                        <title lang="de">Newsletter-Formular anzeigen</title>
+                        <title lang="en">Show Newsletter Form</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="true"/>
+                    </params>
+                </property>
+
+                <property name="footer_newsletter_html" type="text_area" colspan="12">
+                    <meta>
+                        <title lang="de">Newsletter HTML-Code (z.B. von Mailchimp)</title>
+                        <title lang="en">Newsletter HTML Code (e.g. from Mailchimp)</title>
+                    </meta>
+                </property>
+
+                <property name="footer_phone" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">Telefonnummer</title>
+                        <title lang="en">Phone Number</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="+49 (0) 9264 / 80251"/>
+                    </params>
+                </property>
+
+                <property name="footer_email" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">E-Mail</title>
+                        <title lang="en">Email</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="info@wunschschreiner.eu"/>
+                    </params>
+                </property>
+
+                <property name="footer_address_street" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">Straße + Hausnummer</title>
+                        <title lang="en">Street + Number</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="Kanzleistraße 34"/>
+                    </params>
+                </property>
+
+                <property name="footer_address_city" type="text_line" colspan="6">
+                    <meta>
+                        <title lang="de">PLZ + Ort</title>
+                        <title lang="en">ZIP + City</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="96328 Küps"/>
+                    </params>
+                </property>
+
+                <property name="footer_company_name" type="text_line" colspan="12">
+                    <meta>
+                        <title lang="de">Firmenname (für Copyright)</title>
+                        <title lang="en">Company Name (for Copyright)</title>
+                    </meta>
+                    <params>
+                        <param name="default_value" value="WunschSchreiner - Schreinerei Lang"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
     </properties>
 </template>

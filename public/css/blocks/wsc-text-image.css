@@ -1,0 +1,39 @@
+/* ==========================================================================
+   WunschSchreiner - Text with Image Block
+   ========================================================================== */
+
+.block-text_image {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+.block-text_image img {
+    border-radius: 5px;
+    max-width: 100%;
+    height: auto;
+}
+
+.block-text_image .image-left {
+    order: 1;
+}
+
+.block-text_image .image-right {
+    order: 2;
+}
+
+.block-text_image .content {
+    flex: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .block-text_image {
+        flex-direction: column;
+    }
+
+    .block-text_image .image-left,
+    .block-text_image .image-right {
+        order: 0;
+    }
+}

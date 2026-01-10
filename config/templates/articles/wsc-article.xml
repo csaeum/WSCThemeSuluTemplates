@@ -8,6 +8,7 @@
     <meta>
         <title lang="de">WSC Artikel</title>
         <title lang="en">WSC Article</title>
+        <title lang="fr">WSC Article</title>
     </meta>
 
     <properties>
@@ -15,14 +16,21 @@
             <meta>
                 <title lang="de">Inhaltsblöcke</title>
                 <title lang="en">Content Blocks</title>
+                <title lang="fr">Content Blocks</title>
             </meta>
             <types>
+                <type ref="wsc-accordion"/>
                 <type ref="wsc-columns"/>
+                <type ref="wsc-container"/>
+                <type ref="wsc-cta"/>
+                <type ref="wsc-faq"/>
                 <type ref="wsc-headline"/>
                 <type ref="wsc-image-gallery"/>
                 <type ref="wsc-list-group"/>
                 <type ref="wsc-smart-content"/>
+                <type ref="wsc-table"/>
                 <type ref="wsc-text-image"/>
+                <type ref="wsc-timeline"/>
             </types>
         </block>
     </properties>

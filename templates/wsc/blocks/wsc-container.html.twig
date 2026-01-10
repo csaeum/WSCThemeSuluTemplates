@@ -1,0 +1,105 @@
+{#
+    Block: wsc-container
+    Wrapper-Container für alle anderen Blöcke mit Bootstrap Container-Typen
+#}
+
+{# Container-Typ (Pflichtfeld) #}
+{% set containerType = block.container_type|default('container') %}
+
+{# Styling Optionen #}
+{% set backgroundColor = block.background_color|default('') %}
+{% set textColor = block.text_color|default('') %}
+{% set shadow = block.shadow|default('') %}
+{% set sectionSpacing = block.section_spacing|default('') %}
+{% set visibility = block.visibility|default('') %}
+
+{# Margin #}
+{% set marginTop = block.margin_top|default('mt-0') %}
+{% set marginBottom = block.margin_bottom|default('mb-0') %}
+{% set marginStart = block.margin_start|default('ms-0') %}
+{% set marginEnd = block.margin_end|default('me-0') %}
+
+{# Padding #}
+{% set paddingTop = block.padding_top|default('pt-0') %}
+{% set paddingBottom = block.padding_bottom|default('pb-0') %}
+{% set paddingStart = block.padding_start|default('ps-0') %}
+{% set paddingEnd = block.padding_end|default('pe-0') %}
+
+{# Erweiterte Optionen #}
+{% set cssClass = block.css_class|default('') %}
+{% set htmlId = block.html_id|default('') %}
+
+{# Container-Klassen zusammenstellen #}
+{% set containerClasses = [containerType] %}
+
+{# Hintergrundfarbe #}
+{% if backgroundColor is not empty %}
+    {% set containerClasses = containerClasses|merge([backgroundColor]) %}
+{% endif %}
+
+{# Text-Farbe #}
+{% if textColor is not empty %}
+    {% set containerClasses = containerClasses|merge([textColor]) %}
+{% endif %}
+
+{# Schatten #}
+{% if shadow is not empty %}
+    {% set containerClasses = containerClasses|merge([shadow]) %}
+{% endif %}
+
+{# Section-Spacing (vertikales Padding) #}
+{% if sectionSpacing is not empty %}
+    {% set containerClasses = containerClasses|merge([sectionSpacing]) %}
+{% endif %}
+
+{# Sichtbarkeit (Responsive) #}
+{% if visibility is not empty %}
+    {% set containerClasses = containerClasses|merge([visibility]) %}
+{% endif %}
+
+{# Margin Klassen #}
+{% if marginTop != 'mt-0' %}
+    {% set containerClasses = containerClasses|merge([marginTop]) %}
+{% endif %}
+{% if marginBottom != 'mb-0' %}
+    {% set containerClasses = containerClasses|merge([marginBottom]) %}
+{% endif %}
+{% if marginStart != 'ms-0' %}
+    {% set containerClasses = containerClasses|merge([marginStart]) %}
+{% endif %}
+{% if marginEnd != 'me-0' %}
+    {% set containerClasses = containerClasses|merge([marginEnd]) %}
+{% endif %}
+
+{# Padding Klassen (zusätzlich zum Section-Spacing) #}
+{% if paddingTop != 'pt-0' %}
+    {% set containerClasses = containerClasses|merge([paddingTop]) %}
+{% endif %}
+{% if paddingBottom != 'pb-0' %}
+    {% set containerClasses = containerClasses|merge([paddingBottom]) %}
+{% endif %}
+{% if paddingStart != 'ps-0' %}
+    {% set containerClasses = containerClasses|merge([paddingStart]) %}
+{% endif %}
+{% if paddingEnd != 'pe-0' %}
+    {% set containerClasses = containerClasses|merge([paddingEnd]) %}
+{% endif %}
+
+{# Benutzerdefinierte CSS-Klasse #}
+{% if cssClass is not empty %}
+    {% set containerClasses = containerClasses|merge([cssClass]) %}
+{% endif %}
+
+{# Finale Klassen-String #}
+{% set containerClassString = containerClasses|join(' ') %}
+
+{# Container rendern #}
+<div{% if htmlId is not empty %} id="{{ htmlId }}"{% endif %} class="{{ containerClassString }}">
+    {# Verschachtelte Blöcke rendern #}
+    {% if block.content_blocks is defined and block.content_blocks|length > 0 %}
+        {% for innerBlock in block.content_blocks %}
+            {% set block = innerBlock %}
+            {% include 'wsc/blocks/' ~ innerBlock.type ~ '.html.twig' %}
+        {% endfor %}
+    {% endif %}
+</div>
